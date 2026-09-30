@@ -1,0 +1,37 @@
+import Image from "next/image";
+import { photos, type PhotoKey } from "@/content/images";
+import { cn } from "@/lib/utils";
+
+type Props = {
+  k: PhotoKey;
+  className?: string;
+  imgClassName?: string;
+  sizes?: string;
+  priority?: boolean;
+  treatment?: "duotone" | "soft" | "none";
+  alt?: string;
+};
+
+/** Fills its (positioned, sized) parent with a treated photograph. */
+export function Photo({ k, className, imgClassName, sizes = "100vw", priority, treatment = "duotone", alt }: Props) {
+  const p = photos[k];
+  return (
+    <div
+      className={cn(
+        "relative",
+        treatment !== "none" && "img-treat",
+        treatment === "soft" && "img-treat-soft",
+        className,
+      )}
+    >
+      <Image
+        src={p.src}
+        alt={alt ?? p.alt}
+        fill
+        sizes={sizes}
+        priority={priority}
+        className={cn("object-cover", imgClassName)}
+      />
+    </div>
+  );
+}

@@ -1,0 +1,163 @@
+/**
+ * Akshay Enterprise: single source of truth for company facts.
+ *
+ * RULE: nothing in this file may be invented. Every value that has not been
+ * confirmed by the client carries `placeholder: true` and/or a `TODO:` comment.
+ * While `showPlaceholderMarkers` is true, the UI renders a small "TBC" marker
+ * next to placeholder values so they are impossible to miss during review.
+ * Set it to false only after CONTENT-TODO.md is fully ticked off.
+ */
+
+export type Placeholder<T> = { value: T; placeholder?: boolean };
+
+export const site = {
+  name: "Akshay Enterprise",
+  shortName: "Akshay",
+  legalName: "Akshay Enterprise", // TODO: confirm registered legal entity name (Proprietorship / LLP / Pvt Ltd)
+  url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.akshayenterprise.com", // TODO: confirm production domain
+  locale: "en",
+
+  showPlaceholderMarkers: true,
+
+  tagline: "Precision turned components in brass and engineering metals.",
+  description:
+    "Akshay Enterprise manufactures precision turned and machined components in brass, stainless steel, mild steel, aluminium and copper for OEMs in India and export markets. Build-to-print, drawing and sample based development.",
+  keywords: [
+    "precision turned components manufacturer India",
+    "brass components exporter Gujarat",
+    "custom brass parts",
+    "CNC turned parts",
+    "brass electrical parts",
+    "brass inserts manufacturer",
+  ],
+
+  founded: { value: "2005", placeholder: true } as Placeholder<string>, // TODO: confirm year of establishment
+
+  contact: {
+    addressLines: [
+      "Plot No. TBC, GIDC Industrial Estate", // TODO: street address
+      "City TBC, Gujarat 000000", // TODO: city + PIN
+      "India",
+    ],
+    city: "Gujarat", // TODO: replace with city once confirmed
+    region: "Gujarat",
+    country: "IN",
+    phone: { display: "+91 00000 00000", href: "tel:+910000000000", placeholder: true }, // TODO
+    email: { display: "sales@akshayenterprise.com", href: "mailto:sales@akshayenterprise.com", placeholder: true }, // TODO
+    whatsapp: { number: "910000000000", placeholder: true }, // TODO: international format, digits only
+    hours: { value: "Mon to Sat, 09:30 to 18:30 IST", placeholder: true }, // TODO
+    mapEmbedQuery: "Gujarat, India", // TODO: replace with exact factory address / Google Maps place name
+  },
+
+  quoteTurnaroundHours: { value: 48, placeholder: true } as Placeholder<number>, // TODO: confirm RFQ response time
+
+  social: [
+    { label: "LinkedIn", href: "" }, // TODO: add URL (empty hrefs are hidden automatically)
+    { label: "YouTube", href: "" },
+    { label: "Instagram", href: "" },
+  ],
+
+  stats: [
+    { value: 20, suffix: "+", label: "Years of turning experience", placeholder: true }, // TODO
+    { value: 1.5, suffix: "M", decimals: 1, label: "Parts per month capacity", placeholder: true }, // TODO
+    { value: 45, suffix: "+", label: "Machines on the shop floor", placeholder: true }, // TODO
+    { value: 15, suffix: "+", label: "Export countries", placeholder: true }, // TODO
+    { value: 200, suffix: "+", label: "OEM and trade clients", placeholder: true }, // TODO
+  ],
+
+  /** Certifications held. TODO: confirm each; remove what is not held; add certificate PDFs in /public/downloads */
+  certifications: [
+    { code: "ISO 9001:2015", label: "Quality management system", placeholder: true },
+    { code: "RoHS", label: "Restricted substances compliance", placeholder: true },
+    { code: "REACH", label: "EU chemical regulation compliance", placeholder: true },
+    { code: "Udyam", label: "MSME registration", placeholder: true },
+  ],
+
+  /** Standards the shop routinely manufactures to. TODO: confirm with engineering. */
+  standards: [
+    "BS EN 12164 CW614N",
+    "ASTM B16 C36000",
+    "IS 319 free-cutting brass",
+    "ISO 965 metric threads",
+    "BS EN ISO 228 BSP",
+    "ASME B1.20.1 NPT",
+    "ASME B1.1 UNC / UNF",
+    "RoHS",
+    "REACH",
+    "ISO 9001:2015",
+  ],
+
+  /** Export destinations. TODO: replace with actual shipment history. Coordinates drive the world map pins. */
+  exportRegions: [
+    { region: "Europe", countries: ["Germany", "United Kingdom", "Italy", "Netherlands"], lat: 51.2, lng: 10.4, placeholder: true },
+    { region: "North America", countries: ["United States", "Canada"], lat: 39.8, lng: -98.6, placeholder: true },
+    { region: "Middle East", countries: ["United Arab Emirates", "Saudi Arabia"], lat: 24.4, lng: 54.4, placeholder: true },
+    { region: "Africa", countries: ["South Africa", "Kenya"], lat: -1.3, lng: 36.8, placeholder: true },
+    { region: "Asia Pacific", countries: ["Australia", "Singapore"], lat: -25.3, lng: 133.8, placeholder: true },
+    { region: "South America", countries: ["Brazil"], lat: -14.2, lng: -51.9, placeholder: true },
+  ],
+  origin: { label: "Gujarat, India", lat: 22.3, lng: 70.8 },
+
+  incoterms: { value: ["EXW", "FOB", "CIF", "DAP"], placeholder: true } as Placeholder<string[]>, // TODO
+
+  differentiators: [
+    {
+      title: "Custom development",
+      body: "Send a drawing or a sample. We reverse-engineer, propose tooling and approve a first-off before volume.",
+      icon: "PencilRuler",
+    },
+    {
+      title: "Tight tolerances",
+      body: "Diameters held to hundredths of a millimetre, verified at the machine and again before packing.",
+      icon: "Crosshair",
+    },
+    {
+      title: "Material flexibility",
+      body: "Free-cutting and DZR brass, stainless, mild steel, aluminium and copper from one supplier.",
+      icon: "Layers",
+    },
+    {
+      title: "Export-ready packing",
+      body: "Part-wise labelling, moisture protection, palletisation and the documents your customs broker asks for.",
+      icon: "PackageCheck",
+    },
+    {
+      title: "On-time delivery",
+      body: "Capacity planned against your schedule, with dispatch dates confirmed when the order is placed.",
+      icon: "CalendarClock",
+    },
+    {
+      title: "Engineering on the line",
+      body: "Queries go to the engineer responsible for your part and are answered the same working day.",
+      icon: "MessagesSquare",
+    },
+  ],
+
+  /** TODO: replace with real, approved client testimonials (with written permission). Never invent names. */
+  testimonials: [
+    {
+      quote: "Placeholder testimonial. Replace with an approved quote about part quality or delivery performance.",
+      role: "Head of Sourcing",
+      company: "Electrical OEM, Europe",
+      placeholder: true,
+    },
+    {
+      quote: "Placeholder testimonial. Replace with an approved quote about development support on a new part.",
+      role: "Purchase Manager",
+      company: "Plumbing brand, Middle East",
+      placeholder: true,
+    },
+    {
+      quote: "Placeholder testimonial. Replace with an approved quote about export documentation and packing.",
+      role: "Supply Chain Lead",
+      company: "Gas equipment maker, Africa",
+      placeholder: true,
+    },
+  ],
+} as const;
+
+export type Site = typeof site;
+
+export function whatsappHref(message = "Hello Akshay Enterprise, I would like to discuss a part.") {
+  return `https://wa.me/${site.contact.whatsapp.number}?text=${encodeURIComponent(message)}`;
+}
