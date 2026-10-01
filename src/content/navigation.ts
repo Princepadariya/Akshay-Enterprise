@@ -19,6 +19,16 @@ export const companyNav: NavLink[] = [
   { label: "FAQ", href: "/faq" },
 ];
 
+/** Company policies (labels kept short for the footer column). Pages live in src/content/policies.ts. */
+export const policyNav: NavLink[] = [
+  { label: "All policies", href: "/policies", description: "Every policy on one page" },
+  { label: "EHS policy", href: "/policies/ehs", description: "People, environment and safe plant operation" },
+  { label: "Quality policy", href: "/policies/quality", description: "Parts to drawing, delivered on the agreed date" },
+  { label: "Cyber security", href: "/policies/cyber-security", description: "Protecting customer drawings and data" },
+  { label: "Conflict minerals", href: "/policies/conflict-minerals", description: "Responsible sourcing of 3TG" },
+  { label: "Counterfeit parts", href: "/policies/counterfeit-parts", description: "Keeping suspect material out of our parts" },
+];
+
 export const footerColumns: { title: string; links: NavLink[] }[] = [
   {
     title: "Products",
@@ -51,6 +61,7 @@ export const footerColumns: { title: string; links: NavLink[] }[] = [
       { label: "Site map", href: "/site-map" },
     ],
   },
+  { title: "Policies", links: policyNav },
 ];
 
 export const legalLinks: NavLink[] = [

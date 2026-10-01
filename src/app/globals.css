@@ -310,6 +310,12 @@ html.lenis body {
   }
 }
 
+/* SplitText line masks: extend each mask below the baseline so descenders (g, y, p) are not clipped. */
+:has(> .split-line) {
+  padding-bottom: 0.12em;
+  margin-bottom: -0.12em;
+}
+
 /* Gentle heartbeat rhythm: a soft beat, a smaller second beat ("lub-dub"), then a longer rest. ~46 bpm. */
 @keyframes heartbeat {
   0% {

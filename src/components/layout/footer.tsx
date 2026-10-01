@@ -4,6 +4,7 @@ import { footerColumns, legalLinks } from "@/content/navigation";
 import { site } from "@/content/site";
 import { TodoMark } from "@/components/todo-mark";
 import { Logo } from "./logo";
+import { FooterWordmark } from "./footer-wordmark";
 
 export function Footer() {
   const socials = site.social.filter((s) => s.href);
@@ -34,7 +35,7 @@ export function Footer() {
             </address>
           </div>
 
-          <nav aria-label="Footer" className="grid grid-cols-2 gap-10 sm:grid-cols-4 lg:col-span-8">
+          <nav aria-label="Footer" className="grid grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-3 lg:col-span-8 xl:grid-cols-5">
             {footerColumns.map((col) => (
               <div key={col.title}>
                 <h2 className="font-mono text-[11px] font-medium tracking-[0.16em] text-muted-foreground uppercase">{col.title}</h2>
@@ -92,6 +93,9 @@ export function Footer() {
             ))}
           </div>
         </div>
+      </div>
+      <div className="container-x relative">
+        <FooterWordmark />
       </div>
     </footer>
   );

@@ -1,10 +1,10 @@
 import { PageHero } from "@/components/sections/page-hero";
 import { SectionHeader } from "@/components/sections/section-header";
 import { CtaBand } from "@/components/sections/cta-band";
-import { Photo } from "@/components/photo";
 import { Reveal } from "@/components/motion/reveal";
 import { TodoMark } from "@/components/todo-mark";
 import { capabilities, capabilityTable, developmentWorkflow, packagingPoints } from "@/content/capabilities";
+import { StepScroller } from "@/components/sections/step-scroller";
 import { getIcon, ICON_STROKE } from "@/lib/icons";
 import { pageMetadata } from "@/lib/seo";
 
@@ -26,7 +26,7 @@ export default function CapabilitiesPage() {
       />
 
       <section className="container-x py-16 md:py-24">
-        <SectionHeader title="Machining and secondary operations." />
+        <SectionHeader title="Machining and secondary operations" />
         <ul className="mt-12 grid gap-px overflow-hidden rounded-sm border border-border bg-border sm:grid-cols-2 lg:grid-cols-4">
           {capabilities.map((c, i) => {
             const Icon = getIcon(c.icon);
@@ -49,7 +49,7 @@ export default function CapabilitiesPage() {
             <TodoMark />
           </h2>
           <p className="mt-3 max-w-[60ch] text-muted-foreground">Typical achievable values. Tighter limits are possible on specific features; ask us.</p>
-          <div className="mt-10 overflow-x-auto rounded-sm border border-border bg-card" data-lenis-prevent>
+          <div className="mt-10 overflow-x-auto rounded-sm border border-border bg-card">
             <table className="w-full min-w-[640px] text-left text-sm">
               <thead>
                 <tr className="border-b border-border font-mono text-[11px] tracking-[0.14em] text-muted-foreground uppercase">
@@ -74,30 +74,11 @@ export default function CapabilitiesPage() {
         </div>
       </section>
 
-      <section className="container-x grid gap-14 py-16 md:py-24 lg:grid-cols-12">
-        <div className="lg:col-span-5">
-          <div className="lg:sticky lg:top-28">
-            <SectionHeader
-              title="Custom development process"
-              lead="Drawing-based and sample-based development follow the same path, with an approval gate before volume."
-            />
-            <div className="relative mt-10 hidden aspect-[4/3] overflow-hidden rounded-sm border border-border lg:block">
-              <Photo k="drawingMeasure" className="absolute inset-0" sizes="40vw" />
-            </div>
-          </div>
-        </div>
-        <ol className="lg:col-span-7">
-          {developmentWorkflow.map((s, i) => (
-            <Reveal as="li" key={s.title} className="grid grid-cols-[3.5rem_1fr] gap-4 border-t border-border py-8">
-              <span className="font-mono text-sm text-brass-ink">{String(i + 1).padStart(2, "0")}</span>
-              <div>
-                <h3 className="font-display text-xl font-semibold tracking-tight md:text-2xl">{s.title}</h3>
-                <p className="mt-2 max-w-[52ch] leading-relaxed text-muted-foreground">{s.body}</p>
-              </div>
-            </Reveal>
-          ))}
-        </ol>
-      </section>
+      <StepScroller
+        title="Custom development process"
+        lead="Drawing-based and sample-based development follow the same path, with an approval gate before volume."
+        steps={developmentWorkflow}
+      />
 
       <section className="border-t border-border bg-surface py-16 md:py-24">
         <div className="container-x grid gap-12 lg:grid-cols-12">

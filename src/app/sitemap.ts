@@ -25,6 +25,12 @@ const staticRoutes = [
   "/privacy-policy",
   "/terms",
   "/site-map",
+  "/policies",
+  "/policies/ehs",
+  "/policies/quality",
+  "/policies/cyber-security",
+  "/policies/conflict-minerals",
+  "/policies/counterfeit-parts",
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {

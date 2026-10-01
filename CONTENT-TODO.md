@@ -80,6 +80,14 @@ Every item below is currently a **placeholder**. On the live site, placeholders 
 - [ ] Quality policy PDF
 - [ ] RoHS / REACH declarations
 
+## Company policies (`src/content/policies.ts`)
+- [ ] EHS policy reviewed against actual plant practice, approved and signed
+- [ ] Quality policy approved and signed (also shown on /quality)
+- [ ] Cyber security policy matches the systems actually in use (MFA, backups, firewall)
+- [ ] Conflict minerals policy approved; CMRT process in place for customer requests
+- [ ] Counterfeit parts policy approved; spectro / XRF verification wording confirmed
+- [ ] Set `updated` and `approvedBy` on each policy; optional signed PDFs in /public/downloads
+
 ## Legal (`src/content/legal.ts`)
 - [ ] Privacy policy and terms reviewed by counsel (DPDP Act 2023; GDPR if marketing to the EU)
 - [ ] "Last updated" dates

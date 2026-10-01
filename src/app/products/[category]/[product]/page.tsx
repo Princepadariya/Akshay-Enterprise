@@ -17,6 +17,8 @@ import { pageMetadata } from "@/lib/seo";
 import { productSchema } from "@/lib/schema";
 import { getCategoryDetail } from "@/content/category-details";
 import { DetailOptions, DetailRouting } from "@/components/products/category-detail-sections";
+import { BatchReveal } from "@/components/motion/batch-reveal";
+import { SplitReveal } from "@/components/motion/split-reveal";
 
 export const dynamicParams = false;
 
@@ -61,7 +63,7 @@ export default async function ProductPage({ params }: PageProps<"/products/[cate
                 { name: p.name, href: `/products/${c.slug}/${p.slug}` },
               ]}
             />
-            <h1 className="font-display text-4xl leading-[1.02] font-semibold tracking-[-0.035em] md:text-5xl">{p.name}</h1>
+            <SplitReveal as="h1" trigger="load" className="font-display text-4xl leading-[1.02] font-semibold tracking-[-0.035em] md:text-5xl">{p.name}</SplitReveal>
             <DimensionLine label={p.sizes} className="max-w-md" />
             <p className="text-lg leading-relaxed text-muted-foreground">{p.description}</p>
 
@@ -187,13 +189,15 @@ export default async function ProductPage({ params }: PageProps<"/products/[cate
         <section className="border-t border-border bg-surface py-16 md:py-24">
           <div className="container-x">
             <h2 className="font-display text-2xl font-semibold tracking-tight md:text-3xl">Related products</h2>
-            <ul className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              {related.map((r) => (
-                <li key={r.slug}>
-                  <ProductCard product={r} className="h-full" />
-                </li>
-              ))}
-            </ul>
+            <BatchReveal>
+              <ul className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                {related.map((r) => (
+                  <li key={r.slug}>
+                    <ProductCard product={r} className="h-full" />
+                  </li>
+                ))}
+              </ul>
+            </BatchReveal>
           </div>
         </section>
       ) : null}

@@ -2,6 +2,7 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Magnetic } from "@/components/motion/magnetic";
+import { BrassShader } from "@/components/three/brass-shader";
 import { cn } from "@/lib/utils";
 
 type Props = {
@@ -23,8 +24,15 @@ export function CtaBand({
 }: Props) {
   return (
     <section className={cn("container-x py-16 md:py-24", className)}>
-      <div className="relative overflow-hidden rounded-sm border border-border bg-surface">
-        <div aria-hidden className="grid-lines absolute inset-0 opacity-80" />
+      <div className="relative isolate overflow-hidden rounded-sm border border-border bg-surface">
+        {/* live liquid-brass shader, masked so it only rises behind the right side; text stays on the clean surface */}
+        <div
+          aria-hidden
+          className="absolute inset-0 -z-10 opacity-45 [mask-image:linear-gradient(to_top,black,transparent_75%)] lg:opacity-100 lg:[mask-image:linear-gradient(to_left,black_20%,transparent_78%)]"
+        >
+          <BrassShader />
+        </div>
+        <div aria-hidden className="grid-lines absolute inset-0 -z-10 opacity-60 [mask-image:linear-gradient(to_right,black,transparent_60%)]" />
         <div aria-hidden className="metal-brass absolute inset-y-0 left-0 w-1" />
         <div className="relative grid gap-10 p-8 md:p-14 lg:grid-cols-12 lg:items-center">
           <div className="lg:col-span-7">

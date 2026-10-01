@@ -8,6 +8,7 @@ import { CtaBand } from "@/components/sections/cta-band";
 import { getIndustry, industries } from "@/content/industries";
 import { products } from "@/content/products";
 import { pageMetadata } from "@/lib/seo";
+import { BatchReveal } from "@/components/motion/batch-reveal";
 
 export const dynamicParams = false;
 
@@ -66,13 +67,15 @@ export default async function IndustryPage({ params }: PageProps<"/industries/[s
         <section className="border-t border-border bg-surface py-16 md:py-24">
           <div className="container-x">
             <h2 className="font-display text-2xl font-semibold tracking-tight md:text-3xl">Products for {ind.name.toLowerCase()}</h2>
-            <ul className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              {related.map((p) => (
-                <li key={p.slug}>
-                  <ProductCard product={p} className="h-full" />
-                </li>
-              ))}
-            </ul>
+            <BatchReveal>
+              <ul className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                {related.map((p) => (
+                  <li key={p.slug}>
+                    <ProductCard product={p} className="h-full" />
+                  </li>
+                ))}
+              </ul>
+            </BatchReveal>
             <Link href={`/products?industry=${ind.slug}`} className="mt-8 inline-block text-sm font-medium text-brass-ink hover:underline">
               See all matching products
             </Link>

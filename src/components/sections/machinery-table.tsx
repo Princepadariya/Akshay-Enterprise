@@ -59,7 +59,7 @@ export function MachineryTable({ rows }: { rows: Machine[] }) {
           </button>
         ))}
       </div>
-      <div className="overflow-x-auto rounded-sm border border-border bg-card" data-lenis-prevent>
+      <div className="overflow-x-auto rounded-sm border border-border bg-card">
         <table className="w-full min-w-[680px] text-left text-sm">
           <thead>
             <tr className="border-b border-border font-mono text-[11px] tracking-[0.14em] text-muted-foreground">

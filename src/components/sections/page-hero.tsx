@@ -4,6 +4,11 @@ import type { Crumb } from "@/lib/schema";
 import { cn } from "@/lib/utils";
 import { Breadcrumbs } from "./breadcrumbs";
 import { DimensionLine } from "./dimension-line";
+import { SplitReveal } from "@/components/motion/split-reveal";
+import { ClipReveal } from "@/components/motion/clip-reveal";
+
+/** CSS entrance (runs before hydration, so it never delays content). */
+const enter = "animate-in fade-in slide-in-from-bottom-3 duration-700 [animation-fill-mode:both] ease-[cubic-bezier(0.16,1,0.3,1)]";
 
 type Props = {
   crumbs: Crumb[];
@@ -27,22 +32,21 @@ export function PageHero({ crumbs, title, lead, image, dimension, children }: Pr
       >
         <div className={cn("flex flex-col gap-6", image && "lg:col-span-7")}>
           <Breadcrumbs items={crumbs} />
-          <h1 className="max-w-[20ch] font-display text-4xl leading-[1.02] font-semibold tracking-[-0.035em] md:text-6xl">
+          <SplitReveal
+            as="h1"
+            trigger="load"
+            className="max-w-[20ch] font-display text-4xl leading-[1.02] font-semibold tracking-[-0.035em] md:text-6xl"
+          >
             {title}
-          </h1>
+          </SplitReveal>
           {dimension ? <DimensionLine label={dimension} className="max-w-sm" /> : null}
-          {lead ? <p className="max-w-[60ch] text-base leading-relaxed text-muted-foreground md:text-lg">{lead}</p> : null}
-          {children}
+          {lead ? <p className={cn(enter, "delay-300 max-w-[60ch] text-base leading-relaxed text-muted-foreground md:text-lg")}>{lead}</p> : null}
+          {children ? <div className={cn(enter, "delay-500")}>{children}</div> : null}
         </div>
         {image ? (
-          <div className="relative lg:col-span-5">
-            <Photo
-              k={image}
-              priority
-              className="aspect-[4/3] w-full overflow-hidden rounded-sm border border-border lg:aspect-[5/4]"
-              sizes="(min-width: 1024px) 40vw, 100vw"
-            />
-          </div>
+          <ClipReveal className="relative overflow-hidden rounded-sm border border-border lg:col-span-5">
+            <Photo k={image} priority className="aspect-[4/3] w-full lg:aspect-[5/4]" sizes="(min-width: 1024px) 40vw, 100vw" />
+          </ClipReveal>
         ) : null}
       </div>
     </section>

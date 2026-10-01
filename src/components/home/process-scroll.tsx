@@ -10,8 +10,8 @@ gsap.registerPlugin(ScrollTrigger, useGSAP);
 
 /**
  * Manufacturing route as a pinned horizontal pan (storytelling: a part moving through the shop in order).
- * Desktop + motion allowed: pinned, scrubbed pan with a brass progress rule.
- * Mobile or reduced motion: native horizontal scroll-snap, no pinning.
+ * Every screen size: pinned, scrubbed pan driven by normal vertical scrolling, with a brass progress rule.
+ * Reduced motion only: native horizontal scroll-snap, no pinning.
  * Operation numbers (OP 10, OP 20...) follow the convention of a real process routing sheet.
  */
 export function ProcessScroll() {
@@ -22,7 +22,7 @@ export function ProcessScroll() {
   useGSAP(
     () => {
       const mm = gsap.matchMedia();
-      mm.add("(min-width: 1024px) and (prefers-reduced-motion: no-preference)", () => {
+      mm.add("(prefers-reduced-motion: no-preference)", () => {
         const el = track.current!;
         const distance = () => el.scrollWidth - window.innerWidth;
         const tween = gsap.to(el, {
@@ -33,6 +33,7 @@ export function ProcessScroll() {
             start: "top top",
             end: () => `+=${distance()}`,
             pin: true,
+            anticipatePin: 1,
             scrub: 1,
             invalidateOnRefresh: true,
           },
@@ -56,10 +57,10 @@ export function ProcessScroll() {
   return (
     <section ref={wrap} aria-labelledby="process-title" className="relative overflow-hidden border-t border-border">
       <div aria-hidden className="grid-lines absolute inset-0 opacity-60" />
-      <div className="relative flex min-h-[100dvh] flex-col justify-center py-20 lg:py-0">
+      <div className="relative flex min-h-[100svh] flex-col justify-center motion-reduce:py-20">
         <div
           ref={track}
-          className="flex snap-x snap-mandatory gap-4 overflow-x-auto px-4 pb-4 [scrollbar-width:none] md:px-8 lg:w-max lg:snap-none lg:overflow-visible lg:gap-6 lg:px-12 lg:pb-0"
+          className="flex w-max gap-4 px-4 md:px-8 lg:gap-6 lg:px-12 motion-reduce:w-auto motion-reduce:snap-x motion-reduce:snap-mandatory motion-reduce:overflow-x-auto motion-reduce:pb-4 motion-reduce:[scrollbar-width:none]"
         >
           <div className="flex w-[85vw] shrink-0 snap-start flex-col justify-center gap-6 pr-6 sm:w-[60vw] lg:w-[34vw] lg:pr-12">
             <h2 id="process-title" className="max-w-[16ch] font-display text-4xl leading-[1.02] font-semibold tracking-[-0.035em] md:text-6xl">
@@ -93,7 +94,7 @@ export function ProcessScroll() {
           ))}
           <div aria-hidden className="w-4 shrink-0 lg:w-[8vw]" />
         </div>
-        <div aria-hidden className="absolute right-12 bottom-10 left-12 hidden h-px bg-border lg:block">
+        <div aria-hidden className="absolute right-4 bottom-10 left-4 h-px bg-border motion-reduce:hidden md:right-8 md:left-8 lg:right-12 lg:left-12">
           <div ref={bar} className="metal-brass h-px origin-left scale-x-0" />
         </div>
       </div>

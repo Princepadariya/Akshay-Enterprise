@@ -3,7 +3,7 @@ import { ArrowRight, ArrowUpRight } from "lucide-react";
 import { PageHero } from "@/components/sections/page-hero";
 import { categories, productsInCategory, productHref } from "@/content/products";
 import { industries } from "@/content/industries";
-import { companyNav, legalLinks, manufacturingNav, type NavLink } from "@/content/navigation";
+import { companyNav, legalLinks, manufacturingNav, policyNav, type NavLink } from "@/content/navigation";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata = pageMetadata({
@@ -62,6 +62,7 @@ export default function SiteMapPage() {
     ...manufacturingNav.map((l) => l.href),
     ...moreCompany.map((l) => l.href),
     ...supportLinks.map((l) => l.href),
+    ...policyNav.map((l) => l.href),
     "/industries",
     ...industries.map((i) => `/industries/${i.slug}`),
     ...categories.map((c) => `/products/${c.slug}`),
@@ -114,11 +115,12 @@ export default function SiteMapPage() {
       </section>
 
       {/* Company, manufacturing, support */}
-      <section className="container-x grid gap-4 pb-16 md:grid-cols-2 md:pb-24 lg:grid-cols-4">
+      <section className="container-x grid gap-4 pb-16 md:grid-cols-2 md:pb-24 lg:grid-cols-3 xl:grid-cols-5">
         <Group title="About us" links={aboutPages} />
         <Group title="Manufacturing" links={manufacturingNav} />
         <Group title="Company" links={moreCompany} />
         <Group title="Support" links={supportLinks} />
+        <Group title="Policies" links={policyNav} />
       </section>
 
       {/* Products: every family with every product line */}

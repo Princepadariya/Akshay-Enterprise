@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { ArrowRight, BadgeCheck } from "lucide-react";
 import { Photo } from "@/components/photo";
-import { Reveal } from "@/components/motion/reveal";
+import { ScrollScale } from "@/components/motion/scroll-scale";
 import { TodoMark } from "@/components/todo-mark";
 import { instruments, qualityIntro, toleranceHighlights } from "@/content/quality";
 import { site } from "@/content/site";
@@ -11,7 +11,7 @@ export function QualityHighlight() {
     <section className="container-x py-20 md:py-28">
       <div className="grid gap-12 lg:grid-cols-12 lg:gap-16">
         {/* Tolerance visual */}
-        <Reveal className="relative lg:col-span-6">
+        <ScrollScale className="relative lg:col-span-6">
           <div className="relative aspect-[4/5] overflow-hidden rounded-sm border border-border sm:aspect-[5/4] lg:aspect-[4/5]">
             <Photo k="caliperPart" className="absolute inset-0" sizes="(min-width: 1024px) 45vw, 100vw" />
             <div className="absolute inset-x-0 bottom-0 z-[2] p-6 md:p-8">
@@ -34,7 +34,7 @@ export function QualityHighlight() {
               </div>
             </div>
           </div>
-        </Reveal>
+        </ScrollScale>
 
         <div className="flex flex-col justify-center gap-10 lg:col-span-6">
           <div className="flex flex-col gap-5">

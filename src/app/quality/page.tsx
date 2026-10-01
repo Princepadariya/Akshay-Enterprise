@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { BadgeCheck, Download } from "lucide-react";
+import { BadgeCheck, FileText } from "lucide-react";
 import { PageHero } from "@/components/sections/page-hero";
 import { SectionHeader } from "@/components/sections/section-header";
 import { CtaBand } from "@/components/sections/cta-band";
@@ -110,8 +110,8 @@ export default function QualityPage() {
             </h2>
             <p className="mt-6 text-lg leading-relaxed text-muted-foreground">{qualityPolicy.text}</p>
             <Button asChild variant="outline" className="mt-8">
-              <Link href="/downloads">
-                <Download strokeWidth={1.5} /> Quality documents
+              <Link href="/policies/quality">
+                <FileText strokeWidth={1.5} /> Read the full quality policy
               </Link>
             </Button>
           </div>

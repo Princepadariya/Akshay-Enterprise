@@ -9,6 +9,7 @@ import { materialName } from "@/content/materials";
 import { pageMetadata } from "@/lib/seo";
 import { getCategoryDetail } from "@/content/category-details";
 import { DetailOptions, DetailOverview, DetailRouting } from "@/components/products/category-detail-sections";
+import { BatchReveal } from "@/components/motion/batch-reveal";
 
 export const dynamicParams = false;
 
@@ -56,13 +57,15 @@ export default async function CategoryPage({ params }: PageProps<"/products/[cat
 
       <section className={detail ? "container-x pb-16 md:pb-24" : "container-x py-14 md:py-20"}>
         <h2 className="mb-8 font-display text-2xl font-semibold tracking-tight md:text-3xl">Product lines</h2>
-        <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {items.map((p) => (
-            <li key={p.slug}>
-              <ProductCard product={p} className="h-full" />
-            </li>
-          ))}
-        </ul>
+        <BatchReveal>
+          <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {items.map((p) => (
+              <li key={p.slug}>
+                <ProductCard product={p} className="h-full" />
+              </li>
+            ))}
+          </ul>
+        </BatchReveal>
       </section>
 
       {detail ? (

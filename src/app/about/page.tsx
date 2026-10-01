@@ -30,7 +30,7 @@ export default function AboutPage() {
 
       <section className="container-x grid gap-14 py-16 md:py-24 lg:grid-cols-12">
         <div className="lg:col-span-7">
-          <SectionHeader title="Who we are and what we make." />
+          <SectionHeader title="Who we are and what we make" />
           <div className="mt-8 grid gap-5 text-lg leading-relaxed text-muted-foreground">
             {about.overview.map((p, i) => (
               <p key={i} className="max-w-[62ch]">

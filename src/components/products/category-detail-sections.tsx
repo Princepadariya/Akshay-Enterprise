@@ -2,6 +2,7 @@ import { BadgeCheck, FileText } from "lucide-react";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { JsonLd } from "@/components/json-ld";
 import { Reveal } from "@/components/motion/reveal";
+import { RoutingList } from "./routing-list";
 import { TodoMark } from "@/components/todo-mark";
 import type { CategoryDetail } from "@/content/category-details";
 import { faqSchema } from "@/lib/schema";
@@ -48,19 +49,7 @@ export function DetailRouting({ detail, partName }: { detail: CategoryDetail; pa
               <span className="truncate">ROUTING SHEET  /  {partName.toUpperCase()}</span>
               <span className="hidden sm:inline">SHEET 1 OF 1</span>
             </div>
-            <ol>
-              {detail.route.map((r, i) => (
-                <Reveal
-                  as="li"
-                  key={r.op}
-                  delay={i * 0.05}
-                  className="grid grid-cols-[4.5rem_1fr] items-baseline gap-4 border-b border-border/60 px-5 py-4 last:border-b-0"
-                >
-                  <span className="font-mono text-sm font-medium text-brass-ink">{r.op}</span>
-                  <span className="text-[15px]">{r.body}</span>
-                </Reveal>
-              ))}
-            </ol>
+            <RoutingList route={detail.route} />
           </div>
         </div>
         <div className="lg:col-span-5">

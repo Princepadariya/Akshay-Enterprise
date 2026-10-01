@@ -44,7 +44,7 @@ function FilterRow({
   return (
     <div className="grid gap-2 md:grid-cols-[7rem_1fr] md:items-start">
       <span className="pt-1.5 font-mono text-[11px] tracking-[0.14em] text-muted-foreground uppercase">{label}</span>
-      <div className="-mx-4 flex gap-2 overflow-x-auto px-4 pb-1 [scrollbar-width:none] md:mx-0 md:flex-wrap md:overflow-visible md:px-0" data-lenis-prevent>
+      <div className="-mx-4 flex gap-2 overflow-x-auto px-4 pb-1 [scrollbar-width:none] md:mx-0 md:flex-wrap md:overflow-visible md:px-0">
         <Chip active={value === ""} onClick={() => onChange("")}>
           All
         </Chip>

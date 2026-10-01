@@ -8,9 +8,10 @@ import { ProcessScroll } from "@/components/home/process-scroll";
 import { QualityHighlight } from "@/components/home/quality-highlight";
 import { TolerancePerspective } from "@/components/home/tolerance-perspective";
 import { MaterialRack } from "@/components/home/material-rack";
-import { IndustriesGrid } from "@/components/home/industries-grid";
+import { IndustriesAccordion } from "@/components/home/industries-accordion";
 import { GlobalReach } from "@/components/home/global-reach";
-import { WhyAkshay } from "@/components/home/why-akshay";
+import { WhyDeck } from "@/components/home/why-deck";
+import { Manifesto } from "@/components/home/manifesto";
 import { Testimonials } from "@/components/home/testimonials";
 import { FinalCta } from "@/components/home/final-cta";
 import { site } from "@/content/site";
@@ -28,15 +29,16 @@ export default function HomePage() {
       <Hero />
       <TrustStrip />
       <StatsBand />
+      <Manifesto />
       <CategoryBento />
       <CapabilitiesSection />
       <ProcessScroll />
       <TolerancePerspective />
       <QualityHighlight />
       <MaterialRack />
-      <IndustriesGrid />
+      <IndustriesAccordion />
       <GlobalReach />
-      <WhyAkshay />
+      <WhyDeck />
       <Testimonials />
       <FinalCta />
     </>

@@ -37,7 +37,7 @@ export function CategoryBento() {
           lead="Ten product families in brass and engineering metals. Anything not listed can be made to your drawing."
         />
       </div>
-      <div className="grid auto-rows-[240px] grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4 lg:auto-rows-[230px]">
+      <div className="grid grid-flow-dense auto-rows-[240px] grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4 lg:auto-rows-[230px]">
         {categories.map((c, i) => {
           const l = layout[i] ?? { span: "", surface: "photo" as const };
           const count = productsInCategory(c.slug).length;

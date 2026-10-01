@@ -2,7 +2,7 @@ import { FileText, Package, Ship, Truck } from "lucide-react";
 import { PageHero } from "@/components/sections/page-hero";
 import { SectionHeader } from "@/components/sections/section-header";
 import { CtaBand } from "@/components/sections/cta-band";
-import { WorldMap } from "@/components/sections/world-map";
+import { ExportMap } from "@/components/sections/export-map";
 import { Photo } from "@/components/photo";
 import { TodoMark } from "@/components/todo-mark";
 import { site } from "@/content/site";
@@ -35,21 +35,10 @@ export default function GlobalPresencePage() {
       />
 
       <section className="container-x py-16 md:py-24">
-        <SectionHeader title="Export regions" />
-        <div className="mt-10 rounded-sm border border-border bg-surface p-4 md:p-8">
-          <WorldMap data={map} className="h-auto w-full" />
+        <SectionHeader title="Export regions" lead="Hover a region or its pin to trace the route from our plant." />
+        <div className="mt-10">
+          <ExportMap data={map} layout="below" />
         </div>
-        <ul className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {site.exportRegions.map((r) => (
-            <li key={r.region} className="rounded-sm border border-border p-5">
-              <p className="font-display text-lg font-semibold tracking-tight">
-                {r.region}
-                <TodoMark show={r.placeholder} />
-              </p>
-              <p className="mt-1 font-mono text-[12px] text-muted-foreground">{r.countries.join(", ")}</p>
-            </li>
-          ))}
-        </ul>
       </section>
 
       <section className="border-y border-border bg-surface py-16 md:py-24">

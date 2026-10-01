@@ -1,4 +1,5 @@
 import { cn } from "@/lib/utils";
+import { SplitReveal } from "@/components/motion/split-reveal";
 import { DimensionLine } from "./dimension-line";
 
 type Props = {
@@ -29,14 +30,15 @@ export function SectionHeader({
       {eyebrow ? (
         <p className="font-mono text-[11px] font-medium tracking-[0.18em] text-brass-ink uppercase">{eyebrow}</p>
       ) : null}
-      <H
+      <SplitReveal
+        as={H}
         className={cn(
           "max-w-[22ch] font-display font-semibold tracking-[-0.03em] text-foreground",
           size === "lg" ? "text-4xl leading-[1.02] md:text-6xl" : "text-3xl leading-[1.05] md:text-5xl",
         )}
       >
         {title}
-      </H>
+      </SplitReveal>
       {dimension ? <DimensionLine label={dimension} className={cn("w-full max-w-md", align === "center" && "mx-auto")} /> : null}
       {lead ? <p className="max-w-[62ch] text-base leading-relaxed text-muted-foreground md:text-lg">{lead}</p> : null}
     </header>

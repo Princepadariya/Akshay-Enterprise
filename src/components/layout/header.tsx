@@ -18,7 +18,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { categories } from "@/content/products";
 import { photos } from "@/content/images";
-import { companyNav, manufacturingNav } from "@/content/navigation";
+import { companyNav, manufacturingNav, policyNav } from "@/content/navigation";
 import { cn } from "@/lib/utils";
 import { Logo } from "./logo";
 import { MobileNav } from "./mobile-nav";
@@ -146,6 +146,33 @@ export function Header() {
                     </li>
                   ))}
                 </ul>
+              </NavigationMenuContent>
+            </NavigationMenuItem>
+
+            <NavigationMenuItem>
+              <NavigationMenuTrigger className={cn(trigger, isActive("/policies") && "text-foreground")}>Policies</NavigationMenuTrigger>
+              <NavigationMenuContent>
+                <div className="w-[30rem]">
+                  <ul className="grid grid-cols-2 gap-1 p-3">
+                    {policyNav.slice(1).map((l) => (
+                      <li key={l.href}>
+                        <NavigationMenuLink asChild>
+                          <Link href={l.href} className="flex flex-col items-start gap-1 rounded-sm p-3 hover:bg-foreground/[0.05]">
+                            <span className="text-[13.5px] font-medium">{l.label}</span>
+                            <span className="text-xs leading-snug text-muted-foreground">{l.description}</span>
+                          </Link>
+                        </NavigationMenuLink>
+                      </li>
+                    ))}
+                  </ul>
+                  <div className="border-t border-border bg-surface p-3">
+                    <NavigationMenuLink asChild>
+                      <Link href="/policies" className="flex items-center justify-between rounded-sm border border-border px-3 py-2 text-sm hover:border-brass/60">
+                        All policies <ArrowRight strokeWidth={1.5} className="size-4" />
+                      </Link>
+                    </NavigationMenuLink>
+                  </div>
+                </div>
               </NavigationMenuContent>
             </NavigationMenuItem>
 

@@ -11,7 +11,10 @@ import { cn } from "@/lib/utils";
  */
 const HAIR = 70;
 const PAPER = 100;
-const PX_PER_UM = 2.6;
+/** Pixels per micron, as CSS: scales with the field width (container query units), capped at 2.6px. */
+const SCALE = "clamp(1px, 0.42cqw, 2.6px)";
+const U = "var(--u)";
+const um = (n: number) => `calc(${U} * ${n})`;
 
 const classes = [
   { label: "±0.05", um: 50, note: "General turned features" },
@@ -73,25 +76,32 @@ export function TolerancePerspective() {
 
         {/* True-scale field */}
         <div className="lg:col-span-7">
-          <div className="relative overflow-hidden rounded-sm border border-border bg-surface p-6 md:p-10">
+          <div
+            className="relative overflow-hidden rounded-sm border border-border bg-surface p-5 md:p-10"
+            style={{ containerType: "inline-size" }}
+          >
             <div aria-hidden className="grid-lines-fine absolute inset-0 opacity-80" />
-            <div className="relative flex items-center justify-between font-mono text-[11px] text-muted-foreground">
-              <span>Magnified view, all shapes to the same scale</span>
+            <div
+              className="relative flex flex-wrap items-center justify-between gap-x-4 gap-y-2 font-mono text-[11px] text-muted-foreground">
+              <span className="max-w-[30ch]">Magnified view, all shapes to the same scale</span>
               <span className="flex items-center gap-2">
-                <span className="h-px bg-foreground/60" style={{ width: 20 * PX_PER_UM }} />
+                <span className="h-px bg-foreground/60" style={{ width: `calc(${SCALE} * 20)` }} />
                 20 µm
               </span>
             </div>
 
-            <div className="relative mt-8 grid h-[340px] grid-cols-3 items-end gap-6">
+            <div
+              className="relative mt-8 grid grid-cols-3 items-end gap-3 sm:gap-6"
+              style={{ ["--u" as string]: SCALE, height: `calc(${U} * 100 + 84px)` }}
+            >
               {/* paper */}
               <figure className="flex h-full flex-col items-center justify-end gap-3">
                 <div
                   className="w-full max-w-36 rounded-[1px] border border-foreground/15 bg-[linear-gradient(180deg,#f7f5ef,#e7e3d8)]"
-                  style={{ height: PAPER * PX_PER_UM }}
+                  style={{ height: um(PAPER) }}
                 />
                 <figcaption className="text-center">
-                  <span className="block text-sm">Sheet of paper</span>
+                  <span className="block text-xs sm:text-sm">Sheet of paper</span>
                   <span className="font-mono text-[11px] text-muted-foreground">~{PAPER} µm</span>
                 </figcaption>
               </figure>
@@ -100,35 +110,35 @@ export function TolerancePerspective() {
               <figure className="flex h-full flex-col items-center justify-end gap-3">
                 <div
                   className="rounded-full bg-[radial-gradient(circle_at_35%_30%,#6b5a48,#2e241b_70%)] shadow-[inset_0_0_0_1px_rgb(255_255_255/0.08)]"
-                  style={{ width: HAIR * PX_PER_UM, height: HAIR * PX_PER_UM }}
+                  style={{ width: um(HAIR), height: um(HAIR) }}
                 />
                 <figcaption className="text-center">
-                  <span className="block text-sm">Human hair</span>
+                  <span className="block text-xs sm:text-sm">Human hair</span>
                   <span className="font-mono text-[11px] text-muted-foreground">~{HAIR} µm</span>
                 </figcaption>
               </figure>
 
               {/* tolerance band */}
               <figure className="flex h-full flex-col items-center justify-end gap-3">
-                <div className="relative flex w-full max-w-36 items-end" style={{ height: PAPER * PX_PER_UM }}>
+                <div className="relative flex w-full max-w-36 items-end" style={{ height: um(PAPER) }}>
                   <motion.div
                     className="metal-brass w-full origin-bottom rounded-[1px]"
-                    style={{ height: PAPER * PX_PER_UM }}
+                    style={{ height: um(PAPER) }}
                     initial={false}
                     animate={{ scaleY: band / PAPER }}
                     transition={spring}
                   />
                   <motion.span
-                    className="absolute left-full ml-2 font-mono text-[11px] whitespace-nowrap text-brass-ink"
+                    className="absolute inset-x-0 pb-1.5 text-center font-mono text-[11px] whitespace-nowrap text-brass-ink"
                     initial={false}
-                    animate={{ bottom: band * PX_PER_UM - 8 }}
+                    animate={{ bottom: `${(band / PAPER) * 100}%` }}
                     transition={spring}
                   >
                     {classes[idx].label}
                   </motion.span>
                 </div>
                 <figcaption className="text-center">
-                  <span className="block text-sm">Our band</span>
+                  <span className="block text-xs sm:text-sm">Our band</span>
                   <span className="font-mono text-[11px] text-muted-foreground">{band} µm total</span>
                 </figcaption>
               </figure>

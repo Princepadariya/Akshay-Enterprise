@@ -66,7 +66,7 @@ export default function InfrastructurePage() {
       </section>
 
       <section aria-label="Plant photographs" className="py-16 md:py-24">
-        <div className="flex snap-x snap-mandatory gap-3 overflow-x-auto px-4 [scrollbar-width:none] md:px-8" data-lenis-prevent>
+        <div className="flex snap-x snap-mandatory gap-3 overflow-x-auto px-4 [scrollbar-width:none] md:px-8">
           {strip.map((k) => (
             <div key={k} className="relative aspect-[4/3] w-[80vw] shrink-0 snap-start overflow-hidden rounded-sm border border-border sm:w-[46vw] lg:w-[30vw]">
               <Photo k={k} className="absolute inset-0" sizes="(min-width: 1024px) 30vw, 80vw" />

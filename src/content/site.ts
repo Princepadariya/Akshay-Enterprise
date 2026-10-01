@@ -1,3 +1,4 @@
+import type { PhotoKey } from "./images";
 /**
  * Akshay Enterprise: single source of truth for company facts.
  *
@@ -105,31 +106,44 @@ export const site = {
       title: "Custom development",
       body: "Send a drawing or a sample. We reverse-engineer, propose tooling and approve a first-off before volume.",
       icon: "PencilRuler",
+      image: "drawingMeasure" as PhotoKey,
+      proof: "First-off sample with a dimensional report",
     },
     {
       title: "Tight tolerances",
       body: "Diameters held to hundredths of a millimetre, verified at the machine and again before packing.",
       icon: "Crosshair",
+      image: "caliperPart" as PhotoKey,
+      proof: "Critical diameters to ±0.01 mm",
+      placeholder: true,
     },
     {
       title: "Material flexibility",
       body: "Free-cutting and DZR brass, stainless, mild steel, aluminium and copper from one supplier.",
       icon: "Layers",
+      image: "barStock" as PhotoKey,
+      proof: "Six material families, one supplier",
     },
     {
       title: "Export-ready packing",
       body: "Part-wise labelling, moisture protection, palletisation and the documents your customs broker asks for.",
       icon: "PackageCheck",
+      image: "warehouse" as PhotoKey,
+      proof: "VCI packing, pallets, certificate of origin",
     },
     {
       title: "On-time delivery",
       body: "Capacity planned against your schedule, with dispatch dates confirmed when the order is placed.",
       icon: "CalendarClock",
+      image: "factoryLine" as PhotoKey,
+      proof: "Dispatch date confirmed with every order",
     },
     {
       title: "Engineering on the line",
       body: "Queries go to the engineer responsible for your part and are answered the same working day.",
       icon: "MessagesSquare",
+      image: "inspector" as PhotoKey,
+      proof: "Same working-day replies",
     },
   ],
 

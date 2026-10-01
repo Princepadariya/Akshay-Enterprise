@@ -7,7 +7,7 @@ import { Sheet, SheetContent, SheetDescription, SheetTitle, SheetTrigger } from 
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
 import { categories } from "@/content/products";
-import { companyNav, manufacturingNav } from "@/content/navigation";
+import { companyNav, manufacturingNav, policyNav } from "@/content/navigation";
 import { site } from "@/content/site";
 
 export function MobileNav() {
@@ -21,6 +21,7 @@ export function MobileNav() {
     { title: "Products", links: [{ label: "All products", href: "/products" }, ...categories.map((c) => ({ label: c.short, href: `/products/${c.slug}` }))] },
     { title: "Manufacturing", links: manufacturingNav },
     { title: "Company", links: companyNav },
+    { title: "Policies", links: policyNav },
   ];
 
   return (
