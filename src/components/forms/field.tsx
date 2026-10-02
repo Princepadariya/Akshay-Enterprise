@@ -20,22 +20,22 @@ export function Field({
   children: React.ReactNode;
 }) {
   return (
-    <div className={cn("grid gap-2", className)}>
+    // content-start: when a neighbouring field in the same row grows, this one keeps its layout.
+    <div className={cn("grid content-start gap-2", className)}>
       <Label htmlFor={id} className="text-[13px] font-medium text-foreground">
         {label}
         {optional ? <span className="font-normal text-muted-foreground"> (optional)</span> : null}
       </Label>
       {children}
-      {hint && !error ? (
-        <p id={`${id}-hint`} className="text-xs text-muted-foreground">
-          {hint}
-        </p>
-      ) : null}
-      {error ? (
-        <p id={`${id}-error`} role="alert" className="text-xs font-medium text-destructive">
-          {error}
-        </p>
-      ) : null}
+      {/* one reserved line shared by hint and error, so showing an error never shifts the form */}
+      <p
+        id={error ? `${id}-error` : hint ? `${id}-hint` : undefined}
+        role={error ? "alert" : undefined}
+        className={cn("text-xs transition-colors", error ? "font-medium text-destructive" : "text-muted-foreground")}
+        style={{ minHeight: "1rem", lineHeight: "1rem" }}
+      >
+        {error ?? hint}
+      </p>
     </div>
   );
 }

@@ -26,7 +26,7 @@ export default function FaqPage() {
         {groups.map((g) => (
           <div key={g} className="grid gap-6 lg:grid-cols-12">
             <h2 className="font-mono text-[11px] tracking-[0.16em] text-brass-ink uppercase lg:col-span-3 lg:pt-5">{g}</h2>
-            <Accordion type="multiple" className="lg:col-span-9">
+            <Accordion type="single" collapsible className="lg:col-span-9">
               {faqs
                 .filter((f) => f.group === g)
                 .map((f) => (

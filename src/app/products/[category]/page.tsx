@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { PageHero } from "@/components/sections/page-hero";
@@ -10,6 +9,7 @@ import { pageMetadata } from "@/lib/seo";
 import { getCategoryDetail } from "@/content/category-details";
 import { DetailOptions, DetailOverview, DetailRouting } from "@/components/products/category-detail-sections";
 import { BatchReveal } from "@/components/motion/batch-reveal";
+import { OtherFamilies } from "@/components/products/other-families";
 
 export const dynamicParams = false;
 
@@ -75,25 +75,7 @@ export default async function CategoryPage({ params }: PageProps<"/products/[cat
         </>
       ) : null}
 
-      <section className="container-x pb-8">
-        <nav aria-label="Other categories" className="border-t border-border pt-10">
-          <h2 className="font-mono text-[11px] tracking-[0.16em] text-muted-foreground uppercase">Other product families</h2>
-          <ul className="mt-5 flex flex-wrap gap-2">
-            {categories
-              .filter((o) => o.slug !== c.slug)
-              .map((o) => (
-                <li key={o.slug}>
-                  <Link
-                    href={`/products/${o.slug}`}
-                    className="inline-block rounded-sm border border-border px-3 py-1.5 text-sm transition-colors hover:border-brass/60 hover:text-brass-ink"
-                  >
-                    {o.short}
-                  </Link>
-                </li>
-              ))}
-          </ul>
-        </nav>
-      </section>
+      <OtherFamilies items={categories.filter((o) => o.slug !== c.slug)} />
 
       <CtaBand
         title="Need a variant that is not listed?"
