@@ -59,7 +59,7 @@ export function StepScroller({ title, lead, steps }: { title: string; lead: stri
           <SectionHeader title={title} lead={lead} />
           <div className="relative mt-10 hidden aspect-[4/3] overflow-hidden rounded-sm border border-border lg:block">
             {steps.map((s, i) => (
-              <div key={s.title} data-shot className="img-treat absolute inset-0" style={{ opacity: i === 0 ? 1 : 0 }}>
+              <div key={s.title} data-shot className="absolute inset-0" style={{ opacity: i === 0 ? 1 : 0 }}>
                 <Image src={photos[s.image].src} alt={photos[s.image].alt} fill sizes="40vw" className="object-cover" />
               </div>
             ))}

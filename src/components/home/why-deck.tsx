@@ -55,6 +55,22 @@ export function WhyDeck() {
             { scale: 1.15 },
             { scale: 1, ease: "none", scrollTrigger: { trigger: slot, start: "top bottom", end: "top 40%", scrub: true } },
           );
+          // the toned overlay clears as the card settles into its stuck position, leaving the original photo
+          gsap.fromTo(
+            slot.querySelector("[data-tone]"),
+            { autoAlpha: 1 },
+            {
+              autoAlpha: 0,
+              ease: "none",
+              scrollTrigger: {
+                trigger: slot,
+                start: "top 75%",
+                end: () => `top ${parseFloat(getComputedStyle(slot).top) || 0}px`,
+                scrub: true,
+                invalidateOnRefresh: true,
+              },
+            },
+          );
         });
       });
       return () => mm.revert();
@@ -92,7 +108,11 @@ export function WhyDeck() {
                 >
                   <div className="relative min-h-56 overflow-hidden sm:min-h-[22rem]">
                     <div data-photo className="absolute inset-0">
-                      <Photo k={d.image} className="absolute inset-0" sizes="(min-width: 1024px) 28vw, 100vw" />
+                      <Photo k={d.image} className="absolute inset-0" sizes="(min-width: 1024px) 28vw, 100vw" treatment="none" />
+                      {/* toned copy on top; only shown (and faded out on scroll) by the desktop GSAP deck */}
+                      <div data-tone className="absolute inset-0" style={{ opacity: 0, visibility: "hidden" }}>
+                        <Photo k={d.image} className="absolute inset-0" sizes="(min-width: 1024px) 28vw, 100vw" />
+                      </div>
                     </div>
                   </div>
                   <div className="flex flex-col justify-between gap-10 p-7 md:p-10">

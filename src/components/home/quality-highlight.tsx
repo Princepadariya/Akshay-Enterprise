@@ -13,7 +13,17 @@ export function QualityHighlight() {
         {/* Tolerance visual */}
         <ScrollScale className="relative lg:col-span-6">
           <div className="relative aspect-[4/5] overflow-hidden rounded-sm border border-border sm:aspect-[5/4] lg:aspect-[4/5]">
-            <Photo k="caliperPart" className="absolute inset-0" sizes="(min-width: 1024px) 45vw, 100vw" />
+            <Photo k="caliperPart" className="absolute inset-0" sizes="(min-width: 1024px) 45vw, 100vw" treatment="none" />
+            {/* toned copy, faded out by ScrollScale as the image reaches full size */}
+            <div data-tone className="absolute inset-0" style={{ opacity: 0, visibility: "hidden" }}>
+              <Photo k="caliperPart" className="absolute inset-0" sizes="(min-width: 1024px) 45vw, 100vw" />
+            </div>
+            {/* bottom-only shade so the white figures stay readable on the original photo */}
+            <div
+              aria-hidden
+              className="absolute inset-x-0 bottom-0 z-[1]"
+              style={{ height: "55%", background: "linear-gradient(to top, rgb(11 13 16 / 0.8), transparent)" }}
+            />
             <div className="absolute inset-x-0 bottom-0 z-[2] p-6 md:p-8">
               <p className="font-mono text-[11px] tracking-[0.16em] text-steel-200 uppercase">
                 Critical diameter tolerance

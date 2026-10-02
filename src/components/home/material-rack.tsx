@@ -1,47 +1,177 @@
-import Link from "next/link";
-import { SectionHeader } from "@/components/sections/section-header";
-import { Reveal } from "@/components/motion/reveal";
-import { materials } from "@/content/materials";
+"use client";
 
-/** Bar-stock sample rack. Each swatch catches a specular highlight that follows the cursor. */
+import dynamic from "next/dynamic";
+import Link from "next/link";
+import { useEffect, useRef, useState } from "react";
+import { gsap } from "gsap";
+import { useGSAP } from "@gsap/react";
+import { useReducedMotion } from "motion/react";
+import { ArrowRight } from "lucide-react";
+import { SectionHeader } from "@/components/sections/section-header";
+import { materials, type MaterialKey } from "@/content/materials";
+import type { BarLook } from "@/components/three/bar-stock-scene";
+import { cn } from "@/lib/utils";
+
+gsap.registerPlugin(useGSAP);
+
+const BarStockScene = dynamic(() => import("@/components/three/bar-stock-scene"), { ssr: false });
+
+/** Appearance of each bar in the viewer: colour, polish and the stock section it is drawn with. */
+const LOOKS: Record<MaterialKey, BarLook> = {
+  brass: { color: "#d4ac5c", roughness: 0.26, sides: 6 },
+  "dzr-brass": { color: "#c2955a", roughness: 0.3, sides: 64 },
+  "stainless-steel": { color: "#c9ced3", roughness: 0.16, sides: 64 },
+  "mild-steel": { color: "#8d9298", roughness: 0.42, sides: 4 },
+  aluminium: { color: "#d9dde0", roughness: 0.34, sides: 6 },
+  copper: { color: "#cf7a4a", roughness: 0.24, sides: 64 },
+};
+const looks = materials.map((m) => LOOKS[m.key]);
+const AUTO_MS = 5000;
+
+/**
+ * Materials as a 3D bar-stock viewer. A real-time metal bar of the selected material (raw stock
+ * turned down to a shoulder, thread and chamfer) feeds in like stock through a bar feeder;
+ * the readout shows the reference grade, standard and nominal composition from the content.
+ * Cycles on its own while in view until the visitor picks a material.
+ */
 export function MaterialRack() {
+  const root = useRef<HTMLElement>(null);
+  const stage = useRef<HTMLDivElement>(null);
+  const [active, setActive] = useState(0);
+  const [inView, setInView] = useState(false);
+  const reduce = useReducedMotion() ?? false;
+  const [userPicked, setUserPicked] = useState(false);
+  const m = materials[active];
+
+  useEffect(() => {
+    const io = new IntersectionObserver(([e]) => setInView(e.isIntersecting), { rootMargin: "100px" });
+    if (stage.current) io.observe(stage.current);
+    return () => io.disconnect();
+  }, []);
+
+  // auto-advance while visible, until the visitor takes over
+  useEffect(() => {
+    if (!inView || userPicked || reduce) return;
+    const id = window.setTimeout(() => setActive((a) => (a + 1) % materials.length), AUTO_MS);
+    return () => window.clearTimeout(id);
+  }, [active, inView, userPicked, reduce]);
+
+  // readout text rises in on every change
+  useGSAP(
+    () => {
+      if (reduce) return;
+      gsap.fromTo("[data-readout] > *", { yPercent: 60, autoAlpha: 0 }, { yPercent: 0, autoAlpha: 1, duration: 0.7, ease: "expo.out", stagger: 0.05 });
+    },
+    { scope: root, dependencies: [active, reduce] },
+  );
+
+  const pick = (i: number) => {
+    setUserPicked(true);
+    setActive(i);
+  };
+
   return (
-    <section className="border-t border-border bg-surface py-20 md:py-28">
+    <section ref={root} className="border-t border-border bg-surface py-20 md:py-28">
       <div className="container-x">
         <SectionHeader
           title="Materials we machine"
+          lead="Brass, steels, aluminium and copper, run from bar on the same machines. Pick a material to load its bar."
         />
-        <ul className="mt-12 grid grid-cols-2 gap-3 md:grid-cols-3 lg:grid-cols-6">
-          {materials.map((m, i) => (
-            <Reveal as="li" key={m.key} delay={i * 0.05}>
-              <Link
-                href={`/materials#${m.key}`}
-                data-fx="spotlight"
-                className="group flex h-full flex-col overflow-hidden rounded-sm border border-border bg-card"
-              >
-                <div data-fx="sheen" className="metal-sheen relative h-44 md:h-56" style={{ background: m.swatch }}>
-                  {/* brushed grain */}
-                  <div
-                    aria-hidden
-                    className="absolute inset-0 opacity-60 mix-blend-overlay"
-                    style={{ background: "repeating-linear-gradient(90deg, rgb(255 255 255 / 0.06) 0 1px, transparent 1px 3px)" }}
-                  />
-                  {/* bar end: hex with a centre drill mark */}
-                  <svg aria-hidden viewBox="0 0 40 40" className="absolute right-3 bottom-3 size-9 opacity-70">
-                    <path d="M20 2 35.6 11v18L20 38 4.4 29V11z" fill="none" stroke="rgb(255 255 255 / 0.55)" strokeWidth="1" />
-                    <circle cx="20" cy="20" r="2" fill="rgb(0 0 0 / 0.35)" />
-                  </svg>
-                  <span className="absolute top-3 left-3 rounded-sm bg-graphite/70 px-1.5 py-0.5 font-mono text-[10px] text-paper">{m.grades[0]}</span>
+
+        <div className="mt-12 grid gap-8 lg:grid-cols-12 lg:gap-12">
+          {/* stage */}
+          <div className="lg:order-2 lg:col-span-7">
+            <div
+              ref={stage}
+              className="relative overflow-hidden rounded-sm border border-border bg-graphite text-paper"
+              style={{ height: "clamp(360px, 42vw, 560px)" }}
+            >
+              <div aria-hidden className="grid-lines-fine absolute inset-0 opacity-40" />
+              <div
+                aria-hidden
+                className="absolute inset-0"
+                style={{ background: "radial-gradient(60% 50% at 50% 55%, rgb(207 165 96 / 0.12), transparent 70%)" }}
+              />
+              <div className="absolute inset-0">
+                <BarStockScene looks={looks} active={active} running={inView} reduceMotion={reduce} />
+              </div>
+
+              {/* readout */}
+              <div className="pointer-events-none absolute inset-x-0 top-0 flex items-start justify-between gap-4 p-4 font-mono text-[11px] md:p-6">
+                <div data-readout className="overflow-hidden">
+                  <p className="text-brass">{m.composition.grade}</p>
+                  <p className="mt-1 text-paper/60">{m.composition.standard}</p>
                 </div>
-                <div className="flex flex-1 flex-col gap-2 p-4">
-                  <p className="font-display text-base leading-tight font-semibold tracking-tight">{m.name}</p>
-                  <p className="font-mono text-[10.5px] leading-relaxed text-muted-foreground">{m.grades.slice(1).join(" / ")}</p>
-                  <p className="mt-auto pt-2 text-xs text-foreground/80">{m.properties[0].value}</p>
-                </div>
+                <p className="text-paper/60 tabular">
+                  {String(active + 1).padStart(2, "0")} / {String(materials.length).padStart(2, "0")}
+                </p>
+              </div>
+              <div className="pointer-events-none absolute inset-x-0 bottom-0 p-4 md:p-6">
+                <p className="font-mono text-[10.5px] tracking-[0.16em] text-paper/50 uppercase">Nominal composition, % by weight</p>
+                <dl data-readout className="mt-2 flex flex-wrap gap-x-6 gap-y-1 font-mono text-[12px]">
+                  {m.composition.elements.map((e) => (
+                    <div key={e.el} className="flex gap-2">
+                      <dt className="text-brass">{e.el}</dt>
+                      <dd className="text-paper/85">{e.range}</dd>
+                    </div>
+                  ))}
+                </dl>
+              </div>
+              {/* auto-advance progress */}
+              {!userPicked && !reduce && (
+                <span
+                  key={active}
+                  aria-hidden
+                  className="metal-brass absolute bottom-0 left-0 h-[2px] origin-left"
+                  style={{ width: "100%", animation: inView ? `rack-progress ${AUTO_MS}ms linear forwards` : "none", transform: "scaleX(0)" }}
+                />
+              )}
+            </div>
+          </div>
+
+          {/* material list */}
+          <ul role="tablist" aria-label="Materials" className="lg:order-1 lg:col-span-5">
+            {materials.map((mat, i) => {
+              const on = i === active;
+              return (
+                <li key={mat.key} className="border-t border-border last:border-b">
+                  <button
+                    type="button"
+                    role="tab"
+                    aria-selected={on}
+                    onClick={() => pick(i)}
+                    className="group grid w-full grid-cols-[1.25rem_1fr_auto] items-center gap-4 py-4 text-left"
+                  >
+                    <span
+                      aria-hidden
+                      className="size-3 rounded-full border transition-transform duration-500"
+                      style={{ background: LOOKS[mat.key].color, borderColor: "rgb(0 0 0 / 0.15)", transform: on ? "scale(1.35)" : "scale(1)" }}
+                    />
+                    <span className="min-w-0">
+                      <span className={cn("block font-display text-lg font-semibold tracking-tight transition-colors md:text-xl", on ? "text-foreground" : "text-foreground/55 group-hover:text-foreground")}>
+                        {mat.name}
+                      </span>
+                      <span
+                        className="grid transition-[grid-template-rows] duration-500"
+                        style={{ gridTemplateRows: on ? "1fr" : "0fr" }}
+                      >
+                        <span className="overflow-hidden">
+                          <span className="block pt-2 text-sm leading-relaxed text-muted-foreground">{mat.summary}</span>
+                        </span>
+                      </span>
+                    </span>
+                    <span className="font-mono text-[11px] text-muted-foreground">{mat.grades[0]}</span>
+                  </button>
+                </li>
+              );
+            })}
+            <li className="pt-6">
+              <Link href="/materials" className="inline-flex items-center gap-2 text-sm font-medium text-brass-ink hover:underline">
+                Grades, properties and finishes <ArrowRight strokeWidth={1.5} className="size-4" />
               </Link>
-            </Reveal>
-          ))}
-        </ul>
+            </li>
+          </ul>
+        </div>
       </div>
     </section>
   );

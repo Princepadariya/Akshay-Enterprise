@@ -9,7 +9,6 @@ import { QualityHighlight } from "@/components/home/quality-highlight";
 import { TolerancePerspective } from "@/components/home/tolerance-perspective";
 import { MaterialRack } from "@/components/home/material-rack";
 import { IndustriesAccordion } from "@/components/home/industries-accordion";
-import { GlobalReach } from "@/components/home/global-reach";
 import { WhyDeck } from "@/components/home/why-deck";
 import { Manifesto } from "@/components/home/manifesto";
 import { Testimonials } from "@/components/home/testimonials";
@@ -37,7 +36,6 @@ export default function HomePage() {
       <QualityHighlight />
       <MaterialRack />
       <IndustriesAccordion />
-      <GlobalReach />
       <WhyDeck />
       <Testimonials />
       <FinalCta />

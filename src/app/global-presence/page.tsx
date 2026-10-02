@@ -1,8 +1,8 @@
-import { FileText, Package, Ship, Truck } from "lucide-react";
 import { PageHero } from "@/components/sections/page-hero";
 import { SectionHeader } from "@/components/sections/section-header";
 import { CtaBand } from "@/components/sections/cta-band";
 import { ExportMap } from "@/components/sections/export-map";
+import { ExportRoute } from "@/components/sections/export-route";
 import { Photo } from "@/components/photo";
 import { TodoMark } from "@/components/todo-mark";
 import { site } from "@/content/site";
@@ -15,13 +15,6 @@ export const metadata = pageMetadata({
     "Brass components exporter from Gujarat, India. Export regions, packing, documentation and Incoterms for international OEM customers.",
   path: "/global-presence",
 });
-
-const exportSteps = [
-  { icon: Package, title: "Export packing", body: "VCI bags, desiccant, cartons and heat-treated pallets suited to sea or air freight." },
-  { icon: FileText, title: "Documentation", body: "Commercial invoice, packing list, certificate of origin, inspection reports and material certificates." },
-  { icon: Truck, title: "Inland logistics", body: "Factory to port handled with our forwarding partners, with container stuffing supervised." },
-  { icon: Ship, title: "Shipping", body: "Consolidated or full-container shipments from Gujarat's ports, tracked to your door on request." },
-];
 
 export default function GlobalPresencePage() {
   const map = getWorldMap();
@@ -62,15 +55,9 @@ export default function GlobalPresencePage() {
               <Photo k="warehouse" className="absolute inset-0" sizes="40vw" />
             </div>
           </div>
-          <ol className="grid gap-4 sm:grid-cols-2 lg:col-span-7">
-            {exportSteps.map((s) => (
-              <li key={s.title} className="rounded-sm border border-border bg-card p-6">
-                <s.icon strokeWidth={1.5} className="size-7 text-brass" />
-                <h3 className="mt-5 font-display text-lg font-semibold tracking-tight">{s.title}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{s.body}</p>
-              </li>
-            ))}
-          </ol>
+          <div className="lg:col-span-7">
+            <ExportRoute />
+          </div>
         </div>
       </section>
 

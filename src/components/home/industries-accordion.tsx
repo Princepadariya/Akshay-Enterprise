@@ -151,7 +151,7 @@ export function IndustriesAccordion() {
             return (
               <li key={ind.slug}>
                 <Link href={`/industries/${ind.slug}`} className="relative isolate flex min-h-40 flex-col justify-end overflow-hidden rounded-sm border border-border p-5">
-                  <div className="img-treat absolute inset-0 -z-10">
+                  <div className="absolute inset-0 -z-10">
                     <Image src={p.src} alt="" fill sizes="(min-width: 768px) 1px, 100vw" className="object-cover" />
                   </div>
                   <div aria-hidden className="absolute inset-0 -z-[5] bg-gradient-to-t from-graphite via-graphite/50 to-transparent" />

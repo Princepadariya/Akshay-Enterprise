@@ -38,7 +38,7 @@ export function CapabilitiesSection() {
                   exit={reduce ? undefined : { opacity: 0 }}
                   transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
                 >
-                  <Photo k={image} className="absolute inset-0" sizes="40vw" />
+                  <Photo k={image} className="absolute inset-0" sizes="40vw" treatment="none" />
                 </motion.div>
               </AnimatePresence>
               <span className="absolute bottom-3 left-3 z-[2] rounded-sm bg-graphite/80 px-2 py-1 font-mono text-[11px] text-paper">
