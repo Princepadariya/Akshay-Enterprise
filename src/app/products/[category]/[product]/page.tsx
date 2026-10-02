@@ -19,6 +19,8 @@ import { getCategoryDetail } from "@/content/category-details";
 import { DetailOptions, DetailRouting } from "@/components/products/category-detail-sections";
 import { BatchReveal } from "@/components/motion/batch-reveal";
 import { SplitReveal } from "@/components/motion/split-reveal";
+import { MaterialFinishPicker } from "@/components/products/material-finish-picker";
+import { QuoteDock } from "@/components/products/quote-dock";
 
 export const dynamicParams = false;
 
@@ -67,35 +69,9 @@ export default async function ProductPage({ params }: PageProps<"/products/[cate
             <DimensionLine label={p.sizes} className="max-w-md" />
             <p className="text-lg leading-relaxed text-muted-foreground">{p.description}</p>
 
-            <div className="grid gap-4">
-              <div>
-                <h2 className="font-mono text-[11px] tracking-[0.16em] text-muted-foreground uppercase">Materials</h2>
-                <ul className="mt-2 flex flex-wrap gap-2">
-                  {p.materials.map((m) => (
-                    <li key={m}>
-                      <Link
-                        href={`/materials#${m}`}
-                        className="inline-block rounded-sm border border-brass/50 bg-brass-soft px-2.5 py-1 font-mono text-[12px] text-foreground hover:border-brass"
-                      >
-                        {materialName(m)}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-              <div>
-                <h2 className="font-mono text-[11px] tracking-[0.16em] text-muted-foreground uppercase">Finishes</h2>
-                <ul className="mt-2 flex flex-wrap gap-2">
-                  {p.finishes.map((f) => (
-                    <li key={f} className="rounded-sm border border-border px-2.5 py-1 font-mono text-[12px]">
-                      {finishName(f)}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
+            <MaterialFinishPicker materialKeys={p.materials} finishKeys={p.finishes} />
 
-            <div className="flex flex-wrap gap-3 pt-2">
+            <div id="product-quote" className="flex flex-wrap gap-3 pt-2">
               <Button asChild size="lg">
                 <Link href={rfqHref}>
                   Request a Quote for this part <ArrowRight strokeWidth={1.5} />
@@ -107,7 +83,7 @@ export default async function ProductPage({ params }: PageProps<"/products/[cate
       </section>
 
       <section className="container-x grid gap-14 py-16 md:py-24 lg:grid-cols-12">
-        <div className="lg:col-span-7">
+        <div className="min-w-0 lg:col-span-7">
           <h2 className="font-display text-2xl font-semibold tracking-tight md:text-3xl">Specifications</h2>
           <p className="mt-2 text-sm text-muted-foreground">
             Typical ranges. Your drawing always takes precedence.
@@ -115,6 +91,8 @@ export default async function ProductPage({ params }: PageProps<"/products/[cate
           </p>
           <SpecTable
             className="mt-8"
+            title={`Specification sheet / ${p.name}`}
+            note={`${p.materials.length} material${p.materials.length === 1 ? "" : "s"}`}
             groups={[
               {
                 title: "Geometry",
@@ -202,6 +180,7 @@ export default async function ProductPage({ params }: PageProps<"/products/[cate
         </section>
       ) : null}
 
+      <QuoteDock name={p.name} sizes={p.sizes} image={p.images[0] ?? c.image} href={rfqHref} anchorId="product-quote" />
       <JsonLd data={productSchema(p)} />
     </>
   );

@@ -94,7 +94,7 @@ export function Odometer({
             </span>
           </span>
         ) : (
-          <span key={i} aria-hidden className="inline-block">
+          <span key={i} aria-hidden className="inline-block" style={{ whiteSpace: "pre" }}>
             {c}
           </span>
         ),

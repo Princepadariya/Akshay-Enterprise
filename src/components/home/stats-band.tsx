@@ -5,23 +5,11 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import { Odometer } from "@/components/motion/odometer";
+import { InstrumentScale as Scale } from "@/components/sections/instrument-scale";
 import { TodoMark } from "@/components/todo-mark";
 import { site } from "@/content/site";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
-
-const TICKS = 25;
-
-/** One row of instrument ticks: every sixth is a major graduation. */
-function Scale({ style, ...rest }: React.HTMLAttributes<HTMLSpanElement> & { "data-sweep"?: boolean }) {
-  return (
-    <span aria-hidden {...rest} style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", ...style }}>
-      {Array.from({ length: TICKS }, (_, i) => (
-        <span key={i} style={{ width: 1, height: i % 6 === 0 ? 12 : 6, background: "currentColor" }} />
-      ))}
-    </span>
-  );
-}
 
 /**
  * Company in numbers, read like a machine's counters: each figure spins in on mechanical digit

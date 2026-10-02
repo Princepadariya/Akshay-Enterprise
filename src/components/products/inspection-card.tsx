@@ -45,7 +45,7 @@ export function InspectionCard({ checks, partName }: { checks: string[]; partNam
       <div aria-hidden className="grid-lines-fine absolute inset-0 opacity-25" />
 
       <div className="relative flex items-center justify-between gap-4 border-b border-white/10 pb-4 font-mono text-[10.5px] tracking-[0.14em] text-paper/55 uppercase">
-        <span className="truncate">QC checklist / {partName}</span>
+        <span className="min-w-0 truncate">QC checklist / {partName}</span>
         <span className="shrink-0">Every lot</span>
       </div>
 

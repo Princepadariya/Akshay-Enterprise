@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import { PageHero } from "@/components/sections/page-hero";
 import { SectionHeader } from "@/components/sections/section-header";
 import { CtaBand } from "@/components/sections/cta-band";
@@ -83,15 +83,20 @@ export default function AboutPage() {
       </section>
 
       <section className="container-x py-16 md:py-24">
-        <ul className="grid gap-4 md:grid-cols-3">
-          {sub.map((s) => (
-            <li key={s.href}>
-              <Link href={s.href} className="group flex h-full flex-col justify-between gap-10 rounded-sm border border-border p-6 transition-colors hover:border-brass/60">
-                <span>
-                  <span className="block font-display text-xl font-semibold tracking-tight">{s.title}</span>
-                  <span className="mt-2 block text-sm text-muted-foreground">{s.body}</span>
+        <h2 className="font-display text-3xl leading-[1.05] font-semibold tracking-[-0.03em] md:text-4xl">More about us</h2>
+        <ul className="mt-10 border-b border-border">
+          {sub.map((s, i) => (
+            <li key={s.href} className="border-t border-border">
+              <Link href={s.href} className="group grid grid-cols-[auto_1fr_auto] items-center gap-5 py-6 md:grid-cols-[4rem_minmax(0,18rem)_1fr_auto] md:gap-8 md:py-7">
+                <span className="font-mono text-xs text-muted-foreground transition-colors group-hover:text-brass-ink">{String(i + 1).padStart(2, "0")}</span>
+                <span className="font-display text-xl leading-tight font-semibold tracking-tight transition-transform duration-500 group-hover:translate-x-1.5 md:text-2xl">
+                  {s.title}
                 </span>
-                <ArrowRight strokeWidth={1.5} className="size-5 text-brass transition-transform group-hover:translate-x-1" />
+                <span className="hidden text-muted-foreground md:block">{s.body}</span>
+                <span className="grid size-10 place-items-center rounded-full border border-border transition-[background-color,border-color,color,transform] duration-500 group-hover:rotate-45 group-hover:border-brass group-hover:bg-brass group-hover:text-graphite">
+                  <ArrowUpRight strokeWidth={1.5} className="size-4" />
+                </span>
+                <span className="col-span-3 -mt-3 text-sm text-muted-foreground md:hidden">{s.body}</span>
               </Link>
             </li>
           ))}

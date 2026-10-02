@@ -1,9 +1,11 @@
 import Link from "next/link";
-import { BadgeCheck, FileText } from "lucide-react";
+import { BadgeCheck, ChevronRight, FileText } from "lucide-react";
 import { PageHero } from "@/components/sections/page-hero";
 import { SectionHeader } from "@/components/sections/section-header";
 import { CtaBand } from "@/components/sections/cta-band";
 import { Reveal } from "@/components/motion/reveal";
+import { InstrumentGrid } from "@/components/sections/instrument-grid";
+import { ReadoutStrip } from "@/components/sections/readout-strip";
 import { TodoMark } from "@/components/todo-mark";
 import { Button } from "@/components/ui/button";
 import { inspectionStages, instruments, qualityIntro, qualityPolicy, toleranceHighlights } from "@/content/quality";
@@ -28,28 +30,32 @@ export default function QualityPage() {
       />
 
       <section className="border-b border-border">
-        <dl className="container-x grid grid-cols-2 gap-px py-12 md:grid-cols-4">
-          {toleranceHighlights.map((t) => (
-            <div key={t.label} className="flex flex-col-reverse gap-1 py-4">
-              <dt className="font-mono text-[11px] tracking-[0.16em] text-muted-foreground uppercase">
-                {t.label}
-                <TodoMark />
-              </dt>
-              <dd className="font-mono text-3xl font-medium tracking-tight md:text-4xl">
-                {t.value} <span className="text-base text-muted-foreground">{t.unit}</span>
-              </dd>
-            </div>
-          ))}
-        </dl>
+        <div className="container-x py-12 md:py-16">
+          <ReadoutStrip items={toleranceHighlights} />
+        </div>
       </section>
 
       <section className="container-x py-16 md:py-24">
         <SectionHeader title="Inspection stages" lead="A part cannot move to the next stage until it passes the gate before it." />
-        <ol className="mt-12 grid gap-4 lg:grid-cols-3">
+        <ol className="mt-12 grid gap-10 lg:grid-cols-3 lg:gap-8">
           {inspectionStages.map((s, i) => (
             <Reveal as="li" key={s.stage} delay={i * 0.08} className="relative flex flex-col rounded-sm border border-border bg-card p-6 md:p-8">
               <span aria-hidden className="metal-brass absolute top-0 left-0 h-[2px] w-16" />
-              <p className="font-mono text-xs tracking-widest text-brass-ink uppercase">{s.stage}</p>
+              {/* gate connector to the next stage: right on large screens, below on small */}
+              {i < inspectionStages.length - 1 ? (
+                <span
+                  aria-hidden
+                  className="absolute -bottom-8 left-1/2 z-[1] grid size-8 -translate-x-1/2 rotate-90 place-items-center rounded-full border border-brass/60 bg-background text-brass-ink lg:top-1/2 lg:-right-7 lg:bottom-auto lg:left-auto lg:translate-x-0 lg:-translate-y-1/2 lg:rotate-0"
+                >
+                  <ChevronRight strokeWidth={1.75} className="size-4" />
+                </span>
+              ) : null}
+              <div className="flex items-center justify-between gap-4">
+                <p className="font-mono text-xs tracking-widest text-brass-ink uppercase">{s.stage}</p>
+                <span className="rounded-full border border-border px-2.5 py-0.5 font-mono text-[10.5px] tracking-wide text-muted-foreground">
+                  Gate {String(i + 1).padStart(2, "0")}
+                </span>
+              </div>
               <h3 className="mt-3 font-display text-2xl font-semibold tracking-tight">{s.title}</h3>
               <ul className="mt-6 grid gap-3">
                 {s.checks.map((c) => (
@@ -67,19 +73,13 @@ export default function QualityPage() {
       <section className="border-y border-border bg-surface py-16 md:py-24">
         <div className="container-x grid gap-12 lg:grid-cols-12">
           <div className="lg:col-span-4">
-            <SectionHeader title="Measuring instruments" />
+            <div className="lg:sticky lg:top-28">
+              <SectionHeader title="Measuring instruments" lead="What each feature is checked with, from the machine to the inspection room." />
+            </div>
           </div>
-          <ul className="grid gap-px overflow-hidden rounded-sm border border-border bg-border sm:grid-cols-2 lg:col-span-8">
-            {instruments.map((ins) => (
-              <li key={ins.name} className="bg-card p-5">
-                <p className="font-medium">
-                  {ins.name}
-                  <TodoMark show={ins.placeholder} />
-                </p>
-                <p className="mt-1 font-mono text-[12px] text-muted-foreground">{ins.use}</p>
-              </li>
-            ))}
-          </ul>
+          <div className="min-w-0 lg:col-span-8">
+            <InstrumentGrid items={instruments} />
+          </div>
         </div>
       </section>
 

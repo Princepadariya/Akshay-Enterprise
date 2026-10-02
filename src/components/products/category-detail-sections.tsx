@@ -41,7 +41,7 @@ export function DetailRouting({ detail, partName }: { detail: CategoryDetail; pa
   return (
     <section className="border-y border-border bg-surface py-16 md:py-24">
       <div className="container-x grid gap-10 lg:grid-cols-12">
-        <div className="lg:col-span-7">
+        <div className="min-w-0 lg:col-span-7">
           <h2 className="font-display text-3xl font-semibold tracking-[-0.03em] md:text-4xl">
             How it is made
             <TodoMark />
@@ -49,13 +49,13 @@ export function DetailRouting({ detail, partName }: { detail: CategoryDetail; pa
           <p className="mt-3 max-w-[56ch] text-muted-foreground">The typical routing for this family. Your drawing may add or remove operations.</p>
           <div className="mt-8 overflow-hidden rounded-sm border border-border bg-card">
             <div className="grid grid-cols-[1fr_auto] items-center gap-4 border-b border-border bg-surface-2/60 px-5 py-3 font-mono text-[11px] tracking-wider text-muted-foreground">
-              <span className="truncate">ROUTING SHEET  /  {partName.toUpperCase()}</span>
+              <span className="min-w-0 truncate">ROUTING SHEET  /  {partName.toUpperCase()}</span>
               <span className="hidden sm:inline">SHEET 1 OF 1</span>
             </div>
             <RoutingList route={detail.route} />
           </div>
         </div>
-        <div className="lg:col-span-5">
+        <div className="min-w-0 lg:col-span-5">
           <div className="lg:sticky lg:top-28">
             <h2 className="font-display text-3xl font-semibold tracking-[-0.03em] md:text-4xl">Inspection plan</h2>
             <p className="mt-3 text-muted-foreground">Checks applied to every lot before release.</p>

@@ -3,7 +3,8 @@ import { SectionHeader } from "@/components/sections/section-header";
 import { CtaBand } from "@/components/sections/cta-band";
 import { MachineryTable } from "@/components/sections/machinery-table";
 import { PlantTour } from "@/components/sections/plant-tour";
-import { StatCounter } from "@/components/sections/stat-counter";
+import { Odometer } from "@/components/motion/odometer";
+import { PlantTitleBlock } from "@/components/sections/plant-title-block";
 import { TodoMark } from "@/components/todo-mark";
 import { machinery, plant } from "@/content/machinery";
 import { site } from "@/content/site";
@@ -26,33 +27,21 @@ export default function InfrastructurePage() {
         image="factoryLine"
       />
 
-      <section className="container-x grid gap-12 py-16 md:py-24 lg:grid-cols-12">
-        <div className="lg:col-span-5">
-          <SectionHeader title="Plant overview" />
-          <ul className="mt-8 grid gap-3">
-            {plant.utilities.map((u) => (
-              <li key={u} className="flex items-baseline gap-3 text-muted-foreground">
-                {u}
-              </li>
-            ))}
-          </ul>
+      <section className="container-x grid gap-12 py-16 md:py-24 lg:grid-cols-12 lg:gap-16">
+        <div className="lg:col-span-4">
+          <SectionHeader title="Plant overview" lead="The site at a glance: where it is, how it is powered and how it runs." />
         </div>
-        <dl className="grid gap-px self-start overflow-hidden rounded-sm border border-border bg-border sm:grid-cols-2 lg:col-span-7">
-          {[
-            { label: "Location", v: plant.location },
-            { label: "Covered area", v: plant.area },
-            { label: "Power", v: plant.power },
-            { label: "Operation", v: plant.shifts },
-          ].map((f) => (
-            <div key={f.label} className="bg-card p-6">
-              <dt className="font-mono text-[11px] tracking-[0.16em] text-muted-foreground uppercase">{f.label}</dt>
-              <dd className="mt-2 font-display text-xl font-semibold tracking-tight">
-                {f.v.value}
-                <TodoMark show={f.v.placeholder} />
-              </dd>
-            </div>
-          ))}
-        </dl>
+        <div className="min-w-0 lg:col-span-8">
+          <PlantTitleBlock
+            fields={[
+              { label: "Location", value: plant.location.value, placeholder: plant.location.placeholder },
+              { label: "Covered area", value: plant.area.value, placeholder: plant.area.placeholder },
+              { label: "Power", value: plant.power.value, placeholder: plant.power.placeholder },
+              { label: "Operation", value: plant.shifts.value, placeholder: plant.shifts.placeholder },
+            ]}
+            utilities={plant.utilities}
+          />
+        </div>
       </section>
 
       <section className="border-y border-border bg-surface py-16 md:py-24">
@@ -72,8 +61,11 @@ export default function InfrastructurePage() {
                 {s.label}
                 <TodoMark show={s.placeholder} />
               </dt>
-              <dd className="font-display text-5xl font-semibold tracking-[-0.04em] tabular md:text-6xl">
-                <StatCounter value={s.value} suffix={s.suffix} decimals={"decimals" in s ? s.decimals : 0} />
+              <dd>
+                <Odometer
+                  value={`${s.value.toFixed("decimals" in s ? s.decimals : 0)}${s.suffix}`}
+                  className="font-display text-5xl font-semibold tracking-[-0.04em] md:text-6xl"
+                />
               </dd>
             </div>
           ))}

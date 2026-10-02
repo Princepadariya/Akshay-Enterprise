@@ -7,11 +7,12 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import { SectionHeader } from "@/components/sections/section-header";
 import { photos, type PhotoKey } from "@/content/images";
+import { TodoMark } from "@/components/todo-mark";
 import { cn } from "@/lib/utils";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
-type Step = { title: string; body: string; image: PhotoKey };
+type Step = { title: string; body: string; image: PhotoKey; placeholder?: boolean };
 
 /**
  * Sticky step scroller: the heading and a photo stay pinned on the left while steps scroll on the
@@ -80,9 +81,16 @@ export function StepScroller({ title, lead, steps }: { title: string; lead: stri
             )}
           >
             <span aria-hidden data-step-bar={i} className="metal-brass absolute top-0 left-0 hidden h-full w-[2px] origin-top scale-y-0 lg:block" />
+            {/* small screens have no sticky photo, so each step carries its own */}
+            <div className="relative col-span-2 aspect-[16/10] overflow-hidden rounded-sm border border-border lg:hidden">
+              <Image src={photos[s.image].src} alt={photos[s.image].alt} fill sizes="(min-width: 1024px) 1px, 100vw" className="object-cover" />
+            </div>
             <span className="pl-4 font-mono text-sm text-brass-ink">{String(i + 1).padStart(2, "0")}</span>
             <div>
-              <h3 className="font-display text-xl font-semibold tracking-tight md:text-2xl">{s.title}</h3>
+              <h3 className="font-display text-xl font-semibold tracking-tight md:text-2xl">
+                {s.title}
+                <TodoMark show={s.placeholder} />
+              </h3>
               <p className="mt-2 max-w-[52ch] leading-relaxed text-muted-foreground">{s.body}</p>
             </div>
           </li>

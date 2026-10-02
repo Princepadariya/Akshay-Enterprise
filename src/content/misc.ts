@@ -31,6 +31,23 @@ export const sustainability = {
       placeholder: true,
     },
   ],
+  /**
+   * Status of each practice, derived from the pillar text above ("being evaluated" = evaluating).
+   * TODO: confirm each status with the plant before launch.
+   */
+  status: {
+    placeholder: true,
+    items: [
+      { item: "Chips separated by alloy at every machine", area: "Chip recovery", state: "in-place" },
+      { item: "Chips de-oiled and returned to the mill for remelting", area: "Chip recovery", state: "in-place" },
+      { item: "Central coolant filtration", area: "Coolant and oil", state: "in-place" },
+      { item: "Spent oil and sludge handed to authorised recyclers", area: "Coolant and oil", state: "in-place" },
+      { item: "Machine loading planned to reduce idle running", area: "Energy", state: "in-place" },
+      { item: "Rooftop solar", area: "Energy", state: "evaluating" },
+      { item: "Efficient compressors", area: "Energy", state: "evaluating" },
+      { item: "Operator skills training with local technical institutes", area: "Community", state: "in-place" },
+    ] as { item: string; area: string; state: "in-place" | "evaluating" }[],
+  },
 };
 
 /* ---------------------------------------------------------------- Gallery */
