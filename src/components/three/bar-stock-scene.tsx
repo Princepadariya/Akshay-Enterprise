@@ -2,7 +2,8 @@
 
 import { useEffect, useMemo, useRef } from "react";
 import * as THREE from "three";
-import { Canvas, useFrame } from "@react-three/fiber";
+import { Canvas, useFrame, useThree } from "@react-three/fiber";
+import { createFrameWatchdog } from "@/lib/device";
 import { Environment, Lightformer } from "@react-three/drei";
 
 export type BarLook = {
@@ -73,7 +74,17 @@ function Bar({ look }: { look: BarLook }) {
   );
 }
 
-function Rack({ looks, active, reduceMotion }: { looks: BarLook[]; active: number; reduceMotion: boolean }) {
+function Rack({ looks, active, reduceMotion, still, onSlow }: { looks: BarLook[]; active: number; reduceMotion: boolean; still: boolean; onSlow?: () => void }) {
+  const invalidate = useThree((s) => s.invalidate);
+  // live frame-rate check: if this device cannot animate the scene smoothly, the parent switches to still mode
+  const watchdog = useMemo(() => createFrameWatchdog({ onSlow: () => onSlow?.() }), [onSlow]);
+  // in still mode frames are only drawn on demand; draw a couple so the environment lighting settles
+  useEffect(() => {
+    if (!still) return;
+    invalidate();
+    const t = window.setTimeout(() => invalidate(), 250);
+    return () => window.clearTimeout(t);
+  }, [still, invalidate]);
   const groups = useRef<(THREE.Group | null)[]>([]);
   const target = useRef<number[]>(looks.map((_, i) => (i === active ? 0 : -OFF)));
   const prev = useRef(active);
@@ -82,20 +93,23 @@ function Rack({ looks, active, reduceMotion }: { looks: BarLook[]; active: numbe
   // new bar feeds in from the left, the previous one exits to the right
   useEffect(() => {
     if (prev.current === active) return;
+    const instant = reduceMotion || still;
     const g = groups.current[active];
-    if (g) g.position.x = reduceMotion ? 0 : -OFF;
+    if (g) g.position.x = instant ? 0 : -OFF;
     target.current[prev.current] = OFF;
     target.current[active] = 0;
     const old = groups.current[prev.current];
-    if (old && reduceMotion) old.position.x = OFF;
+    if (old && instant) old.position.x = OFF;
     prev.current = active;
-  }, [active, reduceMotion]);
+    if (still) invalidate(); // swap the bar with a single frame
+  }, [active, reduceMotion, still, invalidate]);
 
   useFrame((state, dt) => {
+    if (!still) watchdog(dt * 1000);
     // fov is vertical: on a narrow stage pull the camera back so the full bar length stays in frame
     const aspect = state.size.width / Math.max(1, state.size.height);
     const z = CAM_Z * Math.max(1, 1.5 / aspect);
-    state.camera.position.z += (z - state.camera.position.z) * 0.2;
+    state.camera.position.z = still ? z : state.camera.position.z + (z - state.camera.position.z) * 0.2;
     pointer.current.x += (state.pointer.x - pointer.current.x) * 0.05;
     pointer.current.y += (state.pointer.y - pointer.current.y) * 0.05;
     const k = 1 - Math.exp(-dt * 3.2);
@@ -109,7 +123,7 @@ function Rack({ looks, active, reduceMotion }: { looks: BarLook[]; active: numbe
       if (!g.visible) return;
       // bars spin about their own axis: slow idle turn, faster while being fed
       const spin = g.children[0].children[0] as THREE.Group;
-      if (!reduceMotion) spin.rotation.y += dt * (0.35 + speed * 0.9);
+      if (!reduceMotion && !still) spin.rotation.y += dt * (0.35 + speed * 0.9);
       // gentle tilt toward the pointer
       g.rotation.x = pointer.current.y * 0.18;
       g.rotation.y = -0.3 + pointer.current.x * 0.2;
@@ -137,19 +151,25 @@ export default function BarStockScene({
   active,
   running,
   reduceMotion,
+  still = false,
+  onSlow,
   onReady,
 }: {
   looks: BarLook[];
   active: number;
   running: boolean;
   reduceMotion: boolean;
+  /** draw only on demand at 1x resolution (low-power devices or a failed frame-rate check) */
+  still?: boolean;
+  /** called once if the device cannot keep a smooth frame rate */
+  onSlow?: () => void;
   /** called once the WebGL context exists, so the parent can fade the scene in */
   onReady?: () => void;
 }) {
   return (
     <Canvas
-      dpr={[1, 1.75]}
-      frameloop={running ? "always" : "never"}
+      dpr={still ? 1 : [1, 1.75]}
+      frameloop={still ? "demand" : running ? "always" : "never"}
       camera={{ position: [0, 0.8, CAM_Z], fov: 32 }}
       gl={{ antialias: true, alpha: true, powerPreference: "high-performance" }}
       onCreated={() => onReady?.()}
@@ -157,7 +177,7 @@ export default function BarStockScene({
     >
       <ambientLight intensity={0.35} />
       <directionalLight position={[3, 4, 5]} intensity={1.2} />
-      <Rack looks={looks} active={active} reduceMotion={reduceMotion} />
+      <Rack looks={looks} active={active} reduceMotion={reduceMotion} still={still} onSlow={onSlow} />
       <Environment resolution={256} frames={1}>
         <group rotation={[-Math.PI / 3, 0, 1]}>
           <Lightformer form="rect" intensity={3} position={[0, 5, -9]} scale={[10, 10, 1]} />

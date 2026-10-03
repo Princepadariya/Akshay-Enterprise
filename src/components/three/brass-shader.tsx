@@ -1,13 +1,15 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import { createFrameWatchdog, prefersLightEffects } from "@/lib/device";
 import { cn } from "@/lib/utils";
 
 /**
  * "Liquid brass" WebGL background: domain-warped noise shaded like polished, brushed brass,
  * with a specular highlight that drifts toward the pointer. Plain WebGL (no three.js), one quad.
  *
- * Performance: renders at 55% resolution (upscaled by CSS, the effect is soft anyway),
+ * Performance: renders at 55% resolution (upscaled by CSS, the effect is soft anyway), goes still on
+ * low-end devices or if the frame rate cannot be sustained (see lib/device.ts),
  * pauses whenever off screen, and draws a single still frame under reduced motion.
  * Theme-aware: lighter "paper and brass" palette in light mode, graphite and brass in dark mode.
  * If WebGL is unavailable the canvas stays empty and the CSS background beneath shows through.
@@ -118,6 +120,18 @@ export function BrassShader({ className }: { className?: string }) {
     let visible = false;
     let frame = 0;
     const start = performance.now();
+    // Still mode: one frame, no loop. Reduced motion and clear low-end devices start still;
+    // others go still (frozen on the current frame) if they cannot keep a smooth frame rate.
+    let still = reduce || prefersLightEffects();
+    let frozenT = 12;
+    let lastT = 12;
+    let lastNow = 0;
+    const watchdog = createFrameWatchdog({
+      onSlow: () => {
+        still = true;
+        frozenT = lastT;
+      },
+    });
 
     const resize = () => {
       const w = Math.max(1, Math.round(canvas.clientWidth * SCALE));
@@ -134,20 +148,24 @@ export function BrassShader({ className }: { className?: string }) {
       mouse.x += (mouse.tx - mouse.x) * 0.04;
       mouse.y += (mouse.ty - mouse.y) * 0.04;
       gl.uniform2f(uRes, canvas.width, canvas.height);
-      gl.uniform1f(uTime, reduce ? 12 : (now - start) / 1000);
+      lastT = still ? frozenT : (now - start) / 1000;
+      gl.uniform1f(uTime, lastT);
       gl.uniform2f(uMouse, mouse.x, mouse.y);
       gl.uniform1f(uDark, dark);
       gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
     };
 
     const loop = (now: number) => {
+      if (lastNow) watchdog(now - lastNow);
+      lastNow = now;
       draw(now);
-      frame = visible && !reduce ? requestAnimationFrame(loop) : 0;
+      frame = visible && !still ? requestAnimationFrame(loop) : 0;
     };
 
     const io = new IntersectionObserver(([entry]) => {
       visible = entry.isIntersecting;
-      if (visible && !frame) frame = requestAnimationFrame(loop);
+      lastNow = 0; // a pause off screen is not a slow frame
+      if (visible && !frame && !still) frame = requestAnimationFrame(loop);
     });
     io.observe(canvas);
 

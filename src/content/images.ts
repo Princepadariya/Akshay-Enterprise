@@ -6,7 +6,7 @@
  *   1. drop the file into /public/images/...
  *   2. change `src` to the local path (e.g. "/images/factory/turning-bay.jpg")
  *   3. update width/height/alt and set `credit` to undefined.
- * The site-wide duotone treatment (.img-treat) keeps mixed photos consistent.
+ * Photos show in original colour by default; <Photo treatment="duotone"> adds the brass-toned look where a section needs it.
  */
 
 export type Photo = {
@@ -49,8 +49,6 @@ export const photos = {
   partsOnDrawing: unsplash("1769147339214-076740872485", "two-metal-mechanical-parts-on-engineering-blueprints-SRqJ3eli-4I", "encatapd", "EnCata PD", 6000, 3376, "Two machined parts resting on engineering drawings"),
   caliperPart: unsplash("1758873263563-5ba4aa330799", "hands-using-a-digital-caliper-to-measure-metal-part-_luiFaaZU6k", "hanswestbeek", "Hans Westbeek", 3504, 2336, "Digital caliper measuring a machined metal part"),
   factoryLine: unsplash("1717386255767-52643970d483", "a-factory-with-a-lot-of-machines-in-it-5hPe-Tr2wog", "homaappliances", "Homa Appliances", 6000, 4002, "Production hall with rows of machines"),
-  cargoShips: unsplash("1578575437130-527eed3abbec", "cargo-ships-docked-at-the-pier-during-day-CpsTAUPoScw", "andylid0", "Andy Li", 6000, 4000, "Container vessels docked at a port"),
-  scrapFittings: unsplash("1769012334805-eb47a65b5d54", "pile-of-rusty-metal-pipes-and-plumbing-parts-NIZCFGxjLzc", "eprouzet", "Eric Prouzet", 6240, 4160, "Collected metal fittings and pipe offcuts for recycling"),
   terminalBlocks: unsplash("1767514536570-83d70c024247", "electrical-wires-connected-with-yellow-terminal-blocks-zmZR_8trbE0", "vzickner", "Valentin Zickner", 6000, 4000, "Electrical conductors clamped in terminal blocks"),
   warehouse: unsplash("1689942010216-dc412bb1e7a9", "a-large-warehouse-filled-with-lots-of-pallets-OnbSOhz0oig", "afinisgroup", "AFINIS Group", 6000, 4000, "Warehouse with packed pallets ready for dispatch"),
   rulerParts: unsplash("1780034766288-9b436534d428", "schuck-group-ruler-with-metal-parts-and-technical-drawings-KCgTyuYE5JA", "raymond36", "Raymond Sime", 4261, 6392, "Steel rule, machined parts and technical drawings"),
@@ -81,7 +79,6 @@ export const photos = {
   precisionPins: unsplash("1758873263428-f4b2edb45fe1", "rows-of-shiny-metal-components-on-a-textured-surface-fimoFLchbuk", "hanswestbeek", "Hans Westbeek", 3504, 2336, "Rows of precision-machined metal pins on a dark surface"),
   machinistLathe: unsplash("1565954786194-d22abeaac3ae", "mens-blue-denim-shirt-hTUdXgbhd3o", "movidagrafica", "Rafael Juárez", 4512, 3008, "Machinist operating a lathe in a workshop"),
   micrometerFlange: unsplash("1638875729378-e2221f0ec7bd", "a-person-is-working-on-a-metal-object-4eg-LQ5cGAE", "rothaargebirge", "Jessica Streser", 4912, 2760, "Micrometer measuring a machined brass flange"),
-  caliperDark: unsplash("1661921364121-26825beef6e7", "graphical-user-interface-X0S02vLrZEs", "balam15", "Amir Balam", 4608, 3456, "Digital caliper on a dark workbench"),
   dialIndicator: unsplash("1713371398479-4410ca153b1f", "a-close-up-of-a-pressure-gauge-on-a-table-6PKMewe0Lds", "jelly1024", "Jelifer Maniago", 6000, 3376, "Dial indicator checking a machined part"),
   portNight: unsplash("1661756977826-c66970f2a2cb", "a-large-building-with-a-crane-7ZAjfCwGS8Y", "lobostudiohamburg", "LoboStudio Hamburg", 9200, 6133, "Container port with cranes lit at night"),
   nutsOnBlack: unsplash("1549277512-89b1c704ffe8", "gray-pipe-fittings-_nQWGseKW4A", "dialex", "Diogo Nunes", 2816, 2112, "Steel hex nuts and washers on a black background"),

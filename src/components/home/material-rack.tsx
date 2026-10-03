@@ -2,7 +2,7 @@
 
 import dynamic from "next/dynamic";
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { useGSAP } from "@gsap/react";
 import { useReducedMotion } from "motion/react";
@@ -10,6 +10,7 @@ import { ArrowRight } from "lucide-react";
 import { SectionHeader } from "@/components/sections/section-header";
 import { materials, type MaterialKey } from "@/content/materials";
 import type { BarLook } from "@/components/three/bar-stock-scene";
+import { prefersLightEffects } from "@/lib/device";
 import { cn } from "@/lib/utils";
 
 gsap.registerPlugin(useGSAP);
@@ -45,6 +46,9 @@ export function MaterialRack() {
   // ready (and fades in) by the time the visitor gets here.
   const [mounted, setMounted] = useState(false);
   const [sceneReady, setSceneReady] = useState(false);
+  // still 3D (no continuous animation) on low-power devices, or after the scene reports it is too slow
+  const [lite, setLite] = useState(() => prefersLightEffects());
+  const goLite = useCallback(() => setLite(true), []);
   const reduce = useReducedMotion() ?? false;
   const [userPicked, setUserPicked] = useState(false);
   const m = materials[active];
@@ -125,7 +129,7 @@ export function MaterialRack() {
               <div className="absolute inset-0">
                 {mounted ? (
                   <div className="absolute inset-0 transition-opacity duration-700" style={{ opacity: sceneReady ? 1 : 0 }}>
-                    <BarStockScene looks={looks} active={active} running={inView} reduceMotion={reduce} onReady={() => setSceneReady(true)} />
+                    <BarStockScene looks={looks} active={active} running={inView} reduceMotion={reduce} still={lite || reduce} onSlow={goLite} onReady={() => setSceneReady(true)} />
                   </div>
                 ) : null}
               </div>
