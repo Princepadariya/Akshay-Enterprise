@@ -9,6 +9,7 @@ import { getIndustry, industries } from "@/content/industries";
 import { products } from "@/content/products";
 import { pageMetadata } from "@/lib/seo";
 import { BatchReveal } from "@/components/motion/batch-reveal";
+import { Reveal } from "@/components/motion/reveal";
 
 export const dynamicParams = false;
 
@@ -43,24 +44,40 @@ export default async function IndustryPage({ params }: PageProps<"/industries/[s
 
       <section className="container-x grid gap-12 py-16 md:py-24 lg:grid-cols-12">
         <div className="lg:col-span-4">
-          <SectionHeader title="Key requirements" />
+          <SectionHeader title="Typical parts" lead="Components we make for this sector. Others can be made to your drawing." />
           <ul className="mt-8 flex flex-wrap gap-2">
             {ind.parts.map((p) => (
-              <li key={p} className="rounded-sm border border-border px-3 py-1.5 font-mono text-[12px]">
+              <li key={p} className="rounded-sm border border-border bg-card px-3 py-1.5 font-mono text-[12px] transition-colors hover:border-brass/60">
                 {p}
               </li>
             ))}
           </ul>
         </div>
-        <ol className="grid gap-4 sm:grid-cols-3 lg:col-span-8">
-          {ind.priorities.map((p) => (
-            <li key={p.title} className="relative rounded-sm border border-border bg-card p-6">
-              <span aria-hidden className="metal-brass absolute top-0 left-0 h-[2px] w-12" />
-              <h3 className="font-display text-lg font-semibold tracking-tight">{p.title}</h3>
-              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{p.body}</p>
-            </li>
-          ))}
-        </ol>
+
+        {/* what matters in this sector, laid out as a supplier brief */}
+        <div className="min-w-0 lg:col-span-8">
+          <div className="relative overflow-hidden rounded-sm border border-border bg-card">
+            <div aria-hidden className="grid-lines-fine absolute inset-0 opacity-50" />
+            <div className="relative flex items-center justify-between gap-4 border-b border-border bg-surface-2/60 px-5 py-3 font-mono text-[10.5px] tracking-[0.14em] text-muted-foreground uppercase">
+              <span className="min-w-0 truncate">Supplier brief / {ind.name}</span>
+              <span className="shrink-0">{ind.priorities.length} requirements</span>
+            </div>
+            <ol className="relative">
+              {ind.priorities.map((p, i) => (
+                <Reveal
+                  as="li"
+                  key={p.title}
+                  delay={i * 0.06}
+                  className="grid grid-cols-[2.5rem_1fr] gap-4 border-b border-dashed border-border px-5 py-6 transition-colors duration-300 last:border-b-0 hover:bg-brass-soft md:grid-cols-[3rem_minmax(0,14rem)_1fr] md:gap-6 md:px-7"
+                >
+                  <span className="font-mono text-xs text-brass-ink">R{String(i + 1).padStart(2, "0")}</span>
+                  <h3 className="font-display text-lg leading-snug font-semibold tracking-tight">{p.title}</h3>
+                  <p className="col-start-2 text-sm leading-relaxed text-muted-foreground md:col-start-3">{p.body}</p>
+                </Reveal>
+              ))}
+            </ol>
+          </div>
+        </div>
       </section>
 
       {related.length ? (

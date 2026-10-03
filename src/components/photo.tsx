@@ -12,8 +12,8 @@ type Props = {
   alt?: string;
 };
 
-/** Fills its (positioned, sized) parent with a treated photograph. */
-export function Photo({ k, className, imgClassName, sizes = "100vw", priority, treatment = "duotone", alt }: Props) {
+/** Fills its (positioned, sized) parent with a photograph. Original colours by default; "duotone" / "soft" add the brass-toned treatment. */
+export function Photo({ k, className, imgClassName, sizes = "100vw", priority, treatment = "none", alt }: Props) {
   const p = photos[k];
   return (
     <div

@@ -72,7 +72,7 @@ export function Header() {
                       <li key={c.slug}>
                         <NavigationMenuLink asChild>
                           <Link href={`/products/${c.slug}`} className="group flex items-center gap-3 rounded-sm p-2 hover:bg-foreground/[0.05]">
-                            <span className="img-treat relative size-11 shrink-0 overflow-hidden rounded-sm">
+                            <span className="relative size-11 shrink-0 overflow-hidden rounded-sm">
                               <Image src={photos[c.image].src} alt="" fill sizes="44px" className="object-cover" />
                             </span>
                             <span className="flex min-w-0 flex-col">

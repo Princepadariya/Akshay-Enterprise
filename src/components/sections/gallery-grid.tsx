@@ -49,7 +49,7 @@ export function GalleryGrid({ items }: { items: GalleryItem[] }) {
                 <button
                   type="button"
                   onClick={() => setOpen(i)}
-                  className="group img-treat relative block w-full cursor-zoom-in overflow-hidden rounded-sm border border-border"
+                  className="group relative block w-full cursor-zoom-in overflow-hidden rounded-sm border border-border"
                   aria-label={`Open ${item.caption}`}
                 >
                   <Image

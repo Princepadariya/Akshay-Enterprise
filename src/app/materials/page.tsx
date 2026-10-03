@@ -31,7 +31,7 @@ export default function MaterialsPage() {
             className="grid scroll-mt-28 overflow-hidden rounded-sm border border-border bg-card md:grid-cols-12"
           >
             <div className={`relative min-h-56 md:col-span-4 ${i % 2 ? "md:order-2" : ""}`}>
-              <Photo k={m.image} className="absolute inset-0" sizes="(min-width: 768px) 33vw, 100vw" treatment="soft" />
+              <Photo k={m.image} className="absolute inset-0" sizes="(min-width: 768px) 33vw, 100vw" />
               <span aria-hidden className="absolute inset-x-0 bottom-0 z-[2] h-1.5" style={{ background: m.swatch }} />
             </div>
             <div className="grid gap-6 p-6 md:col-span-8 md:p-10 lg:grid-cols-2">

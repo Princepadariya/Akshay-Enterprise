@@ -62,9 +62,27 @@ export function CategoryBento() {
                     sizes={i === 0 ? "(min-width: 1024px) 50vw, 100vw" : "(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"}
                   />
                 ) : null}
+                {/*
+                  Shade so labels stay readable on any photo, including near-white ones and short cards
+                  where the title sits mid-card: a light even dim, a tall dark gradient from the bottom,
+                  and a top fade behind the arrow.
+                */}
+                {l.surface === "photo" ? (
+                  <div
+                    aria-hidden
+                    className="absolute inset-0 z-[1]"
+                    style={{
+                      background:
+                        "linear-gradient(to top, rgb(11 13 16 / 0.92) 0%, rgb(11 13 16 / 0.78) 30%, rgb(11 13 16 / 0.45) 60%, rgb(11 13 16 / 0) 90%), linear-gradient(to bottom, rgb(11 13 16 / 0.45) 0%, rgb(11 13 16 / 0) 30%), rgb(11 13 16 / 0.18)",
+                    }}
+                  />
+                ) : null}
                 {l.surface === "blueprint" ? <div aria-hidden className="grid-lines-fine absolute inset-0 opacity-80" /> : null}
 
-                <div className="relative z-[2] flex items-start justify-between gap-4">
+                <div
+                  className="relative z-[2] flex items-start justify-between gap-4"
+                  style={l.surface === "photo" ? { textShadow: "0 1px 14px rgb(0 0 0 / 0.55)" } : undefined}
+                >
                   <div>
                     <h3
                       className={cn(

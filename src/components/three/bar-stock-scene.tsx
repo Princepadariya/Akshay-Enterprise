@@ -137,11 +137,14 @@ export default function BarStockScene({
   active,
   running,
   reduceMotion,
+  onReady,
 }: {
   looks: BarLook[];
   active: number;
   running: boolean;
   reduceMotion: boolean;
+  /** called once the WebGL context exists, so the parent can fade the scene in */
+  onReady?: () => void;
 }) {
   return (
     <Canvas
@@ -149,6 +152,7 @@ export default function BarStockScene({
       frameloop={running ? "always" : "never"}
       camera={{ position: [0, 0.8, CAM_Z], fov: 32 }}
       gl={{ antialias: true, alpha: true, powerPreference: "high-performance" }}
+      onCreated={() => onReady?.()}
       aria-hidden
     >
       <ambientLight intensity={0.35} />

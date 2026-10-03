@@ -19,7 +19,7 @@ export function ScrollStatement({ text }: { text: string }) {
       const mm = gsap.matchMedia();
       mm.add("(prefers-reduced-motion: no-preference)", () => {
         const st = { trigger: ref.current, start: "top 78%", end: "bottom 50%", scrub: 0.6 };
-        gsap.fromTo("[data-w]", { opacity: 0.12 }, { opacity: 1, ease: "none", stagger: 0.05, scrollTrigger: st });
+        gsap.fromTo("[data-w]", { "--p": 0 }, { "--p": 1, ease: "none", stagger: 0.05, scrollTrigger: st });
         gsap.fromTo("[data-rule]", { scaleX: 0 }, { scaleX: 1, ease: "none", scrollTrigger: st });
       });
       return () => mm.revert();
@@ -31,7 +31,7 @@ export function ScrollStatement({ text }: { text: string }) {
     <div ref={ref}>
       <p className="font-display text-[clamp(1.75rem,3.8vw,3.5rem)] leading-[1.15] font-semibold tracking-[-0.03em]">
         {text.split(" ").map((w, i) => (
-          <span key={i} data-w>
+          <span key={i} data-w className="reveal-word">
             {w}{" "}
           </span>
         ))}

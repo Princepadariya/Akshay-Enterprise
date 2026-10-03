@@ -14,7 +14,8 @@ import { cn } from "@/lib/utils";
 
 gsap.registerPlugin(useGSAP);
 
-const BarStockScene = dynamic(() => import("@/components/three/bar-stock-scene"), { ssr: false });
+const loadScene = () => import("@/components/three/bar-stock-scene");
+const BarStockScene = dynamic(loadScene, { ssr: false });
 
 /** Appearance of each bar in the viewer: colour, polish and the stock section it is drawn with. */
 const LOOKS: Record<MaterialKey, BarLook> = {
@@ -39,14 +40,43 @@ export function MaterialRack() {
   const stage = useRef<HTMLDivElement>(null);
   const [active, setActive] = useState(0);
   const [inView, setInView] = useState(false);
+  // The three.js bundle stays out of the initial page load, but is fetched in the background once
+  // the page is idle and the scene is mounted well before the section scrolls into view, so it is
+  // ready (and fades in) by the time the visitor gets here.
+  const [mounted, setMounted] = useState(false);
+  const [sceneReady, setSceneReady] = useState(false);
   const reduce = useReducedMotion() ?? false;
   const [userPicked, setUserPicked] = useState(false);
   const m = materials[active];
 
+  // background preload after the page has loaded
   useEffect(() => {
-    const io = new IntersectionObserver(([e]) => setInView(e.isIntersecting), { rootMargin: "100px" });
-    if (stage.current) io.observe(stage.current);
-    return () => io.disconnect();
+    const w = window as Window & { requestIdleCallback?: (cb: () => void, o?: { timeout: number }) => number; cancelIdleCallback?: (id: number) => void };
+    let idle = 0;
+    const preload = () => {
+      idle = w.requestIdleCallback ? w.requestIdleCallback(() => void loadScene(), { timeout: 3000 }) : window.setTimeout(() => void loadScene(), 1500);
+    };
+    if (document.readyState === "complete") preload();
+    else window.addEventListener("load", preload, { once: true });
+    return () => {
+      window.removeEventListener("load", preload);
+      if (w.cancelIdleCallback) w.cancelIdleCallback(idle);
+      else window.clearTimeout(idle);
+    };
+  }, []);
+
+  // mount the scene well ahead of the viewport; run its frame loop only while (nearly) visible
+  useEffect(() => {
+    const el = stage.current;
+    if (!el) return;
+    const near = new IntersectionObserver(([e]) => e.isIntersecting && setMounted(true), { rootMargin: "1200px 0px" });
+    const visible = new IntersectionObserver(([e]) => setInView(e.isIntersecting), { rootMargin: "100px 0px" });
+    near.observe(el);
+    visible.observe(el);
+    return () => {
+      near.disconnect();
+      visible.disconnect();
+    };
   }, []);
 
   // auto-advance while visible, until the visitor takes over
@@ -93,7 +123,11 @@ export function MaterialRack() {
                 style={{ background: "radial-gradient(60% 50% at 50% 55%, rgb(207 165 96 / 0.12), transparent 70%)" }}
               />
               <div className="absolute inset-0">
-                <BarStockScene looks={looks} active={active} running={inView} reduceMotion={reduce} />
+                {mounted ? (
+                  <div className="absolute inset-0 transition-opacity duration-700" style={{ opacity: sceneReady ? 1 : 0 }}>
+                    <BarStockScene looks={looks} active={active} running={inView} reduceMotion={reduce} onReady={() => setSceneReady(true)} />
+                  </div>
+                ) : null}
               </div>
 
               {/* readout */}
@@ -130,15 +164,14 @@ export function MaterialRack() {
           </div>
 
           {/* material list */}
-          <ul role="tablist" aria-label="Materials" className="lg:order-1 lg:col-span-5">
+          <ul aria-label="Materials" className="lg:order-1 lg:col-span-5">
             {materials.map((mat, i) => {
               const on = i === active;
               return (
                 <li key={mat.key} className="border-t border-border last:border-b">
                   <button
                     type="button"
-                    role="tab"
-                    aria-selected={on}
+                    aria-pressed={on}
                     onClick={() => pick(i)}
                     className="group grid w-full grid-cols-[1.25rem_1fr_auto] items-center gap-4 py-4 text-left"
                   >

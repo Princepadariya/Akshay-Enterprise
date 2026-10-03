@@ -8,7 +8,7 @@ import { useGSAP } from "@gsap/react";
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
 /**
- * Statement band with a scroll-scrubbed word reveal: every word starts at 12% opacity and
+ * Statement band with a scroll-scrubbed word reveal: every word starts in the muted text colour and
  * brightens in reading order as the band moves through the viewport, so the sentence is
  * literally read at the speed the visitor scrolls. Brass words mark the materials.
  */
@@ -30,9 +30,9 @@ export function Manifesto() {
         const words = gsap.utils.toArray<HTMLElement>("[data-word]");
         gsap.fromTo(
           words,
-          { opacity: 0.12 },
+          { "--p": 0 },
           {
-            opacity: 1,
+            "--p": 1,
             ease: "none",
             stagger: 0.06,
             scrollTrigger: { trigger: ref.current, start: "top 75%", end: "bottom 45%", scrub: 0.6 },
@@ -55,7 +55,7 @@ export function Manifesto() {
       <div className="container-x">
         <p className="font-display text-[clamp(1.9rem,4.2vw,4rem)] leading-[1.12] font-semibold tracking-[-0.03em]">
           {STATEMENT.map((w, i) => (
-            <span key={i} data-word className={w.brass ? "text-brass-ink dark:text-brass" : undefined}>
+            <span key={i} data-word className={w.brass ? "reveal-word reveal-word-brass" : "reveal-word"}>
               {w.t}{" "}
             </span>
           ))}

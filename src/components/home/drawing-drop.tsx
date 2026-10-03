@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import { useRef, useState } from "react";
 import { FileUp } from "lucide-react";
 import { setPendingDrawings } from "@/lib/rfq-draft";
-import { ACCEPTED_EXTENSIONS } from "@/lib/rfq-schema";
+import { ACCEPTED_EXTENSIONS } from "@/lib/rfq-files";
 import { cn } from "@/lib/utils";
 
 /** Upload shortcut: drop a drawing here, continue in the RFQ form with the file attached. */

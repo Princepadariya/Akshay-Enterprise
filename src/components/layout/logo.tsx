@@ -25,11 +25,14 @@ export function LogoMark({ className }: { className?: string }) {
 
 export function Logo({ className }: { className?: string }) {
   return (
-    <Link href="/" aria-label="Akshay Enterprise, home" className={cn("group inline-flex items-center gap-2.5", className)}>
+    <Link href="/" className={cn("group inline-flex items-center gap-2.5", className)}>
       <LogoMark className="transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:rotate-[60deg]" />
       <span className="flex flex-col leading-none">
         <span className="font-display-wide text-[15px] font-semibold tracking-[-0.01em]">AKSHAY</span>
+        <span className="sr-only"> </span>
         <span className="mt-0.5 font-mono text-[9.5px] tracking-[0.28em] text-muted-foreground">ENTERPRISE</span>
+        {/* accessible name starts with the visible text ("AKSHAY ENTERPRISE"), then says where it goes */}
+        <span className="sr-only">, home</span>
       </span>
     </Link>
   );

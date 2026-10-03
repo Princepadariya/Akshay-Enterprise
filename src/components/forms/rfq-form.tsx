@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
@@ -14,6 +15,7 @@ import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { categories, findProductBySlug } from "@/content/products";
+import { photos } from "@/content/images";
 import { materials, materialName, type MaterialKey } from "@/content/materials";
 import { ACCEPTED_EXTENSIONS, MAX_FILES, MAX_TOTAL_BYTES, rfqSchema, validateFiles, type RfqValues } from "@/lib/rfq-schema";
 import { clearPendingDrawings, peekPendingDrawings } from "@/lib/rfq-draft";
@@ -153,6 +155,23 @@ export function RfqForm() {
 
   return (
     <div ref={topRef} className="grid scroll-mt-28 gap-8">
+      {/* product carried over from a product page, so the visitor sees it was picked up */}
+      {preProduct ? (
+        <div className="flex items-center gap-4 rounded-sm border border-brass/40 bg-brass-soft p-3 pr-4">
+          <span className="relative size-14 shrink-0 overflow-hidden rounded-sm border border-border">
+            <Image src={photos[preProduct.images[0]].src} alt="" fill sizes="56px" className="object-cover" />
+          </span>
+          <span className="min-w-0 flex-1">
+            <span className="block font-mono text-[10.5px] tracking-[0.14em] text-brass-ink uppercase">Quoting</span>
+            <span className="block truncate font-medium">{preProduct.name}</span>
+            <span className="block truncate text-xs text-muted-foreground">{categories.find((c) => c.slug === preProduct.category)?.name}</span>
+          </span>
+          <Link href="/products" className="shrink-0 text-sm font-medium text-brass-ink hover:underline">
+            Change
+          </Link>
+        </div>
+      ) : null}
+
       {/* Stepper */}
       <ol className="grid grid-cols-4 gap-2" aria-label="Form progress">
         {steps.map((s, i) => (

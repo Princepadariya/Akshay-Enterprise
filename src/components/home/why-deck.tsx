@@ -111,7 +111,7 @@ export function WhyDeck() {
                       <Photo k={d.image} className="absolute inset-0" sizes="(min-width: 1024px) 28vw, 100vw" treatment="none" />
                       {/* toned copy on top; only shown (and faded out on scroll) by the desktop GSAP deck */}
                       <div data-tone className="absolute inset-0" style={{ opacity: 0, visibility: "hidden" }}>
-                        <Photo k={d.image} className="absolute inset-0" sizes="(min-width: 1024px) 28vw, 100vw" />
+                        <Photo k={d.image} className="absolute inset-0" sizes="(min-width: 1024px) 28vw, 100vw" treatment="duotone" />
                       </div>
                     </div>
                   </div>

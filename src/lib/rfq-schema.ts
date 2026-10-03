@@ -1,13 +1,11 @@
 import { z } from "zod";
 import { categories } from "@/content/products";
 import { materials } from "@/content/materials";
+import { ACCEPTED_EXTENSIONS, MAX_FILES, MAX_TOTAL_BYTES } from "./rfq-files";
 
 /** Shared between the client forms and the route handlers. */
 
-export const ACCEPTED_EXTENSIONS = [".pdf", ".dwg", ".dxf", ".step", ".stp", ".igs", ".iges", ".jpg", ".jpeg", ".png", ".webp"];
-export const MAX_FILES = 5;
-/** Vercel serverless request bodies are capped at ~4.5 MB. Larger files need direct-to-storage upload (see README). */
-export const MAX_TOTAL_BYTES = 4 * 1024 * 1024;
+export { ACCEPTED_EXTENSIONS, MAX_FILES, MAX_TOTAL_BYTES };
 
 const categoryValues: [string, ...string[]] = ["other", ...categories.map((c) => c.slug)];
 const materialValues: [string, ...string[]] = ["other", "not-sure", ...materials.map((m) => m.key)];

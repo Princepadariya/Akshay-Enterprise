@@ -27,8 +27,8 @@ export function ProductGallery({ images, name }: { images: PhotoKey[]; name: str
           const r = e.currentTarget.getBoundingClientRect();
           el.style.transformOrigin = `${((e.clientX - r.left) / r.width) * 100}% ${((e.clientY - r.top) / r.height) * 100}%`;
         }}
-        className="group img-treat img-treat-soft relative aspect-[4/3] w-full cursor-zoom-in overflow-hidden rounded-sm border border-border"
-        aria-label={`Open ${name} image ${current + 1} in full screen`}
+        className="group relative aspect-[4/3] w-full cursor-zoom-in overflow-hidden rounded-sm border border-border"
+        aria-label={`Zoom: open ${name} image ${current + 1} in full screen`}
       >
         <div ref={imgWrap} className="absolute inset-0 transition-transform duration-500 ease-out group-hover:scale-[1.8]">
           <Image
@@ -54,7 +54,7 @@ export function ProductGallery({ images, name }: { images: PhotoKey[]; name: str
               aria-label={`Show image ${i + 1}`}
               aria-pressed={i === current}
               className={cn(
-                "img-treat relative aspect-square overflow-hidden rounded-sm border transition-colors",
+                "relative aspect-square overflow-hidden rounded-sm border transition-colors",
                 i === current ? "border-brass" : "border-border hover:border-foreground/40",
               )}
             >

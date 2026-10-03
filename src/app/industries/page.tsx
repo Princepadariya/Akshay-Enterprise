@@ -30,19 +30,30 @@ export default function IndustriesPage() {
             <Reveal key={ind.slug} delay={(i % 2) * 0.06}>
               <Link
                 href={`/industries/${ind.slug}`}
-                className="group grid h-full overflow-hidden rounded-sm border border-border bg-card transition-colors hover:border-brass/60 sm:grid-cols-[42%_1fr]"
+                className="group grid h-full overflow-hidden rounded-sm border border-border bg-card transition-[border-color,transform,box-shadow] duration-500 hover:-translate-y-0.5 hover:border-brass/60 hover:shadow-[0_24px_50px_-30px_rgb(11_13_16/0.45)] sm:grid-cols-[42%_1fr]"
               >
-                <div className="relative min-h-48">
+                <div className="relative min-h-52 overflow-hidden">
                   <Photo k={ind.image} className="absolute inset-0" imgClassName="transition-transform duration-[1.2s] group-hover:scale-105" sizes="(min-width: 768px) 22vw, 100vw" />
+                  <span className="absolute top-3 left-3 rounded-sm bg-graphite/80 px-2 py-1 font-mono text-[11px] text-paper">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
                 </div>
                 <div className="flex flex-col gap-3 p-6">
                   <div className="flex items-center justify-between">
                     <Icon strokeWidth={ICON_STROKE} className="size-6 text-brass" />
-                    <ArrowUpRight strokeWidth={1.5} className="size-5 text-muted-foreground transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                    <span className="grid size-9 place-items-center rounded-full border border-border transition-[background-color,border-color,color,transform] duration-500 group-hover:rotate-45 group-hover:border-brass group-hover:bg-brass group-hover:text-graphite">
+                      <ArrowUpRight strokeWidth={1.5} className="size-4" />
+                    </span>
                   </div>
                   <h2 className="font-display text-xl font-semibold tracking-tight">{ind.name}</h2>
                   <p className="text-sm leading-relaxed text-muted-foreground">{ind.summary}</p>
-                  <p className="mt-auto pt-2 font-mono text-[11px] text-foreground/75">{ind.parts.slice(0, 3).join("  /  ")}</p>
+                  <ul className="mt-auto flex flex-wrap gap-1.5 pt-2">
+                    {ind.parts.slice(0, 3).map((part) => (
+                      <li key={part} className="rounded-sm border border-border bg-background px-2 py-0.5 font-mono text-[11px] text-foreground/80">
+                        {part}
+                      </li>
+                    ))}
+                  </ul>
                 </div>
               </Link>
             </Reveal>

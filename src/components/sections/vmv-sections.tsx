@@ -23,7 +23,7 @@ export function VmvStatements() {
       mm.add("(prefers-reduced-motion: no-preference)", () => {
         gsap.utils.toArray<HTMLElement>("[data-statement]").forEach((block) => {
           const st = { trigger: block, start: "top 78%", end: "bottom 50%", scrub: 0.6 };
-          gsap.fromTo(block.querySelectorAll("[data-w]"), { opacity: 0.12 }, { opacity: 1, ease: "none", stagger: 0.05, scrollTrigger: st });
+          gsap.fromTo(block.querySelectorAll("[data-w]"), { "--p": 0 }, { "--p": 1, ease: "none", stagger: 0.05, scrollTrigger: st });
           gsap.fromTo(block.querySelector("[data-rule]"), { scaleX: 0 }, { scaleX: 1, ease: "none", scrollTrigger: st });
         });
       });
@@ -43,7 +43,7 @@ export function VmvStatements() {
           <div className="md:col-span-9">
             <p className="font-display text-[clamp(1.75rem,3.6vw,3.25rem)] leading-[1.15] font-semibold tracking-[-0.03em]">
               {b.body.split(" ").map((w, j) => (
-                <span key={j} data-w>
+                <span key={j} data-w className="reveal-word">
                   {w}{" "}
                 </span>
               ))}
