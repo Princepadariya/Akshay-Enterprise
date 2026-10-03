@@ -149,14 +149,7 @@ For **each product line**, we will send you a one-page summary to check. On it, 
 - [ ] **Company milestones** for the Journey page (year + one line each). The current ones are examples only:
       2005 founded · 2009 electrical range · 2012 first CNC · 2015 first export · 2018 certification · 2021 new plant · 2024 multi-metal
 
-## 10. Export 🟢
-
-- [ ] **Countries you actually export to** (the export map uses these). Currently shown: Germany, UK, Italy, Netherlands,
-      USA, Canada, UAE, Saudi Arabia, South Africa, Kenya, Australia, Singapore, Brazil.
-- [ ] **Incoterms** you offer. Currently shown: EXW, FOB, CIF, DAP.
-- [ ] **Ports** you usually ship from (e.g. Mundra, Kandla, Nhava Sheva).
-
-## 11. Customer questions (FAQ page) 🟢
+## 10. Customer questions (FAQ page) 🟢
 
 Please give your real answers to these (the current answers are general wording):
 
@@ -171,14 +164,14 @@ Please give your real answers to these (the current answers are general wording)
 - [ ] Can you supply inspection reports with shipments?
 - [ ] Any other questions buyers often ask you?
 
-## 12. Testimonials 🟢
+## 11. Testimonials 🟢
 
 The testimonials section is **hidden** until real quotes exist. If you have happy customers who agree:
 
 - [ ] Quote (1 to 3 sentences), their **role** and **type of company** (e.g. "Purchase Manager, switchgear OEM, Germany").
       Names are optional. **Written permission** from each customer is required.
 
-## 13. Sustainability 🟢
+## 12. Sustainability 🟢
 
 The Sustainability page shows a status board. Please confirm each line, or tell us to remove it.
 
@@ -195,7 +188,7 @@ The Sustainability page shows a status board. Please confirm each line, or tell 
 
 - [ ] Any real figures you are happy to publish (e.g. tonnes of chips recycled per year, solar capacity once installed)?
 
-## 14. Downloads (PDF documents) 🟢
+## 13. Downloads (PDF documents) 🟢
 
 The Downloads page lists these. Until a PDF is supplied, visitors see "Request a copy" instead of "Download".
 
@@ -207,7 +200,7 @@ The Downloads page lists these. Until a PDF is supplied, visitors see "Request a
 - [ ] RoHS / REACH declaration
 - [ ] Anything else buyers ask for (e.g. vendor registration form, GST certificate, bank details letter)?
 
-## 15. Policies and legal 🟢
+## 14. Policies and legal 🟢
 
 The site includes these policy pages, written as reasonable drafts. Each needs **review and approval by you**
 (and ideally your legal / compliance advisor). Please also tell us **who approves** each one and the **date**.
@@ -220,7 +213,7 @@ The site includes these policy pages, written as reasonable drafts. Each needs *
 - [ ] Privacy policy (reviewed for India's DPDP Act 2023; also GDPR if you sell to Europe)
 - [ ] Terms of use
 
-## 16. Wording we wrote, please confirm 🟢
+## 15. Wording we wrote, please confirm 🟢
 
 These are statements on the site that sound like promises or facts. Please confirm they are true, or tell us what to change.
 

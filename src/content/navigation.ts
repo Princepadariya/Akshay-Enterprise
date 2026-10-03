@@ -12,7 +12,6 @@ export const companyNav: NavLink[] = [
   { label: "Journey", href: "/about/journey", description: "Milestones since the first machine" },
   { label: "Vision, mission, values", href: "/about/vision-mission-values" },
   { label: "Leadership", href: "/about/leadership" },
-  { label: "Global presence", href: "/global-presence", description: "Export regions and logistics" },
   { label: "Sustainability", href: "/sustainability" },
   { label: "Gallery", href: "/gallery" },
   { label: "Downloads", href: "/downloads" },
@@ -58,7 +57,6 @@ export const footerColumns: { title: string; links: NavLink[] }[] = [
     links: [
       { label: "About us", href: "/about" },
       { label: "Leadership", href: "/about/leadership" },
-      { label: "Global presence", href: "/global-presence" },
       { label: "Sustainability", href: "/sustainability" },
       { label: "Gallery", href: "/gallery" },
     ],

@@ -55,7 +55,7 @@
   --font-sans: var(--font-body);
   --font-display: var(--font-archivo);
   --font-heading: var(--font-archivo);
-  --font-mono: var(--font-jetbrains);
+  --font-mono: var(--font-label);
 
   --radius-sm: 2px;
   --radius-md: 2px;

@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Archivo, Geist, JetBrains_Mono } from "next/font/google";
+import { Archivo, Geist, Poppins } from "next/font/google";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import { FloatingActions } from "@/components/layout/floating-actions";
@@ -24,9 +24,12 @@ const body = Geist({
   display: "swap",
 });
 
-const mono = JetBrains_Mono({
+// Labels, figures and technical readouts (the "font-mono" utility). Poppins is not a variable
+// font, so only the weights used by those labels are loaded.
+const mono = Poppins({
   subsets: ["latin"],
-  variable: "--font-jetbrains",
+  weight: ["400", "500", "600"],
+  variable: "--font-label",
   display: "swap",
 });
 

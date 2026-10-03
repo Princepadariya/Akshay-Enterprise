@@ -88,19 +88,6 @@ export const site = {
     "ISO 9001:2015",
   ],
 
-  /** Export destinations. TODO: replace with actual shipment history. Coordinates drive the world map pins. */
-  exportRegions: [
-    { region: "Europe", countries: ["Germany", "United Kingdom", "Italy", "Netherlands"], lat: 51.2, lng: 10.4, placeholder: true },
-    { region: "North America", countries: ["United States", "Canada"], lat: 39.8, lng: -98.6, placeholder: true },
-    { region: "Middle East", countries: ["United Arab Emirates", "Saudi Arabia"], lat: 24.4, lng: 54.4, placeholder: true },
-    { region: "Africa", countries: ["South Africa", "Kenya"], lat: -1.3, lng: 36.8, placeholder: true },
-    { region: "Asia Pacific", countries: ["Australia", "Singapore"], lat: -25.3, lng: 133.8, placeholder: true },
-    { region: "South America", countries: ["Brazil"], lat: -14.2, lng: -51.9, placeholder: true },
-  ],
-  origin: { label: "Gujarat, India", lat: 22.3, lng: 70.8 },
-
-  incoterms: { value: ["EXW", "FOB", "CIF", "DAP"], placeholder: true } as Placeholder<string[]>, // TODO
-
   differentiators: [
     {
       title: "Custom development",

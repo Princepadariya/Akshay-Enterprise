@@ -80,7 +80,6 @@ export const photos = {
   machinistLathe: unsplash("1565954786194-d22abeaac3ae", "mens-blue-denim-shirt-hTUdXgbhd3o", "movidagrafica", "Rafael Juárez", 4512, 3008, "Machinist operating a lathe in a workshop"),
   micrometerFlange: unsplash("1638875729378-e2221f0ec7bd", "a-person-is-working-on-a-metal-object-4eg-LQ5cGAE", "rothaargebirge", "Jessica Streser", 4912, 2760, "Micrometer measuring a machined brass flange"),
   dialIndicator: unsplash("1713371398479-4410ca153b1f", "a-close-up-of-a-pressure-gauge-on-a-table-6PKMewe0Lds", "jelly1024", "Jelifer Maniago", 6000, 3376, "Dial indicator checking a machined part"),
-  portNight: unsplash("1661756977826-c66970f2a2cb", "a-large-building-with-a-crane-7ZAjfCwGS8Y", "lobostudiohamburg", "LoboStudio Hamburg", 9200, 6133, "Container port with cranes lit at night"),
   nutsOnBlack: unsplash("1549277512-89b1c704ffe8", "gray-pipe-fittings-_nQWGseKW4A", "dialex", "Diogo Nunes", 2816, 2112, "Steel hex nuts and washers on a black background"),
   copperDrilling: unsplash("1645754884761-6ada0d53807b", "a-close-up-of-a-machine-with-a-piece-of-metal-on-it-pl95tzT0f7Y", "mastars2038", "mastars MT", 6155, 4103, "Copper part being drilled on a machining centre"),
   millingChips: unsplash("1551868561-f2cdee310ecf", "brass-color-tool-kB1BNcCcEnA", "mushonet", "Mushon Tamir", 5472, 3648, "Milling cutter with metal chips on a workpiece"),

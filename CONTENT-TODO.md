@@ -29,10 +29,6 @@ Every item below is currently a **placeholder**. On the live site, placeholders 
 - [ ] Standards routinely manufactured to (`site.standards`, shown in the home page strip)
 - [ ] Certificate PDFs added to `/public/downloads` (`src/content/misc.ts > downloads`)
 
-## Export
-- [ ] Real export regions and countries (`site.exportRegions`; lat/lng drives the map pins)
-- [ ] Supported Incoterms (`site.incoterms`)
-
 ## Products (`src/content/products.ts`)
 - [ ] Confirm the 10 categories (add, remove or rename freely; pages and navigation update automatically)
 - [ ] Confirm each product line, size range, thread types and finishes
