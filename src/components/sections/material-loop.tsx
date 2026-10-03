@@ -28,8 +28,8 @@ const point = (i: number, r = R) => {
 };
 
 /**
- * The brass loop as a circular flow diagram. Scrolling draws the ring and lights each stage as the
- * line reaches it; once drawn, a brass marker keeps travelling round the loop (only while on screen).
+ * The brass loop as a circular flow diagram. Scrolling draws the ring, a brass marker rides the tip
+ * of the line, and each stage lights as the line reaches it; the marker fades once the loop closes.
  * Shown complete and still under reduced motion.
  */
 export function MaterialLoop() {
@@ -69,27 +69,11 @@ export function MaterialLoop() {
           );
           tl.to(`[data-label="${i}"]`, { autoAlpha: 1, duration: 0.3 }, i);
         });
-        tl.to(
-          "[data-orbit]",
-          { autoAlpha: 1, duration: 0.3 },
-          STAGES.length - 0.3,
-        );
-
-        // continuous orbit once the loop is drawn; paused off screen
-        const spin = gsap.to("[data-orbit]", {
-          rotation: 360,
-          svgOrigin: "50 50",
-          duration: 14,
-          ease: "none",
-          repeat: -1,
-          paused: true,
-        });
-        ScrollTrigger.create({
-          trigger: root.current,
-          start: "top bottom",
-          end: "bottom top",
-          onToggle: (self) => (self.isActive ? spin.play() : spin.pause()),
-        });
+        // the marker rides the tip of the line as it draws (tied to scroll, no independent loop),
+        // then fades out once the loop is complete
+        tl.fromTo("[data-orbit]", { rotation: 0 }, { rotation: 360, svgOrigin: "50 50", duration: STAGES.length }, 0)
+          .to("[data-orbit]", { autoAlpha: 1, duration: 0.2 }, 0)
+          .to("[data-orbit]", { autoAlpha: 0, duration: 0.3 }, STAGES.length - 0.3);
       });
       return () => mm.revert();
     },
@@ -173,20 +157,18 @@ export function MaterialLoop() {
           </g>
           {/* centre: hex bar end */}
           <path
-            d="M50 37.5 L60.8 43.75 L60.8 56.25 L50 62.5 L39.2 56.25 L39.2 43.75 Z"
+            d="M50 33.5 L64.29 41.75 L64.29 58.25 L50 66.5 L35.71 58.25 L35.71 41.75 Z"
             fill="var(--brass-soft)"
             stroke="var(--brass)"
             strokeWidth="0.5"
           />
         </svg>
 
-        {/* centre caption */}
+        {/* centre caption: sized to sit inside the hexagon; the subline wraps to two lines on small screens */}
         <div className="absolute inset-0 grid place-items-center text-center">
-          <div>
-            <p className="font-display text-xl font-semibold tracking-tight md:text-2xl">
-              Brass
-            </p>
-            <p className="font-mono text-[10px] tracking-[0.14em] text-muted-foreground uppercase">
+          <div className="grid justify-items-center gap-1">
+            <p className="font-display text-lg leading-none font-semibold tracking-tight sm:text-xl md:text-2xl">Brass</p>
+            <p className="max-w-[10.5ch] font-mono text-[9.5px] leading-tight tracking-[0.12em] text-muted-foreground uppercase sm:max-w-none sm:text-[10px] sm:tracking-[0.14em]">
               kept in the loop
             </p>
           </div>

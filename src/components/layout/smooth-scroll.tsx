@@ -41,5 +41,28 @@ export function SmoothScroll() {
     return () => window.clearTimeout(id);
   }, [pathname]);
 
+  // Re-measure scroll animations when the page height changes after load (web fonts, images,
+  // lazily mounted sections). ScrollTrigger only refreshes on load/resize by itself, so without
+  // this, sections that shift down keep their old trigger positions and animate in the wrong place.
+  useEffect(() => {
+    let timer = 0;
+    let lastHeight = document.body.scrollHeight;
+    const ro = new ResizeObserver(() => {
+      const h = document.body.scrollHeight;
+      if (Math.abs(h - lastHeight) < 2) return; // ignore sub-pixel noise and refresh echoes
+      lastHeight = h;
+      window.clearTimeout(timer);
+      timer = window.setTimeout(() => {
+        ScrollTrigger.refresh();
+        lastHeight = document.body.scrollHeight;
+      }, 250);
+    });
+    ro.observe(document.body);
+    return () => {
+      ro.disconnect();
+      window.clearTimeout(timer);
+    };
+  }, []);
+
   return null;
 }
