@@ -16,9 +16,9 @@ import { FinalCta } from "@/components/home/final-cta";
 import { site } from "@/content/site";
 
 export const metadata: Metadata = {
-  title: { absolute: `${site.name} | Precision Turned Components Manufacturer, India` },
+  title: { absolute: `${site.name} | Precision Turned Components, India` },
   description:
-    "Precision turned and CNC machined components in brass, stainless steel, mild steel, aluminium and copper. Build-to-print manufacturer and brass components exporter from Gujarat, India.",
+    "Precision turned and CNC machined parts in brass, stainless steel, aluminium and copper. Build-to-print manufacturer and exporter from Gujarat, India.",
   alternates: { canonical: "/" },
 };
 

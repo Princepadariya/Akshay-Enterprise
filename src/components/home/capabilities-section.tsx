@@ -11,7 +11,7 @@ import type { PhotoKey } from "@/content/images";
 import { getIcon, ICON_STROKE } from "@/lib/icons";
 import { cn } from "@/lib/utils";
 
-const fallbackImages: PhotoKey[] = ["lathe", "latheTurret", "millCutting", "brassNuts", "smallParts", "cncCutting", "machiningClose", "brassParts"];
+const fallbackImages: PhotoKey[] = ["lathe", "latheTurret", "millCutting", "brassNuts", "latheTurning", "cncCutting", "machiningClose", "brassParts"];
 
 /** Capability index: hover or focus a row to swap the sticky photograph (state transition, not decoration). */
 export function CapabilitiesSection() {

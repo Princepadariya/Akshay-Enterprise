@@ -46,7 +46,7 @@ export const categories: Category[] = [
     short: "Turned parts",
     description:
       "Bushes, spacers, studs, pins and adaptors turned from bar in brass, stainless, mild steel, aluminium and copper.",
-    image: "brassParts",
+    image: "precisionPins",
     spec: "Ø 2 to 65 mm  ±0.02",
   },
   {
@@ -62,7 +62,7 @@ export const categories: Category[] = [
     name: "Neutral Links & Earth Bars",
     short: "Neutral links",
     description: "Drilled and tapped links and bars for distribution boards, meter boxes and panels.",
-    image: "switchbox",
+    image: "copperProfiles",
     spec: "2 to 24 ways",
   },
   {
@@ -86,7 +86,7 @@ export const categories: Category[] = [
     name: "Inserts & Anchors",
     short: "Inserts",
     description: "Moulding, knurled, press-fit and heat-set inserts for plastics, plus brass anchors for masonry.",
-    image: "smallParts",
+    image: "brassParts",
     spec: "M2 to M12  diamond knurl",
   },
   {
@@ -94,7 +94,7 @@ export const categories: Category[] = [
     name: "Plumbing & Pipe Fittings",
     short: "Pipe fittings",
     description: "Compression fittings and PPR / CPVC inserts in standard and DZR brass.",
-    image: "castParts",
+    image: "brassFittingsRow",
     spec: '1/4" to 2"  BSP / NPT',
   },
   {
@@ -141,7 +141,7 @@ export const products: Product[] = [
     tolerance: T,
     applications: ["Bearing locations", "Panel spacing", "Pivot bushes"],
     industries: ["general-engineering", "automotive", "electrical"],
-    images: ["brassParts", "smallParts"],
+    images: ["machinedRings", "precisionPins"],
     related: ["threaded-studs-pins", "hex-turned-adaptors"],
   },
   {
@@ -158,7 +158,7 @@ export const products: Product[] = [
     tolerance: T,
     applications: ["Terminal studs", "Locating pins", "Assembly studs"],
     industries: ["electrical", "general-engineering", "automotive"],
-    images: ["screwsPile", "boltsSteel"],
+    images: ["precisionPins", "boltsSteel"],
     related: ["turned-bushes-spacers", "machine-screws-bolts"],
   },
   {
@@ -175,7 +175,7 @@ export const products: Product[] = [
     tolerance: T,
     applications: ["Instrumentation", "Pneumatics", "Fluid lines"],
     industries: ["general-engineering", "hvac-refrigeration", "gas-lpg"],
-    images: ["brassNuts", "brassParts"],
+    images: ["brassNuts", "latheTurning"],
     related: ["compression-fittings", "turned-bushes-spacers"],
   },
 
@@ -194,7 +194,7 @@ export const products: Product[] = [
     tolerance: T,
     applications: ["Distribution boards", "Meter boxes", "Control panels"],
     industries: ["electrical"],
-    images: ["terminalBlocks", "brassParts"],
+    images: ["terminalBlocks", "copperParts"],
     related: ["neutral-links", "switch-contacts-terminals"],
   },
   {
@@ -211,7 +211,7 @@ export const products: Product[] = [
     tolerance: T,
     applications: ["Switches and sockets", "MCB terminals", "Plug tops"],
     industries: ["electrical"],
-    images: ["smallParts", "brassParts"],
+    images: ["copperParts", "copperDrilling"],
     related: ["terminal-connectors", "pin-socket-contacts"],
   },
   {
@@ -228,7 +228,7 @@ export const products: Product[] = [
     tolerance: T,
     applications: ["Plugs and sockets", "Industrial connectors", "Chargers"],
     industries: ["electrical", "telecom-electronics"],
-    images: ["brassParts", "smallParts"],
+    images: ["copperDrilling", "precisionPins"],
     related: ["switch-contacts-terminals"],
   },
 
@@ -247,7 +247,7 @@ export const products: Product[] = [
     tolerance: T,
     applications: ["Consumer units", "Distribution boards", "Meter enclosures"],
     industries: ["electrical"],
-    images: ["switchbox", "terminalBlocks"],
+    images: ["copperProfiles", "switchbox"],
     related: ["earth-bars", "terminal-connectors"],
   },
   {
@@ -263,7 +263,7 @@ export const products: Product[] = [
     tolerance: T,
     applications: ["Earthing systems", "Panels", "Lightning protection"],
     industries: ["electrical"],
-    images: ["terminalBlocks", "switchbox"],
+    images: ["switchbox", "copperProfiles"],
     related: ["neutral-links"],
   },
 
@@ -282,7 +282,7 @@ export const products: Product[] = [
     tolerance: T,
     applications: ["Industrial enclosures", "Panels", "Outdoor installations"],
     industries: ["electrical", "general-engineering"],
-    images: ["brassNuts", "brassParts"],
+    images: ["brassNuts", "brassFittingsRow"],
     related: ["gland-lock-nuts-earth-tags", "gland-reducers-plugs"],
   },
   {
@@ -298,7 +298,7 @@ export const products: Product[] = [
     tolerance: T,
     applications: ["Gland termination", "Earth continuity"],
     industries: ["electrical"],
-    images: ["brassNuts", "screwsPile"],
+    images: ["nutsOnBlack", "brassNuts"],
     related: ["cable-glands"],
   },
   {
@@ -314,7 +314,7 @@ export const products: Product[] = [
     tolerance: T,
     applications: ["Enclosure entries", "Retrofit installations"],
     industries: ["electrical"],
-    images: ["brassParts", "brassNuts"],
+    images: ["brassFittingsRow", "latheDark"],
     related: ["cable-glands"],
   },
 
@@ -332,7 +332,7 @@ export const products: Product[] = [
     tolerance: T,
     applications: ["Terminal fixing", "Assemblies", "Panel hardware"],
     industries: ["general-engineering", "electrical", "automotive"],
-    images: ["brassNuts", "screwsPile"],
+    images: ["nutsOnBlack", "screwsPile"],
     related: ["machine-screws-bolts", "washers"],
   },
   {
@@ -364,7 +364,7 @@ export const products: Product[] = [
     tolerance: T,
     applications: ["Load spreading", "Sealing", "Earth contact"],
     industries: ["electrical", "general-engineering"],
-    images: ["smallParts", "screwsPile"],
+    images: ["nutsOnBlack", "screwsPile"],
     related: ["hex-special-nuts"],
   },
 
@@ -383,7 +383,7 @@ export const products: Product[] = [
     tolerance: T,
     applications: ["Plastic housings", "Electrical accessories", "Appliance parts"],
     industries: ["electrical", "telecom-electronics", "automotive"],
-    images: ["smallParts", "brassParts"],
+    images: ["brassParts", "millingChips"],
     related: ["heat-set-press-fit-inserts", "brass-anchors"],
   },
   {
@@ -399,7 +399,7 @@ export const products: Product[] = [
     tolerance: T,
     applications: ["Electronics enclosures", "3D-printed parts"],
     industries: ["telecom-electronics", "general-engineering"],
-    images: ["brassParts", "smallParts"],
+    images: ["brassParts", "latheTurning"],
     related: ["moulding-inserts"],
   },
   {
@@ -415,7 +415,7 @@ export const products: Product[] = [
     tolerance: T,
     applications: ["Sanitary fixtures", "Electrical fixtures", "Light fixings"],
     industries: ["plumbing-sanitary", "electrical"],
-    images: ["brassNuts", "brassParts"],
+    images: ["brassParts", "brassNuts"],
     related: ["moulding-inserts"],
   },
 
@@ -433,7 +433,7 @@ export const products: Product[] = [
     tolerance: T,
     applications: ["Water supply", "Heating circuits", "Gas lines"],
     industries: ["plumbing-sanitary", "hvac-refrigeration"],
-    images: ["castParts", "brassNuts"],
+    images: ["brassFittingsRow", "brassNuts"],
     related: ["ppr-cpvc-inserts", "hex-turned-adaptors"],
   },
   {
@@ -449,7 +449,7 @@ export const products: Product[] = [
     tolerance: T,
     applications: ["PPR fittings", "CPVC fittings", "Transition fittings"],
     industries: ["plumbing-sanitary"],
-    images: ["brassNuts", "brassParts"],
+    images: ["brassFittingsRow", "brassParts"],
     related: ["compression-fittings", "moulding-inserts"],
   },
 
@@ -467,7 +467,7 @@ export const products: Product[] = [
     tolerance: T,
     applications: ["Domestic regulators", "Commercial regulators"],
     industries: ["gas-lpg"],
-    images: ["gauges", "brassParts"],
+    images: ["gauges", "latheDark"],
     related: ["gas-meter-parts", "cng-fittings"],
   },
   {
@@ -499,7 +499,7 @@ export const products: Product[] = [
     tolerance: T,
     applications: ["Vehicle CNG kits", "Filling stations"],
     industries: ["gas-lpg", "automotive"],
-    images: ["gauges", "brassParts"],
+    images: ["gauges", "brassFittingsRow"],
     related: ["lpg-regulator-parts"],
   },
 
@@ -517,7 +517,7 @@ export const products: Product[] = [
     tolerance: T,
     applications: ["Faucets", "Concealed valves", "Diverters"],
     industries: ["plumbing-sanitary"],
-    images: ["faucet", "brassParts"],
+    images: ["faucet", "latheTurning"],
     related: ["aerator-housings-adaptors"],
   },
   {
@@ -533,7 +533,7 @@ export const products: Product[] = [
     tolerance: T,
     applications: ["Faucets", "Showers", "Bath fittings"],
     industries: ["plumbing-sanitary"],
-    images: ["faucet", "castParts"],
+    images: ["faucet", "brassFittingsRow"],
     related: ["spindles-cartridge-parts"],
   },
 
@@ -568,7 +568,7 @@ export const products: Product[] = [
     tolerance: T,
     applications: ["New product development", "Validation builds"],
     industries: ["general-engineering", "telecom-electronics", "automotive"],
-    images: ["drawingMeasure", "caliperPart"],
+    images: ["micrometerFlange", "caliperPart"],
     related: ["build-to-print-parts"],
   },
 ];

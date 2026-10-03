@@ -33,7 +33,7 @@ const mono = JetBrains_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title: {
-    default: `${site.name} | Precision Turned Components Manufacturer, India`,
+    default: `${site.name} | Precision Turned Components, India`,
     template: `%s | ${site.name}`,
   },
   description: site.description,

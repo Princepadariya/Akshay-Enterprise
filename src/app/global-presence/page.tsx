@@ -24,7 +24,7 @@ export default function GlobalPresencePage() {
         crumbs={[{ name: "Global presence", href: "/global-presence" }]}
         title="Global presence and export"
         lead="Parts packed, documented and shipped so they clear customs and go straight to assembly."
-        image="containers"
+        image="portNight"
       />
 
       <section className="container-x py-16 md:py-24">

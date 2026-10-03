@@ -317,6 +317,24 @@ html.lenis body {
   --w-to: var(--brass);
 }
 
+/* printing (e.g. the RFQ checklist): content only, no navigation, fixed bars or decoration */
+@media print {
+  header,
+  footer,
+  .print-hide,
+  .fixed {
+    display: none !important;
+  }
+  html,
+  body {
+    background: #fff !important;
+    color: #000 !important;
+  }
+  a {
+    text-decoration: none;
+  }
+}
+
 /* hero media reveal (CSS, so it runs on first paint and never waits for JavaScript) */
 @keyframes clip-reveal-frame {
   from {

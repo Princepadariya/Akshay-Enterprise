@@ -106,7 +106,7 @@ export const site = {
       title: "Custom development",
       body: "Send a drawing or a sample. We reverse-engineer, propose tooling and approve a first-off before volume.",
       icon: "PencilRuler",
-      image: "drawingMeasure" as PhotoKey,
+      image: "micrometerFlange" as PhotoKey,
       proof: "First-off sample with a dimensional report",
     },
     {

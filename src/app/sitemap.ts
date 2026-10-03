@@ -1,3 +1,4 @@
+import { guides } from "@/content/resources";
 import type { MetadataRoute } from "next";
 import { categories, products } from "@/content/products";
 import { industries } from "@/content/industries";
@@ -45,5 +46,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...categories.map((c) => ({ url: absoluteUrl(`/products/${c.slug}`), lastModified: now, changeFrequency: "monthly" as const, priority: 0.8 })),
     ...products.map((p) => ({ url: absoluteUrl(`/products/${p.category}/${p.slug}`), lastModified: now, changeFrequency: "monthly" as const, priority: 0.7 })),
     ...industries.map((i) => ({ url: absoluteUrl(`/industries/${i.slug}`), lastModified: now, changeFrequency: "monthly" as const, priority: 0.6 })),
+    { url: absoluteUrl("/resources"), lastModified: now, changeFrequency: "monthly" as const, priority: 0.6 },
+    ...guides.map((g) => ({ url: absoluteUrl(`/resources/${g.slug}`), lastModified: now, changeFrequency: "yearly" as const, priority: 0.5 })),
   ];
 }

@@ -62,15 +62,21 @@ export const gallery: GalleryItem[] = [
   { image: "latheTurret", group: "Machines", caption: "Turret and chuck" },
   { image: "brassNuts", group: "Products", caption: "Threaded fittings" },
   { image: "warehouse", group: "Factory", caption: "Dispatch area" },
-  { image: "drawingMeasure", group: "Quality", caption: "Drawing review" },
+  { image: "micrometerFlange", group: "Quality", caption: "Micrometer check" },
   { image: "millCutting", group: "Machines", caption: "Machining centre" },
-  { image: "smallParts", group: "Products", caption: "Small precision parts" },
+  { image: "precisionPins", group: "Products", caption: "Precision pins" },
   { image: "barStock", group: "Factory", caption: "Raw material store" },
   { image: "inspector", group: "Quality", caption: "Final inspection" },
   { image: "cncCutting", group: "Machines", caption: "CNC operation" },
   { image: "screwsPile", group: "Products", caption: "Fasteners" },
   { image: "operatorLathe", group: "Factory", caption: "Turning section" },
   { image: "rulerParts", group: "Quality", caption: "Parts against drawing" },
+  { image: "latheTurning", group: "Machines", caption: "Turning a bar" },
+  { image: "brassFittingsRow", group: "Products", caption: "Brass fittings" },
+  { image: "dialIndicator", group: "Quality", caption: "Dial indicator check" },
+  { image: "machinistLathe", group: "Factory", caption: "Machinist at the lathe" },
+  { image: "copperParts", group: "Products", caption: "Copper electrical parts" },
+  { image: "millingChips", group: "Machines", caption: "Milling and chip control" },
 ];
 
 /* ---------------------------------------------------------------- Downloads */

@@ -98,7 +98,7 @@ export const processSteps = [
 ];
 
 export const developmentWorkflow = [
-  { title: "Share your drawing or sample", image: "drawingMeasure" as PhotoKey, body: "Upload files through the RFQ form or send a physical sample to the factory." },
+  { title: "Share your drawing or sample", image: "partsOnDrawing" as PhotoKey, body: "Upload files through the RFQ form or send a physical sample to the factory." },
   { title: "Feasibility and quotation", image: "partsOnDrawing" as PhotoKey, body: "Engineering review with a clear quote, notes on tolerances and suggested alternatives." },
   { title: "First-off samples", image: "caliperPart" as PhotoKey, body: "Samples produced on the intended process, supplied with a dimensional report." },
   { title: "Approval and PPAP-style documentation", image: "inspector" as PhotoKey, body: "You approve the sample; we freeze the process and inspection plan." },

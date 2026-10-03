@@ -62,7 +62,7 @@ export const materials: Material[] = [
       { label: "Typical bar", value: "Round and hex" },
     ],
     uses: ["Compression fittings", "PPR / CPVC inserts", "Valve components"],
-    image: "brassNuts",
+    image: "brassFittingsRow",
     swatch: "linear-gradient(120deg,#7d5f2b,#d4b27a 45%,#8f6e36)",
   },
   {
@@ -134,7 +134,7 @@ export const materials: Material[] = [
       { label: "Finish", value: "Tin or silver plated" },
     ],
     uses: ["Earthing parts", "Bus connectors", "Contact pins"],
-    image: "smallParts",
+    image: "copperProfiles",
     swatch: "linear-gradient(120deg,#8a4b2a,#e0a07a 45%,#a55f38)",
   },
 ];

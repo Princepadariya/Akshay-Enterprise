@@ -17,6 +17,7 @@ export const companyNav: NavLink[] = [
   { label: "Gallery", href: "/gallery" },
   { label: "Downloads", href: "/downloads" },
   { label: "FAQ", href: "/faq" },
+  { label: "Resources", href: "/resources", description: "Guides for buyers and engineers" },
 ];
 
 /** Company policies (labels kept short for the footer column). Pages live in src/content/policies.ts. */
@@ -27,6 +28,17 @@ export const policyNav: NavLink[] = [
   { label: "Cyber security", href: "/policies/cyber-security", description: "Protecting customer drawings and data" },
   { label: "Conflict minerals", href: "/policies/conflict-minerals", description: "Responsible sourcing of 3TG" },
   { label: "Counterfeit parts", href: "/policies/counterfeit-parts", description: "Keeping suspect material out of our parts" },
+];
+
+/** Technical guides (kept here as plain links so menus never load the full guide text). Pages live in src/content/resources.ts. */
+export const resourceNav: NavLink[] = [
+  { label: "All resources", href: "/resources" },
+  { label: "RFQ checklist", href: "/resources/how-to-specify-a-turned-part" },
+  { label: "Brass grades compared", href: "/resources/brass-grades-compared" },
+  { label: "Thread standards explained", href: "/resources/thread-standards-explained" },
+  { label: "Plating and finishes", href: "/resources/plating-and-finishes" },
+  { label: "What drives the cost", href: "/resources/what-drives-the-cost-of-a-turned-part" },
+  { label: "Glossary", href: "/resources/glossary" },
 ];
 
 export const footerColumns: { title: string; links: NavLink[] }[] = [
@@ -58,6 +70,7 @@ export const footerColumns: { title: string; links: NavLink[] }[] = [
       { label: "Contact", href: "/contact" },
       { label: "Downloads", href: "/downloads" },
       { label: "FAQ", href: "/faq" },
+      { label: "Resources", href: "/resources" },
       { label: "Site map", href: "/site-map" },
     ],
   },
