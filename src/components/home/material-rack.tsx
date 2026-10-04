@@ -124,7 +124,7 @@ export function MaterialRack() {
               <div
                 aria-hidden
                 className="absolute inset-0"
-                style={{ background: "radial-gradient(60% 50% at 50% 55%, rgb(207 165 96 / 0.12), transparent 70%)" }}
+                style={{ background: "radial-gradient(60% 50% at 50% 55%, rgb(175 47 12 / 0.14), transparent 70%)" }}
               />
               <div className="absolute inset-0">
                 {mounted ? (

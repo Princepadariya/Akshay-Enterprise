@@ -106,7 +106,7 @@ export function StatusBoard({ items, placeholder }: { items: Item[]; placeholder
                 data-tag
                 className={cn(
                   "inline-flex items-center gap-1.5 justify-self-end rounded-full px-2.5 py-1 font-mono text-[10.5px] tracking-wide whitespace-nowrap uppercase",
-                  ok ? "bg-brass text-graphite" : "border border-dashed border-brass text-brass-ink",
+                  ok ? "bg-brass text-brass-foreground" : "border border-dashed border-brass text-brass-ink",
                 )}
               >
                 {ok ? <Check strokeWidth={2.5} className="size-3" aria-hidden /> : <Loader strokeWidth={2} className="size-3" aria-hidden />}

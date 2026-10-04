@@ -22,7 +22,7 @@ function Chip({ active, onClick, children }: { active: boolean; onClick: () => v
       aria-pressed={active}
       className={cn(
         "rounded-sm border px-3 py-1.5 text-[13px] whitespace-nowrap transition-colors duration-300",
-        active ? "border-brass bg-brass text-graphite" : "border-border text-foreground/80 hover:border-foreground/40",
+        active ? "border-brass bg-brass text-brass-foreground" : "border-border text-foreground/80 hover:border-foreground/40",
       )}
     >
       {children}

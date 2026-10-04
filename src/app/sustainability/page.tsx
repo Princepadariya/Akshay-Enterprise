@@ -83,7 +83,7 @@ export default function SustainabilityPage() {
                 <span className="mt-2 block font-display text-xl font-semibold tracking-tight">{r.label}</span>
                 <span className="mt-1 block text-sm text-muted-foreground">{r.note}</span>
               </span>
-              <span className="grid size-10 shrink-0 place-items-center rounded-full border border-border transition-[background-color,border-color,color,transform] duration-500 group-hover:rotate-45 group-hover:border-brass group-hover:bg-brass group-hover:text-graphite">
+              <span className="grid size-10 shrink-0 place-items-center rounded-full border border-border transition-[background-color,border-color,color,transform] duration-500 group-hover:rotate-45 group-hover:border-brass group-hover:bg-brass group-hover:text-brass-foreground">
                 <ArrowUpRight strokeWidth={1.5} className="size-4" />
               </span>
             </Link>

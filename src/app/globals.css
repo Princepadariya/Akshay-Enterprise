@@ -37,6 +37,7 @@
   --color-brass: var(--brass);
   --color-brass-ink: var(--brass-ink);
   --color-brass-soft: var(--brass-soft);
+  --color-brass-foreground: var(--brass-foreground);
   --color-blueprint: var(--blueprint);
   --color-graphite: #0b0d10;
   --color-paper: #f4f3f0;
@@ -90,15 +91,16 @@
   --border: #d6d2ca;
   --line: rgb(16 19 24 / 0.08);
   --input: #cdc9c0;
-  --ring: #9a7433;
+  --ring: #af2f0c;
   --destructive: #b3261e;
 
   /* brass: fill (buttons, marks) vs ink (text on light) */
-  --brass: #b88c45;
-  --brass-ink: #7f5d1d;
-  --brass-soft: rgb(184 140 69 / 0.14);
-  --primary: #b88c45;
-  --primary-foreground: #0b0d10;
+  --brass: #af2f0c;
+  --brass-ink: #af2f0c;
+  --brass-soft: rgb(175 47 12 / 0.09);
+  --brass-foreground: #ffffff;
+  --primary: #af2f0c;
+  --primary-foreground: #ffffff;
 
   --blueprint: #1a6a82;
 
@@ -123,14 +125,15 @@
   --border: #252a32;
   --line: rgb(236 235 230 / 0.07);
   --input: #2c323b;
-  --ring: #d2a863;
+  --ring: #f07150;
   --destructive: #f2867c;
 
-  --brass: #cfa560;
-  --brass-ink: #d8b574;
-  --brass-soft: rgb(207 165 96 / 0.12);
-  --primary: #cfa560;
-  --primary-foreground: #0b0d10;
+  --brass: #c4381a;
+  --brass-ink: #f07150;
+  --brass-soft: rgb(240 113 80 / 0.12);
+  --brass-foreground: #ffffff;
+  --primary: #c4381a;
+  --primary-foreground: #ffffff;
 
   --blueprint: #5cbad6;
 
@@ -232,18 +235,18 @@ html.lenis body {
     background-size: 16px 16px;
   }
 
-  /* Brushed brass: used on marks, stat rules and select surfaces, never on body text */
+  /* Brushed accent metal (#af2f0c family): marks, rules and select surfaces, never on body text */
   .metal-brass {
     background:
       repeating-linear-gradient(90deg, rgb(255 255 255 / 0.04) 0 1px, transparent 1px 3px),
-      linear-gradient(115deg, #7a5a24 0%, #c99e55 22%, #ecd29a 38%, #b8893f 55%, #8a6428 72%, #d4ae6c 88%, #9a7332 100%);
+      linear-gradient(115deg, #6e1d07 0%, #a52c0b 22%, #e0603a 38%, #af2f0c 55%, #7e2208 72%, #cc4a24 88%, #922709 100%);
   }
   .metal-steel {
     background:
       repeating-linear-gradient(90deg, rgb(255 255 255 / 0.035) 0 1px, transparent 1px 3px),
       linear-gradient(115deg, #2a2f36 0%, #454c55 30%, #6b737d 45%, #3a4048 62%, #262a30 100%);
   }
-  /* Consistent photo treatment: graphite duotone with a warm brass lift */
+  /* Optional photo treatment: graphite duotone with a warm accent lift */
   /* position is set by the caller (relative / absolute utilities), never here */
   .img-treat {
     isolation: isolate;
@@ -264,11 +267,11 @@ html.lenis body {
     pointer-events: none;
     background:
       linear-gradient(180deg, rgb(11 13 16 / 0) 35%, rgb(11 13 16 / 0.72) 100%),
-      linear-gradient(135deg, rgb(207 165 96 / 0.34), rgb(26 32 40 / 0.36));
+      linear-gradient(135deg, rgb(175 47 12 / 0.3), rgb(26 32 40 / 0.36));
     mix-blend-mode: multiply;
   }
   .img-treat-soft::after {
-    background: linear-gradient(135deg, rgb(207 165 96 / 0.28), rgb(26 32 40 / 0.22));
+    background: linear-gradient(135deg, rgb(175 47 12 / 0.24), rgb(26 32 40 / 0.22));
   }
   .group:hover .img-treat img,
   .img-treat:hover img {

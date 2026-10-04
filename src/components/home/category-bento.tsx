@@ -88,7 +88,7 @@ export function CategoryBento() {
                       className={cn(
                         "font-display leading-tight font-semibold tracking-tight",
                         i === 0 ? "text-2xl md:text-3xl" : "text-lg",
-                        onDark ? "text-paper" : l.surface === "brass" ? "text-graphite" : "text-foreground",
+                        onDark ? "text-paper" : l.surface === "brass" ? "text-paper" : "text-foreground",
                       )}
                     >
                       {c.name}
@@ -96,7 +96,7 @@ export function CategoryBento() {
                     <p
                       className={cn(
                         "mt-2 font-mono text-[11px] tracking-wide",
-                        onDark ? "text-steel-200" : l.surface === "brass" ? "text-graphite/75" : "text-muted-foreground",
+                        onDark ? "text-steel-200" : l.surface === "brass" ? "text-paper/80" : "text-muted-foreground",
                       )}
                     >
                       {count} product {count === 1 ? "line" : "lines"}
@@ -106,7 +106,7 @@ export function CategoryBento() {
                     strokeWidth={1.5}
                     className={cn(
                       "size-5 shrink-0 transition-transform duration-500 group-hover:translate-x-0.5 group-hover:-translate-y-0.5",
-                      onDark ? "text-paper" : l.surface === "brass" ? "text-graphite" : "text-foreground",
+                      onDark ? "text-paper" : l.surface === "brass" ? "text-paper" : "text-foreground",
                     )}
                   />
                 </div>
@@ -117,7 +117,7 @@ export function CategoryBento() {
                     <p
                       className={cn(
                         "mt-3 max-w-[40ch] text-sm leading-relaxed",
-                        onDark ? "text-steel-100" : l.surface === "brass" ? "text-graphite/85" : "text-muted-foreground",
+                        onDark ? "text-steel-100" : l.surface === "brass" ? "text-paper/90" : "text-muted-foreground",
                       )}
                     >
                       {c.description}
@@ -125,7 +125,7 @@ export function CategoryBento() {
                     <p
                       className={cn(
                         "mt-3 inline-block rounded-sm border px-2 py-1 font-mono text-[11px]",
-                        onDark ? "border-white/20 text-paper" : l.surface === "brass" ? "border-graphite/30 text-graphite" : "border-border text-foreground",
+                        onDark ? "border-white/20 text-paper" : l.surface === "brass" ? "border-white/25 text-paper" : "border-border text-foreground",
                       )}
                     >
                       {c.spec}

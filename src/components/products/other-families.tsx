@@ -93,7 +93,7 @@ export function OtherFamilies({ items }: { items: Category[] }) {
                   </span>
                   <span className="mt-1 block truncate font-mono text-[11px] text-muted-foreground">{c.spec}</span>
                 </span>
-                <span className="grid size-10 place-items-center rounded-full border border-border transition-[background-color,border-color,color,transform] duration-500 group-hover:rotate-45 group-hover:border-brass group-hover:bg-brass group-hover:text-graphite">
+                <span className="grid size-10 place-items-center rounded-full border border-border transition-[background-color,border-color,color,transform] duration-500 group-hover:rotate-45 group-hover:border-brass group-hover:bg-brass group-hover:text-brass-foreground">
                   <ArrowUpRight strokeWidth={1.5} className="size-4" />
                 </span>
               </Link>

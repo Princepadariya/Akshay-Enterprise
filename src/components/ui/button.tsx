@@ -9,7 +9,7 @@ const buttonVariants = cva(
     variants: {
       variant: {
         default:
-          "bg-brass text-graphite shadow-[inset_0_1px_0_rgb(255_255_255/0.35),0_1px_2px_rgb(11_13_16/0.2)] hover:bg-[color-mix(in_oklab,var(--brass),white_14%)]",
+          "bg-brass text-brass-foreground shadow-[inset_0_1px_0_rgb(255_255_255/0.35),0_1px_2px_rgb(11_13_16/0.2)] hover:bg-[color-mix(in_oklab,var(--brass),white_14%)]",
         secondary:
           "bg-foreground text-background hover:bg-[color-mix(in_oklab,var(--foreground),var(--background)_16%)]",
         outline:

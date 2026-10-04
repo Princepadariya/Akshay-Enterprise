@@ -52,7 +52,7 @@ export function MachineryTable({ rows }: { rows: Machine[] }) {
             aria-pressed={group === g}
             className={cn(
               "rounded-sm border px-3 py-1.5 text-[13px] transition-colors",
-              group === g ? "border-brass bg-brass text-graphite" : "border-border hover:border-foreground/40",
+              group === g ? "border-brass bg-brass text-brass-foreground" : "border-border hover:border-foreground/40",
             )}
           >
             {g || "All machines"}

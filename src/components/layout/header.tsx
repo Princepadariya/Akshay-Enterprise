@@ -52,7 +52,7 @@ export function Header() {
     >
       <a
         href="#main"
-        className="sr-only focus:not-sr-only focus:absolute focus:top-3 focus:left-3 focus:rounded-sm focus:bg-brass focus:px-3 focus:py-2 focus:text-graphite"
+        className="sr-only focus:not-sr-only focus:absolute focus:top-3 focus:left-3 focus:rounded-sm focus:bg-brass focus:px-3 focus:py-2 focus:text-brass-foreground"
       >
         Skip to content
       </a>

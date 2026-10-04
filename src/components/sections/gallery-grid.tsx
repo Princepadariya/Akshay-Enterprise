@@ -26,7 +26,7 @@ export function GalleryGrid({ items }: { items: GalleryItem[] }) {
             aria-pressed={group === g}
             className={cn(
               "rounded-sm border px-3.5 py-1.5 text-sm transition-colors",
-              group === g ? "border-brass bg-brass text-graphite" : "border-border hover:border-foreground/40",
+              group === g ? "border-brass bg-brass text-brass-foreground" : "border-border hover:border-foreground/40",
             )}
           >
             {g}

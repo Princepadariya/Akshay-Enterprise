@@ -58,9 +58,9 @@ void main() {
   float rim = smoothstep(0.62, 0.66, f) - smoothstep(0.66, 0.72, f);
 
   vec3 graphite = vec3(0.043, 0.051, 0.063);
-  vec3 brassDeep = vec3(0.27, 0.19, 0.08);
-  vec3 brass = vec3(0.80, 0.63, 0.34);
-  vec3 brassHi = vec3(1.0, 0.90, 0.68);
+  vec3 brassDeep = vec3(0.26, 0.07, 0.02);
+  vec3 brass = vec3(0.69, 0.18, 0.05);
+  vec3 brassHi = vec3(1.0, 0.62, 0.48);
 
   vec3 dark = mix(graphite, brassDeep, smoothstep(0.2, 0.7, f));
   dark = mix(dark, brass, smoothstep(0.55, 0.92, f + brush));

@@ -27,7 +27,7 @@ export function renderOg({ title, kicker, spec }: { title: string; kicker: strin
             style={{
               width: 44,
               height: 44,
-              background: "linear-gradient(135deg,#8a6428,#e6c98e 40%,#b88c45 70%,#d4ae6c)",
+              background: "linear-gradient(135deg,#6e1d07,#e0603a 40%,#af2f0c 70%,#cc4a24)",
               clipPath: "polygon(50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%)",
             }}
           />
@@ -37,11 +37,11 @@ export function renderOg({ title, kicker, spec }: { title: string; kicker: strin
           </div>
         </div>
         <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
-          <span style={{ fontSize: 22, letterSpacing: 4, color: "#d8b574", textTransform: "uppercase" }}>{kicker}</span>
+          <span style={{ fontSize: 22, letterSpacing: 4, color: "#f07150", textTransform: "uppercase" }}>{kicker}</span>
           <span style={{ fontSize: title.length > 40 ? 64 : 76, fontWeight: 700, lineHeight: 1.02, letterSpacing: -2, maxWidth: 980 }}>{title}</span>
         </div>
         <div style={{ display: "flex", alignItems: "center", gap: 20 }}>
-          <div style={{ width: 120, height: 3, background: "linear-gradient(90deg,#8a6428,#e6c98e,#b88c45)" }} />
+          <div style={{ width: 120, height: 3, background: "linear-gradient(90deg,#6e1d07,#e0603a,#af2f0c)" }} />
           <span style={{ fontSize: 22, color: "#9aa0a9", fontFamily: "monospace" }}>{spec ?? "Precision turned components  |  Gujarat, India"}</span>
         </div>
       </div>
