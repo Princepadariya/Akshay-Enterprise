@@ -74,17 +74,19 @@ function Bar({ look }: { look: BarLook }) {
   );
 }
 
-function Rack({ looks, active, reduceMotion, still, onSlow }: { looks: BarLook[]; active: number; reduceMotion: boolean; still: boolean; onSlow?: () => void }) {
+function Rack({ looks, active, reduceMotion, still, onSlow, onReady }: { looks: BarLook[]; active: number; reduceMotion: boolean; still: boolean; onSlow?: () => void; onReady?: () => void }) {
   const invalidate = useThree((s) => s.invalidate);
   // live frame-rate check: if this device cannot animate the scene smoothly, the parent switches to still mode
   const watchdog = useMemo(() => createFrameWatchdog({ onSlow: () => onSlow?.() }), [onSlow]);
-  // in still mode frames are only drawn on demand; draw a couple so the environment lighting settles
+  // off screen (and in still mode) frames are only drawn on demand; draw a few up front so the bar and
+  // its environment lighting are already rendered before the section scrolls into view
   useEffect(() => {
-    if (!still) return;
     invalidate();
-    const t = window.setTimeout(() => invalidate(), 250);
-    return () => window.clearTimeout(t);
+    const t = [250, 1000].map((ms) => window.setTimeout(() => invalidate(), ms));
+    return () => t.forEach((id) => window.clearTimeout(id));
   }, [still, invalidate]);
+  // tell the parent once a real frame has been drawn, so it never fades in an empty canvas
+  const drawn = useRef(false);
   const groups = useRef<(THREE.Group | null)[]>([]);
   const target = useRef<number[]>(looks.map((_, i) => (i === active ? 0 : -OFF)));
   const prev = useRef(active);
@@ -105,6 +107,10 @@ function Rack({ looks, active, reduceMotion, still, onSlow }: { looks: BarLook[]
   }, [active, reduceMotion, still, invalidate]);
 
   useFrame((state, dt) => {
+    if (!drawn.current) {
+      drawn.current = true;
+      requestAnimationFrame(() => onReady?.());
+    }
     if (!still) watchdog(dt * 1000);
     // fov is vertical: on a narrow stage pull the camera back so the full bar length stays in frame
     const aspect = state.size.width / Math.max(1, state.size.height);
@@ -163,21 +169,20 @@ export default function BarStockScene({
   still?: boolean;
   /** called once if the device cannot keep a smooth frame rate */
   onSlow?: () => void;
-  /** called once the WebGL context exists, so the parent can fade the scene in */
+  /** called once the first frame has been drawn, so the parent can fade the scene in */
   onReady?: () => void;
 }) {
   return (
     <Canvas
       dpr={still ? 1 : [1, 1.75]}
-      frameloop={still ? "demand" : running ? "always" : "never"}
+      frameloop={still || !running ? "demand" : "always"}
       camera={{ position: [0, 0.8, CAM_Z], fov: 32 }}
       gl={{ antialias: true, alpha: true, powerPreference: "high-performance" }}
-      onCreated={() => onReady?.()}
       aria-hidden
     >
       <ambientLight intensity={0.35} />
       <directionalLight position={[3, 4, 5]} intensity={1.2} />
-      <Rack looks={looks} active={active} reduceMotion={reduceMotion} still={still} onSlow={onSlow} />
+      <Rack looks={looks} active={active} reduceMotion={reduceMotion} still={still} onSlow={onSlow} onReady={onReady} />
       <Environment resolution={256} frames={1}>
         <group rotation={[-Math.PI / 3, 0, 1]}>
           <Lightformer form="rect" intensity={3} position={[0, 5, -9]} scale={[10, 10, 1]} />

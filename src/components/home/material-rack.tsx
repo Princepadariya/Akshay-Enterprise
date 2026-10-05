@@ -53,23 +53,27 @@ export function MaterialRack() {
   const [userPicked, setUserPicked] = useState(false);
   const m = materials[active];
 
-  // background preload after the page has loaded
+  // background preload after the page has loaded; once the code is in, mount the scene straight away
+  // (it only draws a few frames while off screen) so the bar is already rendered when the section arrives
   useEffect(() => {
     const w = window as Window & { requestIdleCallback?: (cb: () => void, o?: { timeout: number }) => number; cancelIdleCallback?: (id: number) => void };
     let idle = 0;
+    let cancelled = false;
+    const load = () => void loadScene().then(() => !cancelled && setMounted(true));
     const preload = () => {
-      idle = w.requestIdleCallback ? w.requestIdleCallback(() => void loadScene(), { timeout: 3000 }) : window.setTimeout(() => void loadScene(), 1500);
+      idle = w.requestIdleCallback ? w.requestIdleCallback(load, { timeout: 3000 }) : window.setTimeout(load, 1500);
     };
     if (document.readyState === "complete") preload();
     else window.addEventListener("load", preload, { once: true });
     return () => {
+      cancelled = true;
       window.removeEventListener("load", preload);
       if (w.cancelIdleCallback) w.cancelIdleCallback(idle);
       else window.clearTimeout(idle);
     };
   }, []);
 
-  // mount the scene well ahead of the viewport; run its frame loop only while (nearly) visible
+  // mount the scene well ahead of the viewport (if the idle preload has not already); animate only while (nearly) visible
   useEffect(() => {
     const el = stage.current;
     if (!el) return;
