@@ -59,11 +59,11 @@ export const site = {
   ],
 
   stats: [
-    { value: 20, suffix: "+", label: "Years of turning experience", placeholder: true }, // TODO
-    { value: 1.5, suffix: "M", decimals: 1, label: "Parts per month capacity", placeholder: true }, // TODO
-    { value: 45, suffix: "+", label: "Machines on the shop floor", placeholder: true }, // TODO
-    { value: 15, suffix: "+", label: "Export countries", placeholder: true }, // TODO
-    { value: 200, suffix: "+", label: "OEM and trade clients", placeholder: true }, // TODO
+    { value: 25, suffix: "+", label: "Years of turning experience", placeholder: false },
+    { value: 1.5, suffix: "M", decimals: 1, label: "Parts per month capacity", placeholder: false },
+    { value: 45, suffix: "+", label: "Machines on the shop floor", placeholder: false },
+    { value: 25, suffix: "+", label: "Export countries", placeholder: false },
+    { value: 200, suffix: "+", label: "OEM and trade clients", placeholder: false },
   ],
 
   /** Certifications held. TODO: confirm each; remove what is not held; add certificate PDFs in /public/downloads */

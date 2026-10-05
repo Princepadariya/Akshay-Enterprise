@@ -22,7 +22,6 @@ import { companyNav, manufacturingNav, policyNav } from "@/content/navigation";
 import { cn } from "@/lib/utils";
 import { Logo } from "./logo";
 import { MobileNav } from "./mobile-nav";
-import { ThemeToggle } from "./theme-toggle";
 
 const trigger = cn(
   navigationMenuTriggerStyle(),
@@ -185,7 +184,6 @@ export function Header() {
         </NavigationMenu>
 
         <div className="flex items-center gap-1.5">
-          <ThemeToggle />
           <Button asChild size="sm" className="hidden sm:inline-flex">
             <Link href="/request-quote">Request a Quote</Link>
           </Button>
