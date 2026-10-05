@@ -24,8 +24,8 @@ export const policies: Policy[] = [
     title: "Environment, Health and Safety Policy",
     icon: "HardHat",
     summary: "How we protect our people, prevent pollution and run the plant within the law.",
-    updated: "TBC",
-    approvedBy: "Managing Director (name TBC)",
+    updated: "", // TODO
+    approvedBy: "Managing Director", // TODO: name
     placeholder: true,
     intro:
       "Akshay Enterprise is committed to providing a safe and healthy workplace for everyone on our premises and to minimising the environmental impact of our machining operations. Safe working and responsible manufacturing are conditions of doing business, not targets to trade against output.",
@@ -87,8 +87,8 @@ export const policies: Policy[] = [
     title: "Quality Policy",
     icon: "BadgeCheck",
     summary: "Our commitment to parts that conform to the drawing, delivered on the date agreed.",
-    updated: "TBC",
-    approvedBy: "Managing Director (name TBC)",
+    updated: "", // TODO
+    approvedBy: "Managing Director", // TODO: name
     placeholder: true,
     intro:
       "Akshay Enterprise is committed to supplying precision components that conform to customer drawings and specifications, delivered on time. We achieve this through controlled processes, trained people, calibrated measuring equipment and continual improvement of our quality management system.",
@@ -140,8 +140,8 @@ export const policies: Policy[] = [
     title: "Cyber Security and Information Protection Policy",
     icon: "ShieldCheck",
     summary: "How we protect customer drawings, data and our systems.",
-    updated: "TBC",
-    approvedBy: "Managing Director (name TBC)",
+    updated: "", // TODO
+    approvedBy: "Managing Director", // TODO: name
     placeholder: true,
     intro:
       "Customers trust us with drawings, 3D models, specifications and commercial information. Akshay Enterprise protects that information, and the systems that hold it, against loss, theft, misuse and unauthorised disclosure.",
@@ -204,8 +204,8 @@ export const policies: Policy[] = [
     title: "Conflict Minerals Policy",
     icon: "Pickaxe",
     summary: "Our approach to responsible sourcing of tin, tantalum, tungsten and gold (3TG).",
-    updated: "TBC",
-    approvedBy: "Managing Director (name TBC)",
+    updated: "", // TODO
+    approvedBy: "Managing Director", // TODO: name
     placeholder: true,
     intro:
       "Akshay Enterprise does not want the materials in our products to finance armed conflict or contribute to human-rights abuses. We support our customers' responsible-sourcing programmes and expect the same commitment from our own suppliers.",
@@ -251,8 +251,8 @@ export const policies: Policy[] = [
     title: "Counterfeit and Suspect Material Prevention Policy",
     icon: "ScanSearch",
     summary: "How we keep counterfeit, misrepresented or untraceable material out of our parts.",
-    updated: "TBC",
-    approvedBy: "Managing Director (name TBC)",
+    updated: "", // TODO
+    approvedBy: "Managing Director", // TODO: name
     placeholder: true,
     intro:
       "Counterfeit or misrepresented material, such as bar stock that is not the grade certified or a bought-in item that is not what it claims to be, can cause parts to fail in service. Akshay Enterprise is committed to preventing counterfeit and suspect material from entering the products we supply.",

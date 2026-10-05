@@ -8,7 +8,7 @@ export type LegalDoc = { title: string; updated: string; intro: string; sections
 
 export const privacyPolicy: LegalDoc = {
   title: "Privacy policy",
-  updated: "TBC",
+  updated: "", // TODO
   intro:
     "This policy explains what personal data Akshay Enterprise collects through this website, why we collect it and how you can control it.",
   sections: [
@@ -54,7 +54,7 @@ export const privacyPolicy: LegalDoc = {
 
 export const terms: LegalDoc = {
   title: "Terms of use",
-  updated: "TBC",
+  updated: "", // TODO
   intro: "These terms govern your use of this website. By using the site you accept them.",
   sections: [
     {
@@ -81,7 +81,7 @@ export const terms: LegalDoc = {
     },
     {
       heading: "Governing law",
-      body: ["These terms are governed by the laws of India. Courts in Gujarat have jurisdiction. (TBC: confirm with counsel.)"],
+      body: ["These terms are governed by the laws of India. Courts in Gujarat have jurisdiction."],
     },
   ],
 };

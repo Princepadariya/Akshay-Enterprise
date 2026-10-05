@@ -26,13 +26,15 @@ export function LegalPage({
     <>
       <PageHero crumbs={crumbs ?? [{ name: doc.title, href }]} title={doc.title} lead={doc.intro}>
         <dl className="flex flex-wrap gap-x-8 gap-y-2 font-mono text-xs text-muted-foreground">
-          <div className="flex gap-2">
-            <dt>Last updated:</dt>
-            <dd className="text-foreground">
-              {doc.updated}
-              <TodoMark />
-            </dd>
-          </div>
+          {doc.updated ? (
+            <div className="flex gap-2">
+              <dt>Last updated:</dt>
+              <dd className="text-foreground">
+                {doc.updated}
+                <TodoMark />
+              </dd>
+            </div>
+          ) : null}
           {approvedBy ? (
             <div className="flex gap-2">
               <dt>Approved by:</dt>

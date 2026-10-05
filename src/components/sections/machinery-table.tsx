@@ -76,7 +76,7 @@ export function MachineryTable({ rows }: { rows: Machine[] }) {
                   {r.type}
                   <span className="ml-2 font-mono text-[10.5px] text-muted-foreground">{r.group}</span>
                 </th>
-                <td className="px-5 py-3.5 text-muted-foreground">{r.make}</td>
+                <td className="px-5 py-3.5 text-muted-foreground">{r.make || "–"}</td>
                 <td className="px-5 py-3.5 text-right font-mono tabular">
                   {r.quantity}
                   <TodoMark show={r.placeholder} />

@@ -74,8 +74,14 @@ export default function AboutPage() {
             <figcaption className="mt-8 flex items-center gap-4">
               <span className="metal-brass h-px w-10" />
               <span>
-                <span className="font-medium">{f.name}</span>
-                <span className="text-muted-foreground">, {f.role}</span>
+                {f.name ? (
+                  <>
+                    <span className="font-medium">{f.name}</span>
+                    <span className="text-muted-foreground">, {f.role}</span>
+                  </>
+                ) : (
+                  <span className="font-medium">{f.role}</span>
+                )}
               </span>
             </figcaption>
           </figure>

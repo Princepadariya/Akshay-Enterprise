@@ -33,10 +33,10 @@ export default function LeadershipPage() {
                 </div>
                 <div className="p-5">
                   <p className="font-display text-lg font-semibold tracking-tight">
-                    {p.name}
+                    {p.name || p.role}
                     <TodoMark show={p.placeholder} />
                   </p>
-                  <p className="mt-1 text-sm text-brass-ink">{p.role}</p>
+                  {p.name ? <p className="mt-1 text-sm text-brass-ink">{p.role}</p> : null}
                   <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{p.focus}</p>
                 </div>
               </li>

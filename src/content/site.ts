@@ -18,7 +18,7 @@ export const site = {
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.akshayenterprise.com", // TODO: confirm production domain
   locale: "en",
 
-  showPlaceholderMarkers: true,
+  showPlaceholderMarkers: false,
 
   tagline: "Precision turned components in brass and engineering metals.",
   description:
@@ -36,9 +36,8 @@ export const site = {
 
   contact: {
     addressLines: [
-      "Plot No. TBC, GIDC Industrial Estate", // TODO: street address
-      "City TBC, Gujarat 000000", // TODO: city + PIN
-      "India",
+      "GIDC Industrial Estate", // TODO: plot no. / street address
+      "Gujarat, India", // TODO: city + PIN
     ],
     city: "Gujarat", // TODO: replace with city once confirmed
     region: "Gujarat",

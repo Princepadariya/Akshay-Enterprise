@@ -12,7 +12,7 @@ export const inspectionStages = [
   {
     stage: "Incoming",
     title: "Raw material inspection",
-    checks: ["Mill certificate verified against grade", "Bar diameter and straightness", "Chemical composition check (spectro / XRF, TBC)", "Material segregated and tagged by alloy"],
+    checks: ["Mill certificate verified against grade", "Bar diameter and straightness", "Chemical composition checked against the mill certificate" /* TODO: spectro / XRF? */, "Material segregated and tagged by alloy"],
   },
   {
     stage: "In-process",

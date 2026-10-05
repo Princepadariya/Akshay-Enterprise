@@ -49,7 +49,7 @@ export default function PoliciesPage() {
                       <p className="mt-2 leading-relaxed text-muted-foreground">{p.summary}</p>
                     </div>
                     <p className="border-t border-border pt-4 font-mono text-[11px] text-muted-foreground">
-                      {p.sections.length} sections, last updated {p.updated}
+                      {p.sections.length} sections{p.updated ? `, last updated ${p.updated}` : ""}
                       <TodoMark show={p.placeholder} />
                     </p>
                   </Link>

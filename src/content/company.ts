@@ -21,7 +21,7 @@ export const about = {
   ],
   founderMessage: {
     placeholder: true,
-    name: "Founder name TBC",
+    name: "", // TODO: founder name
     role: "Founder & Managing Director",
     paragraphs: [
       "We started with a few machines and one rule: a part leaves the shop only when it matches the drawing. That rule has not changed as the shop has grown.",
@@ -51,8 +51,8 @@ export const visionMissionValues = {
 
 /** TODO: replace with the real management team. Initials render as monograms until photos are supplied. */
 export const leadership = [
-  { name: "Name TBC", role: "Founder & Managing Director", focus: "Strategy, key accounts, capacity planning", initials: "MD", placeholder: true },
-  { name: "Name TBC", role: "Director, Operations", focus: "Production, maintenance, delivery performance", initials: "OP", placeholder: true },
-  { name: "Name TBC", role: "Head of Quality", focus: "Inspection, quality system, customer audits", initials: "QA", placeholder: true },
-  { name: "Name TBC", role: "Export & Business Development", focus: "International customers, RFQs, logistics", initials: "EX", placeholder: true },
+  { name: "" /* TODO */, role: "Founder & Managing Director", focus: "Strategy, key accounts, capacity planning", initials: "MD", placeholder: true },
+  { name: "" /* TODO */, role: "Director, Operations", focus: "Production, maintenance, delivery performance", initials: "OP", placeholder: true },
+  { name: "" /* TODO */, role: "Head of Quality", focus: "Inspection, quality system, customer audits", initials: "QA", placeholder: true },
+  { name: "" /* TODO */, role: "Export & Business Development", focus: "International customers, RFQs, logistics", initials: "EX", placeholder: true },
 ];

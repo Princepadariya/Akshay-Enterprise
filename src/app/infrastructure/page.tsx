@@ -38,7 +38,7 @@ export default function InfrastructurePage() {
               { label: "Covered area", value: plant.area.value, placeholder: plant.area.placeholder },
               { label: "Power", value: plant.power.value, placeholder: plant.power.placeholder },
               { label: "Operation", value: plant.shifts.value, placeholder: plant.shifts.placeholder },
-            ]}
+            ].filter((f) => f.value)}
             utilities={plant.utilities}
           />
         </div>
