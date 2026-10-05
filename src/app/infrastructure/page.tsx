@@ -10,6 +10,8 @@ import { machinery, plant } from "@/content/machinery";
 import { site } from "@/content/site";
 import { pageMetadata } from "@/lib/seo";
 
+const machineCount = site.stats.find((s) => s.label.startsWith("Machines")) ?? site.stats[2];
+
 export const metadata = pageMetadata({
   title: "Infrastructure",
   description: "Plant, machinery and capacity at Akshay Enterprise: CNC turning centres, cam automats, VMCs and secondary operation machines in Gujarat, India.",
@@ -29,14 +31,14 @@ export default function InfrastructurePage() {
 
       <section className="container-x grid gap-12 py-16 md:py-24 lg:grid-cols-12 lg:gap-16">
         <div className="lg:col-span-4">
-          <SectionHeader title="Plant overview" lead="The site at a glance: where it is, how it is powered and how it runs." />
+          <SectionHeader title="Plant overview" lead="The site at a glance: where it is, how big it is and how it runs." />
         </div>
         <div className="min-w-0 lg:col-span-8">
           <PlantTitleBlock
             fields={[
               { label: "Location", value: plant.location.value, placeholder: plant.location.placeholder },
               { label: "Covered area", value: plant.area.value, placeholder: plant.area.placeholder },
-              { label: "Power", value: plant.power.value, placeholder: plant.power.placeholder },
+              { label: "Machines", value: `${machineCount.value}${machineCount.suffix} CNC, automat and secondary machines`, placeholder: machineCount.placeholder },
               { label: "Operation", value: plant.shifts.value, placeholder: plant.shifts.placeholder },
             ].filter((f) => f.value)}
             utilities={plant.utilities}
