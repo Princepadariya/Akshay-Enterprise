@@ -21,6 +21,7 @@ import { BatchReveal } from "@/components/motion/batch-reveal";
 import { SplitReveal } from "@/components/motion/split-reveal";
 import { MaterialFinishPicker } from "@/components/products/material-finish-picker";
 import { QuoteDock } from "@/components/products/quote-dock";
+import { InquireNow } from "@/components/products/inquire-now";
 
 export const dynamicParams = false;
 
@@ -77,6 +78,7 @@ export default async function ProductPage({ params }: PageProps<"/products/[cate
                   Request a Quote for this part <ArrowRight strokeWidth={1.5} />
                 </Link>
               </Button>
+              <InquireNow name={p.name} sizes={p.sizes} />
             </div>
           </div>
         </div>
