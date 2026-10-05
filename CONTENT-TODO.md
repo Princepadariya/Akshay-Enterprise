@@ -49,7 +49,6 @@ Every item below is currently a **placeholder**. On the live site, placeholders 
 
 ## Company story (`src/content/company.ts`, `src/content/timeline.ts`)
 - [ ] Founder's name and approved message
-
 - [ ] Real company milestones and years (`timeline.ts`)
 - [ ] Facts panel on the About page (`about.facts`)
 
