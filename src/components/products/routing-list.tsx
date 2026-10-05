@@ -68,7 +68,7 @@ export function RoutingList({ route }: { route: { op: string; body: string }[] }
             <span className="text-[15px] leading-snug">{r.body}</span>
             {/* sign-off circle: dashed ring always, brass tick stamped in */}
             <span className="relative grid size-6 place-items-center rounded-full border border-dashed border-foreground/25">
-              <span data-tick className="absolute inset-0 grid place-items-center rounded-full bg-brass text-brass-foreground">
+              <span data-tick className="absolute inset-0 grid place-items-center rounded-full bg-brass gloss text-brass-foreground">
                 <Check strokeWidth={2.5} className="size-3.5" aria-label="Signed off" />
               </span>
             </span>

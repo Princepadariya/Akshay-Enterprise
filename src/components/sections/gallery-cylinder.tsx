@@ -149,7 +149,7 @@ export function GalleryCylinder({ items }: { items: GalleryItem[] }) {
                   key={item.image}
                   data-card3d
                   data-index={i}
-                  className="absolute top-0 left-0 -mt-[130px] -ml-[100px] h-[260px] w-[200px] overflow-hidden rounded-sm border border-border bg-surface-2 shadow-[0_30px_60px_-30px_rgb(11_13_16/0.5)] [backface-visibility:hidden] md:-mt-[180px] md:-ml-[135px] md:h-[360px] md:w-[270px]"
+                  className="absolute top-0 left-0 -mt-[130px] -ml-[100px] h-[260px] w-[200px] overflow-hidden rounded-sm border border-border bg-surface-2 shadow-[0_30px_60px_-30px_rgb(18_11_10/0.5)] [backface-visibility:hidden] md:-mt-[180px] md:-ml-[135px] md:h-[360px] md:w-[270px]"
                 >
                   <Image src={p.src} alt={p.alt} fill sizes="270px" className="object-cover" draggable={false} />
                   <div data-shade className="absolute inset-0 bg-graphite" style={{ opacity: 0 }} />

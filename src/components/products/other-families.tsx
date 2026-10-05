@@ -93,7 +93,7 @@ export function OtherFamilies({ items }: { items: Category[] }) {
                   </span>
                   <span className="mt-1 block truncate font-mono text-[11px] text-muted-foreground">{c.spec}</span>
                 </span>
-                <span className="grid size-10 place-items-center rounded-full border border-border transition-[background-color,border-color,color,transform] duration-500 group-hover:rotate-45 group-hover:border-brass group-hover:bg-brass group-hover:text-brass-foreground">
+                <span className="grid size-10 place-items-center rounded-full border border-border transition-[background-color,border-color,color,transform] duration-500 group-hover:rotate-45 group-hover:border-brass group-hover:bg-brass group-hover:gloss group-hover:text-brass-foreground">
                   <ArrowUpRight strokeWidth={1.5} className="size-4" />
                 </span>
               </Link>
@@ -106,7 +106,7 @@ export function OtherFamilies({ items }: { items: Category[] }) {
       <div
         ref={preview}
         aria-hidden
-        className="pointer-events-none absolute top-0 left-0 z-10 hidden overflow-hidden rounded-sm border border-border shadow-[0_30px_60px_-20px_rgb(11_13_16/0.5)] lg:block"
+        className="pointer-events-none absolute top-0 left-0 z-10 hidden overflow-hidden rounded-sm border border-border shadow-[0_30px_60px_-20px_rgb(18_11_10/0.5)] lg:block"
         style={{ width: 260, height: 180, opacity: 0, visibility: "hidden" }}
       >
         {items.map((c) => (

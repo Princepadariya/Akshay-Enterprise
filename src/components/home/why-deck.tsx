@@ -104,7 +104,7 @@ export function WhyDeck() {
               <li key={d.title} data-deck-slot className="lg:sticky" style={{ top: `calc(8rem + ${i * 1.1}rem)` }}>
                 <article
                   data-card
-                  className="grid origin-top overflow-hidden rounded-sm border border-border bg-card shadow-[0_30px_60px_-30px_rgb(11_13_16/0.45)] will-change-transform sm:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]"
+                  className="grid origin-top overflow-hidden rounded-sm border border-border bg-card shadow-[0_30px_60px_-30px_rgb(18_11_10/0.45)] will-change-transform sm:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]"
                 >
                   <div className="relative min-h-56 overflow-hidden sm:min-h-[22rem]">
                     <div data-photo className="absolute inset-0">

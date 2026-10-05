@@ -30,7 +30,9 @@ export function FooterWordmark() {
             yPercent: 0,
             ease: "none",
             stagger: 0.08,
-            scrollTrigger: { trigger: ref.current, start: "top bottom", end: "bottom bottom", scrub: 0.8 },
+            // measured last (after pinned sections above add their spacing) and run to the very
+            // end of the page, so long pages like home don't finish the rise before it is seen
+            scrollTrigger: { trigger: ref.current, start: "top bottom", end: "max", scrub: 0.8, refreshPriority: -1 },
           },
         );
         return () => split.revert();

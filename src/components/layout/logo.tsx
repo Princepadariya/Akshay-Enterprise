@@ -2,23 +2,30 @@ import Link from "next/link";
 import { cn } from "@/lib/utils";
 
 /**
- * Brand mark: a hex bar cross-section with a turned bore (the raw form of most of what we make).
+ * Brand mark in the style of the abc + brass badge: silver ring, glossy red-orange sphere, and a
+ * white hex bar section with a cream turned bore.
  * TODO: replace with the official Akshay Enterprise logo when supplied.
  */
 export function LogoMark({ className }: { className?: string }) {
   return (
     <svg viewBox="0 0 32 32" aria-hidden className={cn("size-8", className)}>
       <defs>
-        <linearGradient id="ae-accent" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0" stopColor="#6e1d07" />
-          <stop offset="0.4" stopColor="#e0603a" />
-          <stop offset="0.7" stopColor="#af2f0c" />
-          <stop offset="1" stopColor="#cc4a24" />
+        <radialGradient id="ae-sphere" cx="0.32" cy="0.26" r="0.85">
+          <stop offset="0" stopColor="#f08a3c" />
+          <stop offset="0.35" stopColor="#c13a10" />
+          <stop offset="0.62" stopColor="#af2f0c" />
+          <stop offset="1" stopColor="#4a0c03" />
+        </radialGradient>
+        <linearGradient id="ae-ring" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stopColor="#f2f3f5" />
+          <stop offset="0.5" stopColor="#a9adb3" />
+          <stop offset="1" stopColor="#dfe1e4" />
         </linearGradient>
       </defs>
-      <path d="M16 1.5 28.6 8.75v14.5L16 30.5 3.4 23.25V8.75z" fill="url(#ae-accent)" />
-      <circle cx="16" cy="16" r="6.2" fill="var(--background)" />
-      <circle cx="16" cy="16" r="6.2" fill="none" stroke="#5a1806" strokeOpacity="0.6" strokeWidth="0.8" />
+      <circle cx="16" cy="16" r="15.5" fill="url(#ae-ring)" />
+      <circle cx="16" cy="16" r="13.4" fill="url(#ae-sphere)" />
+      <path d="M16 7.6 23.3 11.8v8.4L16 24.4 8.7 20.2v-8.4z" fill="none" stroke="#ffffff" strokeWidth="1.9" strokeLinejoin="round" />
+      <circle cx="16" cy="16" r="3.1" fill="none" stroke="#f8d9b9" strokeWidth="1.6" />
     </svg>
   );
 }

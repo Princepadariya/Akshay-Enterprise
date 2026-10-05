@@ -6,7 +6,8 @@
 
 /*
  * Akshay Enterprise design tokens: "Engineered Luxury"
- * Graphite + warm off-white base, machined-brass signature accent,
+ * Taken from the abc + brass badge: a glossy red-orange sphere (#af2f0c), a silver ring and
+ * white / peach-cream lettering, over warm near-black and warm off-white neutrals.
  * blueprint cyan reserved for technical/data callouts only.
  * Radius system: all-sharp (2px) everywhere, no exceptions.
  */
@@ -38,20 +39,22 @@
   --color-brass-ink: var(--brass-ink);
   --color-brass-soft: var(--brass-soft);
   --color-brass-foreground: var(--brass-foreground);
+  --color-cream: #f8d9b9;
+  --color-silver: #c9cbcf;
   --color-blueprint: var(--blueprint);
-  --color-graphite: #0b0d10;
-  --color-paper: #f4f3f0;
+  --color-graphite: #120b0a;
+  --color-paper: #f7f3ef;
 
-  --color-steel-50: #f3f4f5;
-  --color-steel-100: #e3e5e8;
-  --color-steel-200: #c8ccd1;
-  --color-steel-300: #a4aab2;
-  --color-steel-400: #7d848e;
-  --color-steel-500: #5f6670;
-  --color-steel-600: #474d56;
-  --color-steel-700: #33383f;
-  --color-steel-800: #22262c;
-  --color-steel-900: #15181c;
+  --color-steel-50: #f4f4f5;
+  --color-steel-100: #e6e6e8;
+  --color-steel-200: #cbccce;
+  --color-steel-300: #a8aaad;
+  --color-steel-400: #838588;
+  --color-steel-500: #65676a;
+  --color-steel-600: #4c4e51;
+  --color-steel-700: #38393c;
+  --color-steel-800: #262729;
+  --color-steel-900: #18181a;
 
   --font-sans: var(--font-body);
   --font-display: var(--font-archivo);
@@ -74,23 +77,23 @@
 :root {
   --radius: 2px;
 
-  --background: #f4f3f0;
-  --surface: #eceae5;
-  --surface-2: #e4e1db;
-  --foreground: #101318;
-  --card: #faf9f7;
-  --card-foreground: #101318;
-  --popover: #faf9f7;
-  --popover-foreground: #101318;
-  --muted: #e6e3dd;
-  --muted-foreground: #565c65;
-  --secondary: #e4e1db;
-  --secondary-foreground: #101318;
-  --accent: #e6e3dd;
-  --accent-foreground: #101318;
-  --border: #d6d2ca;
-  --line: rgb(16 19 24 / 0.08);
-  --input: #cdc9c0;
+  --background: #f7f3ef;
+  --surface: #efe8e2;
+  --surface-2: #e7dfd7;
+  --foreground: #1a1311;
+  --card: #fcfaf8;
+  --card-foreground: #1a1311;
+  --popover: #fcfaf8;
+  --popover-foreground: #1a1311;
+  --muted: #ebe3dc;
+  --muted-foreground: #61574f;
+  --secondary: #e7dfd7;
+  --secondary-foreground: #1a1311;
+  --accent: #ebe3dc;
+  --accent-foreground: #1a1311;
+  --border: #ddd3ca;
+  --line: rgb(26 19 17 / 0.08);
+  --input: #d3c8be;
   --ring: #af2f0c;
   --destructive: #b3261e;
 
@@ -108,29 +111,29 @@
 }
 
 .dark {
-  --background: #0b0d10;
-  --surface: #101318;
-  --surface-2: #161a20;
-  --foreground: #ecebe6;
-  --card: #12161b;
-  --card-foreground: #ecebe6;
-  --popover: #12161b;
-  --popover-foreground: #ecebe6;
-  --muted: #181c22;
-  --muted-foreground: #9aa0a9;
-  --secondary: #1b2027;
-  --secondary-foreground: #ecebe6;
-  --accent: #1b2027;
-  --accent-foreground: #ecebe6;
-  --border: #252a32;
-  --line: rgb(236 235 230 / 0.07);
-  --input: #2c323b;
-  --ring: #f07150;
+  --background: #0f0a09;
+  --surface: #150e0c;
+  --surface-2: #1c1311;
+  --foreground: #f4ece5;
+  --card: #181010;
+  --card-foreground: #f4ece5;
+  --popover: #181010;
+  --popover-foreground: #f4ece5;
+  --muted: #1e1513;
+  --muted-foreground: #ab9d93;
+  --secondary: #231917;
+  --secondary-foreground: #f4ece5;
+  --accent: #231917;
+  --accent-foreground: #f4ece5;
+  --border: #30241f;
+  --line: rgb(244 236 229 / 0.07);
+  --input: #3a2c27;
+  --ring: #f6b48a;
   --destructive: #f2867c;
 
   --brass: #c4381a;
-  --brass-ink: #f07150;
-  --brass-soft: rgb(240 113 80 / 0.12);
+  --brass-ink: #f6b48a;
+  --brass-soft: rgb(246 180 138 / 0.10);
   --brass-foreground: #ffffff;
   --primary: #c4381a;
   --primary-foreground: #ffffff;
@@ -170,7 +173,10 @@
   }
   ::selection {
     background: var(--brass);
-    color: #0b0d10;
+    color: #ffffff;
+  }
+  html {
+    scrollbar-color: color-mix(in srgb, var(--brass) 55%, var(--border)) var(--background);
   }
   :focus-visible {
     outline: 2px solid var(--ring);
@@ -235,16 +241,22 @@ html.lenis body {
     background-size: 16px 16px;
   }
 
-  /* Brushed accent metal (#af2f0c family): marks, rules and select surfaces, never on body text */
+  /* Brushed accent metal (logo red-orange): rules, bars and marks, never on body text */
   .metal-brass {
     background:
       repeating-linear-gradient(90deg, rgb(255 255 255 / 0.04) 0 1px, transparent 1px 3px),
-      linear-gradient(115deg, #6e1d07 0%, #a52c0b 22%, #e0603a 38%, #af2f0c 55%, #7e2208 72%, #cc4a24 88%, #922709 100%);
+      linear-gradient(115deg, #5c1104 0%, #a52c0b 22%, #ec7a34 38%, #af2f0c 55%, #7a1c06 72%, #d14a1a 88%, #8e2408 100%);
+  }
+  /* Glossy sphere like the logo badge: orange highlight top-left, deep maroon rim */
+  .badge-sphere {
+    background:
+      radial-gradient(90% 70% at 28% 18%, rgb(255 170 100 / 0.55), transparent 55%),
+      radial-gradient(130% 130% at 30% 22%, #e8642a 0%, #c13a10 30%, #af2f0c 48%, #7a1c06 75%, #4a0c03 100%);
   }
   .metal-steel {
     background:
       repeating-linear-gradient(90deg, rgb(255 255 255 / 0.035) 0 1px, transparent 1px 3px),
-      linear-gradient(115deg, #2a2f36 0%, #454c55 30%, #6b737d 45%, #3a4048 62%, #262a30 100%);
+      linear-gradient(115deg, #2b2b2e 0%, #4a4b4f 30%, #74767b 45%, #3e3f43 62%, #28282b 100%);
   }
   /* Optional photo treatment: graphite duotone with a warm accent lift */
   /* position is set by the caller (relative / absolute utilities), never here */
@@ -266,8 +278,8 @@ html.lenis body {
     z-index: 1;
     pointer-events: none;
     background:
-      linear-gradient(180deg, rgb(11 13 16 / 0) 35%, rgb(11 13 16 / 0.72) 100%),
-      linear-gradient(135deg, rgb(175 47 12 / 0.3), rgb(26 32 40 / 0.36));
+      linear-gradient(180deg, rgb(18 11 10 / 0) 35%, rgb(18 11 10 / 0.72) 100%),
+      linear-gradient(135deg, rgb(175 47 12 / 0.3), rgb(40 22 18 / 0.36));
     mix-blend-mode: multiply;
   }
   .img-treat-soft::after {
@@ -498,5 +510,26 @@ html.lenis body {
   }
   .animate-marquee {
     animation: none !important;
+  }
+}
+
+/*
+ * Logo-badge finishes.
+ * gloss: lays the badge's orange highlight and dark rim over an existing accent fill, so round
+ * markers read as small versions of the logo sphere. Usable with variants (group-hover:gloss).
+ * text-sphere: the same highlight-to-rim fade as text, for one accent phrase per page at most.
+ */
+@utility gloss {
+  background-image:
+    radial-gradient(circle at 32% 26%, rgb(255 168 96 / 0.6), transparent 58%),
+    radial-gradient(circle at 50% 50%, transparent 52%, rgb(60 8 2 / 0.4) 100%);
+}
+@utility text-sphere {
+  background-image: linear-gradient(100deg, #d4511c 0%, #af2f0c 55%, #7a1c06 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  .dark & {
+    background-image: linear-gradient(100deg, #f6b48a 0%, #e8642a 45%, #c4381a 100%);
   }
 }

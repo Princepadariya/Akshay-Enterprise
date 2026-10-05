@@ -101,7 +101,7 @@ export function PlantTour() {
                   data-hero-shade={isHero ? "" : undefined}
                   aria-hidden
                   className="absolute inset-x-0 bottom-0"
-                  style={{ height: "45%", background: "linear-gradient(to top, rgb(11 13 16 / 0.7), transparent)" }}
+                  style={{ height: "45%", background: "linear-gradient(to top, rgb(18 11 10 / 0.7), transparent)" }}
                 />
                 <span className="absolute bottom-3 left-3 font-mono text-[11px] tracking-[0.12em] text-paper uppercase md:bottom-4 md:left-4">
                   {t.label}

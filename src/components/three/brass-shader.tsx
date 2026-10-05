@@ -57,7 +57,7 @@ void main() {
   float spec = pow(clamp(f * 1.35 - d * 0.55, 0.0, 1.0), 3.0);
   float rim = smoothstep(0.62, 0.66, f) - smoothstep(0.66, 0.72, f);
 
-  vec3 graphite = vec3(0.043, 0.051, 0.063);
+  vec3 graphite = vec3(0.059, 0.039, 0.035);
   vec3 brassDeep = vec3(0.26, 0.07, 0.02);
   vec3 brass = vec3(0.69, 0.18, 0.05);
   vec3 brassHi = vec3(1.0, 0.62, 0.48);
@@ -66,7 +66,7 @@ void main() {
   dark = mix(dark, brass, smoothstep(0.55, 0.92, f + brush));
   dark += brassHi * (spec * 0.55 + rim * 0.18);
 
-  vec3 paper = vec3(0.957, 0.953, 0.941);
+  vec3 paper = vec3(0.969, 0.953, 0.937);
   vec3 light = mix(paper, brass, smoothstep(0.38, 0.95, f + brush) * 0.8);
   light = mix(light, brassDeep, smoothstep(0.8, 1.0, f) * 0.35);
   light += brassHi * spec * 0.35;

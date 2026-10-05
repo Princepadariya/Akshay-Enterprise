@@ -94,7 +94,7 @@ export function HeroVisual() {
   }, [mode]);
 
   return (
-    <div ref={ref} className="relative aspect-[4/5] w-full sm:aspect-square">
+    <div ref={ref} className="relative aspect-[4/3] w-full md:aspect-square">
       <div ref={hudRoot} className="contents">
       {/* Drawing frame */}
       <div aria-hidden className="absolute inset-0 rounded-sm border border-border">
@@ -112,7 +112,7 @@ export function HeroVisual() {
         k="brassParts"
         priority
         sizes="(min-width: 768px) 45vw, 100vw"
-        className={cn("absolute inset-6 overflow-hidden rounded-sm", mode !== "image" && "md:hidden")}
+        className={cn("absolute inset-4 overflow-hidden rounded-sm md:inset-6", mode !== "image" && "md:hidden")}
       />
 
       {mode === "3d" ? (

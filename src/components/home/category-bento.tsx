@@ -51,7 +51,7 @@ export function CategoryBento() {
                   "group relative flex h-full flex-col justify-end overflow-hidden rounded-sm border border-border p-5 transition-colors duration-500 hover:border-brass/60",
                   l.surface === "blueprint" && "bg-surface",
                   l.surface === "steel" && "metal-steel",
-                  l.surface === "brass" && "metal-brass border-transparent",
+                  l.surface === "brass" && "badge-sphere border-transparent ring-1 ring-silver/45 ring-inset",
                 )}
               >
                 {l.surface === "photo" ? (
@@ -73,7 +73,7 @@ export function CategoryBento() {
                     className="absolute inset-0 z-[1]"
                     style={{
                       background:
-                        "linear-gradient(to top, rgb(11 13 16 / 0.92) 0%, rgb(11 13 16 / 0.78) 30%, rgb(11 13 16 / 0.45) 60%, rgb(11 13 16 / 0) 90%), linear-gradient(to bottom, rgb(11 13 16 / 0.45) 0%, rgb(11 13 16 / 0) 30%), rgb(11 13 16 / 0.18)",
+                        "linear-gradient(to top, rgb(18 11 10 / 0.92) 0%, rgb(18 11 10 / 0.78) 30%, rgb(18 11 10 / 0.45) 60%, rgb(18 11 10 / 0) 90%), linear-gradient(to bottom, rgb(18 11 10 / 0.45) 0%, rgb(18 11 10 / 0) 30%), rgb(18 11 10 / 0.18)",
                     }}
                   />
                 ) : null}
@@ -96,7 +96,7 @@ export function CategoryBento() {
                     <p
                       className={cn(
                         "mt-2 font-mono text-[11px] tracking-wide",
-                        onDark ? "text-steel-200" : l.surface === "brass" ? "text-paper/80" : "text-muted-foreground",
+                        onDark ? "text-steel-200" : l.surface === "brass" ? "text-cream" : "text-muted-foreground",
                       )}
                     >
                       {count} product {count === 1 ? "line" : "lines"}

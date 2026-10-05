@@ -50,7 +50,7 @@ export function QuoteDock({ name, sizes, image, href, anchorId }: { name: string
       )}
       style={{ transitionTimingFunction: "cubic-bezier(0.16,1,0.3,1)" }}
     >
-      <div className="flex items-center gap-4 rounded-full border border-border bg-background/90 py-2 pr-2 pl-2 shadow-[0_20px_50px_-20px_rgb(11_13_16/0.45)] backdrop-blur-md">
+      <div className="flex items-center gap-4 rounded-full border border-border bg-background/90 py-2 pr-2 pl-2 shadow-[0_20px_50px_-20px_rgb(18_11_10/0.45)] backdrop-blur-md">
         <span className="relative size-10 shrink-0 overflow-hidden rounded-full border border-border">
           <Image src={photos[image].src} alt="" fill sizes="40px" className="object-cover" />
         </span>

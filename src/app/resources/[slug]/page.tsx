@@ -150,7 +150,7 @@ export default async function GuidePage({ params }: PageProps<"/resources/[slug]
                       </span>
                       <span className="mt-2 block font-display text-lg leading-snug font-semibold tracking-tight">{r.title}</span>
                     </span>
-                    <span className="grid size-9 place-items-center self-end rounded-full border border-border transition-[background-color,border-color,color,transform] duration-500 group-hover:rotate-45 group-hover:border-brass group-hover:bg-brass group-hover:text-brass-foreground">
+                    <span className="grid size-9 place-items-center self-end rounded-full border border-border transition-[background-color,border-color,color,transform] duration-500 group-hover:rotate-45 group-hover:border-brass group-hover:bg-brass group-hover:gloss group-hover:text-brass-foreground">
                       <ArrowUpRight strokeWidth={1.5} className="size-4" />
                     </span>
                   </Link>

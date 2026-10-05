@@ -49,7 +49,7 @@ export default function ResourcesPage() {
                       </span>
                     </span>
                     <span className="col-span-3 col-start-2 text-[15px] leading-relaxed text-muted-foreground md:col-span-1 md:col-start-3">{g.summary}</span>
-                    <span className="col-start-3 row-start-1 grid size-10 place-items-center rounded-full border border-border transition-[background-color,border-color,color,transform] duration-500 group-hover:rotate-45 group-hover:border-brass group-hover:bg-brass group-hover:text-brass-foreground md:col-start-4">
+                    <span className="col-start-3 row-start-1 grid size-10 place-items-center rounded-full border border-border transition-[background-color,border-color,color,transform] duration-500 group-hover:rotate-45 group-hover:border-brass group-hover:bg-brass group-hover:gloss group-hover:text-brass-foreground md:col-start-4">
                       <ArrowUpRight strokeWidth={1.5} className="size-4" />
                     </span>
                   </Link>

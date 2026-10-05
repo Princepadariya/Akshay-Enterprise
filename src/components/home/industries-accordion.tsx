@@ -121,7 +121,7 @@ export function IndustriesAccordion() {
                 {/* open state */}
                 <div
                   data-body
-                  className="absolute bottom-5 left-5 w-[min(560px,48vw)] rounded-sm border border-white/10 bg-graphite/85 p-7 shadow-[0_20px_50px_-20px_rgb(11_13_16/0.6)]" /* fixed width: text never re-wraps mid-animation; solid card keeps text readable over the full-colour photo */
+                  className="absolute bottom-5 left-5 w-[min(560px,48vw)] rounded-sm border border-white/10 bg-graphite/85 p-7 shadow-[0_20px_50px_-20px_rgb(18_11_10/0.6)]" /* fixed width: text never re-wraps mid-animation; solid card keeps text readable over the full-colour photo */
                   style={{ opacity: i === 0 ? 1 : 0, visibility: i === 0 ? "visible" : "hidden" }}
                 >
                   <Icon strokeWidth={ICON_STROKE} className="size-8 text-brass" />

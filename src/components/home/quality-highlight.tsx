@@ -22,7 +22,7 @@ export function QualityHighlight() {
             <div
               aria-hidden
               className="absolute inset-x-0 bottom-0 z-[1]"
-              style={{ height: "55%", background: "linear-gradient(to top, rgb(11 13 16 / 0.8), transparent)" }}
+              style={{ height: "55%", background: "linear-gradient(to top, rgb(18 11 10 / 0.8), transparent)" }}
             />
             <div className="absolute inset-x-0 bottom-0 z-[2] p-6 md:p-8">
               <p className="font-mono text-[11px] tracking-[0.16em] text-steel-200 uppercase">

@@ -93,7 +93,7 @@ export default function AboutPage() {
                   {s.title}
                 </span>
                 <span className="hidden text-muted-foreground md:block">{s.body}</span>
-                <span className="grid size-10 place-items-center rounded-full border border-border transition-[background-color,border-color,color,transform] duration-500 group-hover:rotate-45 group-hover:border-brass group-hover:bg-brass group-hover:text-brass-foreground">
+                <span className="grid size-10 place-items-center rounded-full border border-border transition-[background-color,border-color,color,transform] duration-500 group-hover:rotate-45 group-hover:border-brass group-hover:bg-brass group-hover:gloss group-hover:text-brass-foreground">
                   <ArrowUpRight strokeWidth={1.5} className="size-4" />
                 </span>
                 <span className="col-span-3 -mt-3 text-sm text-muted-foreground md:hidden">{s.body}</span>

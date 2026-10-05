@@ -97,7 +97,7 @@ export function InspectionFlow({ stages }: { stages: Stage[] }) {
           <span
             key={s.stage}
             data-gate
-            className="absolute bottom-5 grid size-9 -translate-x-1/2 translate-y-1/2 place-items-center rounded-full border border-border bg-background font-mono text-[11px] text-muted-foreground transition-[background-color,border-color,color,box-shadow] duration-500 data-[on]:border-brass data-[on]:bg-brass data-[on]:text-brass-foreground data-[on]:shadow-[0_0_0_6px_rgb(175_47_12/0.18)]"
+            className="absolute bottom-5 grid size-9 -translate-x-1/2 translate-y-1/2 place-items-center rounded-full border border-border bg-background font-mono text-[11px] text-muted-foreground transition-[background-color,border-color,color,box-shadow] duration-500 data-[on]:border-brass data-[on]:bg-brass data-[on]:gloss data-[on]:text-brass-foreground data-[on]:shadow-[0_0_0_6px_rgb(175_47_12/0.18)]"
             style={{ left: `${((2 * i + 1) / (stages.length * 2)) * 100}%` }}
           >
             {String(i + 1).padStart(2, "0")}
@@ -105,7 +105,7 @@ export function InspectionFlow({ stages }: { stages: Stage[] }) {
         ))}
         {/* the part travelling the line */}
         <span data-token className="absolute bottom-5 z-[1] -translate-x-1/2 translate-y-1/2" style={{ left: "0%" }}>
-          <svg viewBox="0 0 24 24" className="size-6 text-brass drop-shadow-[0_2px_6px_rgb(11_13_16/0.35)]">
+          <svg viewBox="0 0 24 24" className="size-6 text-brass drop-shadow-[0_2px_6px_rgb(18_11_10/0.35)]">
             <path d="M12 2 20.7 7v10L12 22 3.3 17V7z" fill="var(--background)" stroke="currentColor" strokeWidth="1.75" />
             <circle cx="12" cy="12" r="3.2" fill="none" stroke="currentColor" strokeWidth="1.75" />
           </svg>
@@ -122,7 +122,7 @@ export function InspectionFlow({ stages }: { stages: Stage[] }) {
           <li
             key={s.stage}
             data-stage
-            className="group/stage relative flex flex-col rounded-sm border border-border bg-card p-6 transition-[border-color,box-shadow,transform] duration-500 data-[on]:-translate-y-1 data-[on]:border-brass/60 data-[on]:shadow-[0_24px_50px_-28px_rgb(11_13_16/0.45)] md:p-8"
+            className="group/stage relative flex flex-col rounded-sm border border-border bg-card p-6 transition-[border-color,box-shadow,transform] duration-500 data-[on]:-translate-y-1 data-[on]:border-brass/60 data-[on]:shadow-[0_24px_50px_-28px_rgb(18_11_10/0.45)] md:p-8"
           >
             {/* rail node (small screens) */}
             <span

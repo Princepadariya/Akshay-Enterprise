@@ -20,7 +20,7 @@ export function FloatingActions() {
         rel="noreferrer"
         aria-label={`Chat on WhatsApp with ${site.name}`}
         className={cn(
-          "fixed right-4 z-[45] flex size-12 items-center justify-center rounded-full border border-border bg-card text-foreground shadow-[0_8px_30px_rgb(11_13_16/0.18)] transition-transform hover:-translate-y-0.5 md:right-6 md:bottom-6",
+          "fixed right-4 z-[45] flex size-12 items-center justify-center rounded-full border border-border bg-card text-foreground shadow-[0_8px_30px_rgb(18_11_10/0.18)] transition-transform hover:-translate-y-0.5 md:right-6 md:bottom-6",
           onQuote ? "bottom-4" : "bottom-20 md:bottom-6",
         )}
       >
