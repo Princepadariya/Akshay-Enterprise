@@ -37,8 +37,7 @@ Every item below is currently a **placeholder**. On the live site, placeholders 
 - [ ] Category detail content: overview, features, manufacturing routes, inspection checks, options, standards and FAQs (`src/content/category-details.ts`)
 
 ## Manufacturing
-- [ ] Machine register: type, make, quantity, capacity (`src/content/machinery.ts > machinery`)
-- [ ] Plant area, power, shifts (`machinery.ts > plant`)
+- [ ] Shifts (`machinery.ts > plant`)
 - [ ] Capability table size and tolerance ranges (`src/content/capabilities.ts > capabilityTable`)
 - [ ] Inspection instruments, including whether an XRF / spectro analyser is available (`src/content/quality.ts`)
 - [ ] Tolerance highlights on the quality section (`quality.ts > toleranceHighlights`)

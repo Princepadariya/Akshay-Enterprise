@@ -1,12 +1,11 @@
 import { PageHero } from "@/components/sections/page-hero";
 import { SectionHeader } from "@/components/sections/section-header";
 import { CtaBand } from "@/components/sections/cta-band";
-import { MachineryTable } from "@/components/sections/machinery-table";
 import { PlantTour } from "@/components/sections/plant-tour";
 import { Odometer } from "@/components/motion/odometer";
 import { PlantTitleBlock } from "@/components/sections/plant-title-block";
 import { TodoMark } from "@/components/todo-mark";
-import { machinery, plant } from "@/content/machinery";
+import { plant } from "@/content/machinery";
 import { site } from "@/content/site";
 import { pageMetadata } from "@/lib/seo";
 
@@ -14,7 +13,7 @@ const machineCount = site.stats.find((s) => s.label.startsWith("Machines")) ?? s
 
 export const metadata = pageMetadata({
   title: "Infrastructure",
-  description: "Plant, machinery and capacity at Akshay Enterprise: CNC turning centres, cam automats, VMCs and secondary operation machines in Gujarat, India.",
+  description: "Plant and capacity at Akshay Enterprise: CNC turning centres, cam automats, VMCs and secondary operation machines in Gujarat, India.",
   path: "/infrastructure",
 });
 
@@ -43,13 +42,6 @@ export default function InfrastructurePage() {
             ].filter((f) => f.value)}
             utilities={plant.utilities}
           />
-        </div>
-      </section>
-
-      <section className="border-y border-border bg-surface py-16 md:py-24">
-        <div className="container-x grid gap-10">
-          <SectionHeader title="Machinery" lead="Sort by any column or filter by process group." />
-          <MachineryTable rows={machinery} />
         </div>
       </section>
 
