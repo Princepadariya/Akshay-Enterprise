@@ -3,7 +3,6 @@ import { Clock, Mail, MapPin, MessageCircle, Phone } from "lucide-react";
 import { PageHero } from "@/components/sections/page-hero";
 import { ContactForm } from "@/components/forms/contact-form";
 import { MapEmbed } from "@/components/sections/map-embed";
-import { CopyButton } from "@/components/sections/copy-button";
 import { TodoMark } from "@/components/todo-mark";
 import { hasPhone, hasWhatsapp, site, whatsappHref } from "@/content/site";
 import { pageMetadata } from "@/lib/seo";
@@ -16,11 +15,11 @@ export const metadata = pageMetadata({
 
 export default function ContactPage() {
   const c = site.contact;
-  type Link = { label?: string; display: string; href?: string; external?: boolean; copy?: boolean };
-  const rows: { icon: typeof Phone; label: string; links: Link[]; placeholder?: boolean }[] = [
+  type Link = { label?: string; display: string; href?: string; external?: boolean };
+  const rows: { icon: typeof Phone; label: string; links: readonly Link[]; placeholder?: boolean }[] = [
     { icon: MapPin, label: "Factory", links: [{ display: c.addressLines.join(", "), href: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(c.mapEmbedQuery)}`, external: true }] },
-    ...(hasPhone ? [{ icon: Phone, label: "Phone", links: c.phones.map((p) => ({ ...p, copy: true })) }] : []),
-    { icon: Mail, label: "Email", links: c.emails.map((e) => ({ ...e, copy: true })) },
+    ...(hasPhone ? [{ icon: Phone, label: "Phone", links: c.phones }] : []),
+    { icon: Mail, label: "Email", links: c.emails },
     ...(hasWhatsapp ? [{ icon: MessageCircle, label: "WhatsApp", links: [{ display: "Chat with us", href: whatsappHref(), external: true }] }] : []),
     { icon: Clock, label: "Business hours", links: [{ display: c.hours.value }], placeholder: c.hours.placeholder },
   ];
@@ -61,7 +60,6 @@ export default function ContactPage() {
                           ) : (
                             <p className="font-medium">{l.display}</p>
                           )}
-                          {l.copy ? <CopyButton text={l.display} label={`${r.label.toLowerCase()} ${l.display}`} /> : null}
                         </li>
                       ))}
                     </ul>
