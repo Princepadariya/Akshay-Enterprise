@@ -5,7 +5,7 @@ import { ContactForm } from "@/components/forms/contact-form";
 import { MapEmbed } from "@/components/sections/map-embed";
 import { CopyButton } from "@/components/sections/copy-button";
 import { TodoMark } from "@/components/todo-mark";
-import { site, whatsappHref } from "@/content/site";
+import { hasPhone, hasWhatsapp, site, whatsappHref } from "@/content/site";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata = pageMetadata({
@@ -18,9 +18,9 @@ export default function ContactPage() {
   const c = site.contact;
   const rows = [
     { icon: MapPin, label: "Factory", value: c.addressLines.join(", "), placeholder: true },
-    { icon: Phone, label: "Phone", value: c.phone.display, href: c.phone.href, placeholder: c.phone.placeholder, copy: c.phone.display },
+    ...(hasPhone ? [{ icon: Phone, label: "Phone", value: c.phone.display, href: c.phone.href, placeholder: c.phone.placeholder, copy: c.phone.display }] : []),
     { icon: Mail, label: "Email", value: c.email.display, href: c.email.href, placeholder: c.email.placeholder, copy: c.email.display },
-    { icon: MessageCircle, label: "WhatsApp", value: "Chat with us", href: whatsappHref(), external: true, placeholder: c.whatsapp.placeholder },
+    ...(hasWhatsapp ? [{ icon: MessageCircle, label: "WhatsApp", value: "Chat with us", href: whatsappHref(), external: true, placeholder: c.whatsapp.placeholder }] : []),
     { icon: Clock, label: "Business hours", value: c.hours.value, placeholder: c.hours.placeholder },
   ];
   return (

@@ -5,6 +5,8 @@ import { Resend } from "resend";
  * Email delivery via Resend.
  * Env: RESEND_API_KEY, RFQ_TO_EMAIL (recipient), RFQ_FROM_EMAIL (verified sender).
  * Without RESEND_API_KEY the message is logged and reported as "stubbed" so forms work in development.
+ * In production a missing key is an error, so visitors are told to email directly instead of
+ * seeing "sent" for a message nobody receives.
  */
 
 type Attachment = { filename: string; content: Buffer };
@@ -24,6 +26,10 @@ export async function sendMail({
   const to = process.env.RFQ_TO_EMAIL ?? "sales@akshayenterprise.com"; // TODO: confirm inbox
   const from = process.env.RFQ_FROM_EMAIL ?? "Akshay Enterprise Website <onboarding@resend.dev>";
 
+  if (!key && process.env.NODE_ENV === "production") {
+    console.error("[mail] RESEND_API_KEY is not set: form submissions cannot be delivered");
+    return { ok: false, error: "Email delivery is not configured" };
+  }
   if (!key) {
     console.info("[mail:stub] RESEND_API_KEY not set. Would send:", {
       to,

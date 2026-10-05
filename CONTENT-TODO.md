@@ -64,7 +64,6 @@ Every item below is currently a **placeholder**. On the live site, placeholders 
 ## Photos (`src/content/images.ts`)
 - [ ] Replace every Unsplash placeholder with real factory, machine, product and team photography
 - [ ] Hero fallback / mobile image (`brassParts`)
-- [ ] Gallery set (`src/content/misc.ts > gallery`)
 - [ ] Once all photos are local, remove `images.unsplash.com` from `next.config.ts`
 
 ## Downloads (`src/content/misc.ts > downloads`)

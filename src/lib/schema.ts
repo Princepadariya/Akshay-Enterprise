@@ -18,7 +18,7 @@ export function organizationSchema() {
     logo: absoluteUrl("/icon.svg"),
     description: site.description,
     email: site.contact.email.display,
-    telephone: site.contact.phone.display,
+    ...(site.contact.phone.placeholder ? {} : { telephone: site.contact.phone.display }),
     address: {
       "@type": "PostalAddress",
       streetAddress: site.contact.addressLines[0],

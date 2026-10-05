@@ -11,7 +11,10 @@ const nextConfig: NextConfig = {
   poweredByHeader: false,
   async redirects() {
     // removed pages: keep old links working
-    return [{ source: "/about/leadership", destination: "/about", permanent: true }];
+    return [
+      { source: "/about/leadership", destination: "/about", permanent: true },
+      { source: "/gallery", destination: "/about", permanent: true },
+    ];
   },
 };
 

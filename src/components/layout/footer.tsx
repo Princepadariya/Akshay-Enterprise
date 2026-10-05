@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { Heart, Mail, MapPin, Phone } from "lucide-react";
 import { footerColumns, legalLinks } from "@/content/navigation";
-import { site } from "@/content/site";
+import { hasPhone, site } from "@/content/site";
 import { TodoMark } from "@/components/todo-mark";
 import { Logo } from "./logo";
 import { FooterWordmark } from "./footer-wordmark";
@@ -24,10 +24,12 @@ export function Footer() {
                   <TodoMark />
                 </span>
               </span>
-              <a href={site.contact.phone.href} className="flex gap-3 hover:text-brass-ink">
-                <Phone strokeWidth={1.5} className="mt-0.5 size-4 shrink-0 text-brass" />
-                <span className="font-mono text-[13px]">{site.contact.phone.display}</span>
-              </a>
+              {hasPhone ? (
+                <a href={site.contact.phone.href} className="flex gap-3 hover:text-brass-ink">
+                  <Phone strokeWidth={1.5} className="mt-0.5 size-4 shrink-0 text-brass" />
+                  <span className="font-mono text-[13px]">{site.contact.phone.display}</span>
+                </a>
+              ) : null}
               <a href={site.contact.email.href} className="flex gap-3 hover:text-brass-ink">
                 <Mail strokeWidth={1.5} className="mt-0.5 size-4 shrink-0 text-brass" />
                 <span className="font-mono text-[13px]">{site.contact.email.display}</span>

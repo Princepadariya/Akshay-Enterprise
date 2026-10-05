@@ -15,7 +15,6 @@ const staticRoutes = [
   "/quality",
   "/materials",
   "/industries",
-  "/gallery",
   "/downloads",
   "/sustainability",
   "/faq",

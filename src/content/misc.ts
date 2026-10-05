@@ -50,35 +50,6 @@ export const sustainability = {
   },
 };
 
-/* ---------------------------------------------------------------- Gallery */
-export type GalleryItem = { image: PhotoKey; group: "Factory" | "Machines" | "Products" | "Quality"; caption: string };
-
-/** TODO: replace with real factory, machine and product photography. */
-export const gallery: GalleryItem[] = [
-  { image: "factoryLine", group: "Factory", caption: "Production hall" },
-  { image: "lathe", group: "Machines", caption: "Bar turning" },
-  { image: "brassParts", group: "Products", caption: "Brass turned parts" },
-  { image: "caliperPart", group: "Quality", caption: "Dimensional check" },
-  { image: "latheTurret", group: "Machines", caption: "Turret and chuck" },
-  { image: "brassNuts", group: "Products", caption: "Threaded fittings" },
-  { image: "warehouse", group: "Factory", caption: "Dispatch area" },
-  { image: "micrometerFlange", group: "Quality", caption: "Micrometer check" },
-  { image: "millCutting", group: "Machines", caption: "Machining centre" },
-  { image: "precisionPins", group: "Products", caption: "Precision pins" },
-  { image: "barStock", group: "Factory", caption: "Raw material store" },
-  { image: "inspector", group: "Quality", caption: "Final inspection" },
-  { image: "cncCutting", group: "Machines", caption: "CNC operation" },
-  { image: "screwsPile", group: "Products", caption: "Fasteners" },
-  { image: "operatorLathe", group: "Factory", caption: "Turning section" },
-  { image: "rulerParts", group: "Quality", caption: "Parts against drawing" },
-  { image: "latheTurning", group: "Machines", caption: "Turning a bar" },
-  { image: "brassFittingsRow", group: "Products", caption: "Brass fittings" },
-  { image: "dialIndicator", group: "Quality", caption: "Dial indicator check" },
-  { image: "machinistLathe", group: "Factory", caption: "Machinist at the lathe" },
-  { image: "copperParts", group: "Products", caption: "Copper electrical parts" },
-  { image: "millingChips", group: "Machines", caption: "Milling and chip control" },
-];
-
 /* ---------------------------------------------------------------- Downloads */
 /** TODO: add the real PDFs to /public/downloads and set `file` to their path. Items without a file show "Request a copy". */
 export const downloads: { title: string; description: string; type: string; size?: string; file?: string }[] = [

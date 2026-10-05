@@ -42,9 +42,9 @@ export const site = {
     city: "Gujarat", // TODO: replace with city once confirmed
     region: "Gujarat",
     country: "IN",
-    phone: { display: "+91 00000 00000", href: "tel:+910000000000", placeholder: true }, // TODO
+    phone: { display: "+91 00000 00000", href: "tel:+910000000000", placeholder: true }, // TODO: real number, then placeholder: false (hidden until then)
     email: { display: "sales@akshayenterprise.com", href: "mailto:sales@akshayenterprise.com", placeholder: true }, // TODO
-    whatsapp: { number: "910000000000", placeholder: true }, // TODO: international format, digits only
+    whatsapp: { number: "910000000000", placeholder: true }, // TODO: international format, digits only, then placeholder: false (hidden until then)
     hours: { value: "Mon to Sat, 09:30 to 18:30 IST", placeholder: true }, // TODO
     mapEmbedQuery: "Gujarat, India", // TODO: replace with exact factory address / Google Maps place name
   },
@@ -157,6 +157,10 @@ export const site = {
 } as const;
 
 export type Site = typeof site;
+
+/** The phone and WhatsApp numbers are hidden site-wide until real ones are filled in, so no link dials a dummy number. */
+export const hasPhone = !site.contact.phone.placeholder;
+export const hasWhatsapp = !site.contact.whatsapp.placeholder;
 
 export function whatsappHref(message = "Hello Akshay Enterprise, I would like to discuss a part.") {
   return `https://wa.me/${site.contact.whatsapp.number}?text=${encodeURIComponent(message)}`;
