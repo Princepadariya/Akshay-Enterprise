@@ -8,11 +8,10 @@ import type { PhotoKey } from "./images";
 
 export type MaterialKey =
   | "brass"
-  | "dzr-brass"
   | "stainless-steel"
   | "mild-steel"
-  | "aluminium"
-  | "copper";
+  | "copper"
+  | "aluminium";
 
 export type Material = {
   key: MaterialKey;
@@ -32,44 +31,26 @@ export const materials: Material[] = [
   {
     key: "brass",
     composition: { grade: "CW614N (CuZn39Pb3)", standard: "BS EN 12164", elements: [{ el: "Cu", range: "57.0 to 59.0" }, { el: "Pb", range: "2.5 to 3.5" }, { el: "Fe", range: "0.3 max" }, { el: "Zn", range: "Remainder" }] },
-    name: "Free-cutting brass",
+    name: "Brass",
     short: "Brass",
-    grades: ["CW614N", "CZ121", "C36000", "IS 319 Type I"],
+    grades: ["CW614N", "CZ121", "C36000", "IS 319 Type I", "CW602N (DZR)"],
     summary:
-      "The workhorse for turned parts. Lead-bearing free-cutting brass breaks chips cleanly, holds fine threads and takes plating well.",
+      "The workhorse for turned parts. Free-cutting brass breaks chips cleanly, holds fine threads and takes plating well; DZR brass (CW602N) is used where parts are in contact with drinking water.",
     properties: [
       { label: "Machinability", value: "Excellent (reference grade)" },
       { label: "Conductivity", value: "Good, suitable for current-carrying parts" },
-      { label: "Corrosion", value: "Good in indoor and dry environments" },
+      { label: "Corrosion", value: "Good indoors; DZR grade for potable water" },
       { label: "Typical bar", value: "Round, hex and square" },
     ],
-    uses: ["Electrical terminals", "Inserts", "Fasteners", "Gas fittings"],
+    uses: ["Electrical terminals", "Inserts", "Fasteners", "Gas fittings", "Water fittings"],
     image: "brassParts",
     swatch: "linear-gradient(120deg,#8a6428,#e2c283 45%,#a67c36)",
   },
   {
-    key: "dzr-brass",
-    composition: { grade: "CW602N (CuZn36Pb2As)", standard: "BS EN 12164", elements: [{ el: "Cu", range: "61.0 to 63.0" }, { el: "Pb", range: "1.7 to 2.8" }, { el: "As", range: "0.02 to 0.15" }, { el: "Zn", range: "Remainder" }] },
-    name: "DZR brass",
-    short: "DZR brass",
-    grades: ["CW602N", "CZ132"],
-    summary:
-      "Dezincification-resistant brass for parts in contact with potable water, where standard brass would degrade over time.",
-    properties: [
-      { label: "Machinability", value: "Good" },
-      { label: "Corrosion", value: "Resists dezincification in water" },
-      { label: "Approvals", value: "Commonly specified for water fittings" },
-      { label: "Typical bar", value: "Round and hex" },
-    ],
-    uses: ["Compression fittings", "PPR / CPVC inserts", "Valve components"],
-    image: "brassFittingsRow",
-    swatch: "linear-gradient(120deg,#7d5f2b,#d4b27a 45%,#8f6e36)",
-  },
-  {
     key: "stainless-steel",
     composition: { grade: "SS 304 (1.4301)", standard: "ASTM A276 / EN 10088-3", elements: [{ el: "Cr", range: "18.0 to 20.0" }, { el: "Ni", range: "8.0 to 10.5" }, { el: "C", range: "0.08 max" }, { el: "Fe", range: "Balance" }] },
-    name: "Stainless steel",
-    short: "Stainless",
+    name: "Stainless Steel (SS)",
+    short: "SS",
     grades: ["SS 303", "SS 304", "SS 316"],
     summary:
       "For strength and corrosion resistance. 303 for machinability, 304 for general duty, 316 where chlorides or marine exposure are expected.",
@@ -86,8 +67,8 @@ export const materials: Material[] = [
   {
     key: "mild-steel",
     composition: { grade: "EN1A leaded (230M07Pb)", standard: "BS 970", elements: [{ el: "C", range: "0.15 max" }, { el: "Mn", range: "0.90 to 1.30" }, { el: "S", range: "0.25 to 0.35" }, { el: "Pb", range: "0.15 to 0.35" }] },
-    name: "Mild steel",
-    short: "Mild steel",
+    name: "Mild Steel (MS)",
+    short: "MS",
     grades: ["EN1A (leaded)", "EN8", "IS 1079"],
     summary:
       "Economical and strong. Free-cutting EN1A machines fast; EN8 is used where higher tensile strength is specified. Always plated for protection.",
@@ -100,6 +81,24 @@ export const materials: Material[] = [
     uses: ["Studs and pins", "Spacers", "Agricultural parts"],
     image: "barStock",
     swatch: "linear-gradient(120deg,#3a3f46,#8d949c 45%,#4a5058)",
+  },
+  {
+    key: "copper",
+    composition: { grade: "C101 (Cu-ETP)", standard: "BS EN 13601", elements: [{ el: "Cu", range: "99.90 min" }, { el: "O", range: "0.04 max" }] },
+    name: "Copper",
+    short: "Copper",
+    grades: ["ETP C101 / C110", "Tellurium copper C145", "Phosphor bronze"],
+    summary:
+      "Where conductivity matters most. Tellurium copper improves machinability without giving up much conductivity; bronze adds wear resistance.",
+    properties: [
+      { label: "Conductivity", value: "Highest of the metals we machine" },
+      { label: "Machinability", value: "Fair (C145 good)" },
+      { label: "Corrosion", value: "Good" },
+      { label: "Finish", value: "Tin or silver plated" },
+    ],
+    uses: ["Earthing parts", "Bus connectors", "Contact pins"],
+    image: "copperProfiles",
+    swatch: "linear-gradient(120deg,#8a4b2a,#e0a07a 45%,#a55f38)",
   },
   {
     key: "aluminium",
@@ -118,24 +117,6 @@ export const materials: Material[] = [
     uses: ["Housings", "Heat sinks", "Lightweight spacers"],
     image: "castParts",
     swatch: "linear-gradient(120deg,#8b9199,#e1e4e8 45%,#a1a7ae)",
-  },
-  {
-    key: "copper",
-    composition: { grade: "C101 (Cu-ETP)", standard: "BS EN 13601", elements: [{ el: "Cu", range: "99.90 min" }, { el: "O", range: "0.04 max" }] },
-    name: "Copper and alloys",
-    short: "Copper",
-    grades: ["ETP C101 / C110", "Tellurium copper C145", "Phosphor bronze"],
-    summary:
-      "Where conductivity matters most. Tellurium copper improves machinability without giving up much conductivity; bronze adds wear resistance.",
-    properties: [
-      { label: "Conductivity", value: "Highest of the metals we machine" },
-      { label: "Machinability", value: "Fair (C145 good)" },
-      { label: "Corrosion", value: "Good" },
-      { label: "Finish", value: "Tin or silver plated" },
-    ],
-    uses: ["Earthing parts", "Bus connectors", "Contact pins"],
-    image: "copperProfiles",
-    swatch: "linear-gradient(120deg,#8a4b2a,#e0a07a 45%,#a55f38)",
   },
 ];
 

@@ -21,11 +21,10 @@ const BarStockScene = dynamic(loadScene, { ssr: false });
 /** Appearance of each bar in the viewer: colour, polish and the stock section it is drawn with. */
 const LOOKS: Record<MaterialKey, BarLook> = {
   brass: { color: "#d4ac5c", roughness: 0.26, sides: 6 },
-  "dzr-brass": { color: "#c2955a", roughness: 0.3, sides: 64 },
   "stainless-steel": { color: "#c9ced3", roughness: 0.16, sides: 64 },
   "mild-steel": { color: "#8d9298", roughness: 0.42, sides: 4 },
-  aluminium: { color: "#d9dde0", roughness: 0.34, sides: 6 },
   copper: { color: "#cf7a4a", roughness: 0.24, sides: 64 },
+  aluminium: { color: "#d9dde0", roughness: 0.34, sides: 6 },
 };
 const looks = materials.map((m) => LOOKS[m.key]);
 const AUTO_MS = 5000;
