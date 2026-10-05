@@ -150,14 +150,26 @@ export function IndustriesAccordion() {
             const p = photos[ind.image];
             return (
               <li key={ind.slug}>
-                <Link href={`/industries/${ind.slug}`} className="relative isolate flex min-h-40 flex-col justify-end overflow-hidden rounded-sm border border-border p-5">
+                <Link href={`/industries/${ind.slug}`} className="relative isolate flex min-h-72 flex-col justify-end overflow-hidden rounded-sm border border-border p-5 sm:min-h-80">
                   <div className="absolute inset-0 -z-10">
                     <Image src={p.src} alt="" fill sizes="(min-width: 768px) 1px, 100vw" className="object-cover" />
                   </div>
-                  <div aria-hidden className="absolute inset-0 -z-[5] bg-gradient-to-t from-graphite via-graphite/50 to-transparent" />
-                  <Icon strokeWidth={ICON_STROKE} className="size-6 text-brass" />
-                  <h3 className="mt-3 font-display text-xl font-semibold text-paper">{ind.name}</h3>
-                  <p className="mt-1 text-sm text-steel-100">{ind.summary}</p>
+                  {/* shade sized for the text block: a light even dim plus a tall dark fade, so light photos stay readable */}
+                  <div
+                    aria-hidden
+                    className="absolute inset-0 -z-[5]"
+                    style={{
+                      background:
+                        "linear-gradient(to top, rgb(18 11 10 / 0.94) 0%, rgb(18 11 10 / 0.82) 32%, rgb(18 11 10 / 0.4) 62%, rgb(18 11 10 / 0) 88%), rgb(18 11 10 / 0.15)",
+                    }}
+                  />
+                  <span className="grid size-10 place-items-center rounded-full border border-white/15 bg-graphite/60 backdrop-blur-sm">
+                    <Icon strokeWidth={ICON_STROKE} className="size-5 text-cream" />
+                  </span>
+                  <div style={{ textShadow: "0 1px 12px rgb(0 0 0 / 0.5)" }}>
+                    <h3 className="mt-3 font-display text-xl font-semibold text-paper">{ind.name}</h3>
+                    <p className="mt-1 text-sm leading-relaxed text-steel-100">{ind.summary}</p>
+                  </div>
                 </Link>
               </li>
             );
