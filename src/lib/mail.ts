@@ -23,7 +23,7 @@ export async function sendMail({
   attachments?: Attachment[];
 }): Promise<{ ok: boolean; stubbed?: boolean; error?: string }> {
   const key = process.env.RESEND_API_KEY;
-  const to = process.env.RFQ_TO_EMAIL ?? "sales@akshayenterprise.com"; // TODO: confirm inbox
+  const to = process.env.RFQ_TO_EMAIL ?? "sales@abcbrass.com";
   const from = process.env.RFQ_FROM_EMAIL ?? "Akshay Enterprise Website <onboarding@resend.dev>";
 
   if (!key && process.env.NODE_ENV === "production") {

@@ -1,4 +1,4 @@
-import { site } from "@/content/site";
+import { site, mainEmail, mainPhone } from "@/content/site";
 import type { Faq } from "@/content/faq";
 import type { Product } from "@/content/products";
 import { getCategory, productHref } from "@/content/products";
@@ -17,11 +17,12 @@ export function organizationSchema() {
     url: site.url,
     logo: absoluteUrl("/icon.svg"),
     description: site.description,
-    email: site.contact.email.display,
-    ...(site.contact.phone.placeholder ? {} : { telephone: site.contact.phone.display }),
+    email: mainEmail.display,
+    telephone: mainPhone.display,
     address: {
       "@type": "PostalAddress",
-      streetAddress: site.contact.addressLines[0],
+      streetAddress: site.contact.street,
+      postalCode: site.contact.postalCode,
       addressLocality: site.contact.city,
       addressRegion: site.contact.region,
       addressCountry: site.contact.country,

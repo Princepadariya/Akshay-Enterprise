@@ -16,12 +16,13 @@ export const metadata = pageMetadata({
 
 export default function ContactPage() {
   const c = site.contact;
-  const rows = [
-    { icon: MapPin, label: "Factory", value: c.addressLines.join(", "), placeholder: true },
-    ...(hasPhone ? [{ icon: Phone, label: "Phone", value: c.phone.display, href: c.phone.href, placeholder: c.phone.placeholder, copy: c.phone.display }] : []),
-    { icon: Mail, label: "Email", value: c.email.display, href: c.email.href, placeholder: c.email.placeholder, copy: c.email.display },
-    ...(hasWhatsapp ? [{ icon: MessageCircle, label: "WhatsApp", value: "Chat with us", href: whatsappHref(), external: true, placeholder: c.whatsapp.placeholder }] : []),
-    { icon: Clock, label: "Business hours", value: c.hours.value, placeholder: c.hours.placeholder },
+  type Link = { label?: string; display: string; href?: string; external?: boolean; copy?: boolean };
+  const rows: { icon: typeof Phone; label: string; links: Link[]; placeholder?: boolean }[] = [
+    { icon: MapPin, label: "Factory", links: [{ display: c.addressLines.join(", "), href: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(c.mapEmbedQuery)}`, external: true }] },
+    ...(hasPhone ? [{ icon: Phone, label: "Phone", links: c.phones.map((p) => ({ ...p, copy: true })) }] : []),
+    { icon: Mail, label: "Email", links: c.emails.map((e) => ({ ...e, copy: true })) },
+    ...(hasWhatsapp ? [{ icon: MessageCircle, label: "WhatsApp", links: [{ display: "Chat with us", href: whatsappHref(), external: true }] }] : []),
+    { icon: Clock, label: "Business hours", links: [{ display: c.hours.value }], placeholder: c.hours.placeholder },
   ];
   return (
     <>
@@ -45,20 +46,27 @@ export default function ContactPage() {
                   </span>
                   <div className="min-w-0 flex-1">
                     <p className="font-mono text-[11px] tracking-[0.16em] text-muted-foreground uppercase">{r.label}</p>
-                    {r.href ? (
-                      <a
-                        href={r.href}
-                        {...(r.external ? { target: "_blank", rel: "noreferrer" } : {})}
-                        className="mt-1 inline-block font-medium break-words hover:text-brass-ink"
-                      >
-                        {r.value}
-                      </a>
-                    ) : (
-                      <p className="mt-1 font-medium">{r.value}</p>
-                    )}
+                    <ul className="mt-1 grid gap-1.5">
+                      {r.links.map((l) => (
+                        <li key={l.display} className="flex flex-wrap items-center gap-x-2">
+                          {l.label ? <span className="basis-full text-xs text-muted-foreground sm:basis-auto sm:w-20 sm:shrink-0">{l.label}</span> : null}
+                          {l.href ? (
+                            <a
+                              href={l.href}
+                              {...(l.external ? { target: "_blank", rel: "noreferrer" } : {})}
+                              className="min-w-0 font-medium break-words hover:text-brass-ink"
+                            >
+                              {l.display}
+                            </a>
+                          ) : (
+                            <p className="font-medium">{l.display}</p>
+                          )}
+                          {l.copy ? <CopyButton text={l.display} label={`${r.label.toLowerCase()} ${l.display}`} /> : null}
+                        </li>
+                      ))}
+                    </ul>
                     <TodoMark show={r.placeholder} />
                   </div>
-                  {r.copy ? <CopyButton text={r.copy} label={r.label.toLowerCase()} /> : null}
                 </li>
               ))}
             </ul>

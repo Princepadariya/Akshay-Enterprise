@@ -9,7 +9,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 import { Button } from "@/components/ui/button";
 import { categories } from "@/content/products";
 import { companyNav, manufacturingNav, policyNav } from "@/content/navigation";
-import { site } from "@/content/site";
+import { mainEmail } from "@/content/site";
 import { cn } from "@/lib/utils";
 
 export function MobileNav() {
@@ -123,8 +123,8 @@ export function MobileNav() {
           <Button asChild size="lg">
             <Link href="/request-quote">Request a Quote</Link>
           </Button>
-          <a href={site.contact.email.href} className="text-center font-mono text-xs text-muted-foreground">
-            {site.contact.email.display}
+          <a href={mainEmail.href} className="text-center font-mono text-xs text-muted-foreground">
+            {mainEmail.display}
           </a>
         </div>
       </SheetContent>

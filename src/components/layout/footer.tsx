@@ -25,15 +25,27 @@ export function Footer() {
                 </span>
               </span>
               {hasPhone ? (
-                <a href={site.contact.phone.href} className="flex gap-3 hover:text-brass-ink">
+                <span className="flex gap-3">
                   <Phone strokeWidth={1.5} className="mt-0.5 size-4 shrink-0 text-brass" />
-                  <span className="font-mono text-[13px]">{site.contact.phone.display}</span>
-                </a>
+                  <span className="grid gap-1">
+                    {site.contact.phones.map((p) => (
+                      <a key={p.href} href={p.href} className="font-mono text-[13px] hover:text-brass-ink">
+                        {p.display}
+                      </a>
+                    ))}
+                  </span>
+                </span>
               ) : null}
-              <a href={site.contact.email.href} className="flex gap-3 hover:text-brass-ink">
+              <span className="flex gap-3">
                 <Mail strokeWidth={1.5} className="mt-0.5 size-4 shrink-0 text-brass" />
-                <span className="font-mono text-[13px]">{site.contact.email.display}</span>
-              </a>
+                <span className="grid gap-1">
+                  {site.contact.emails.map((e) => (
+                    <a key={e.href} href={e.href} className="font-mono text-[13px] hover:text-brass-ink">
+                      {e.display}
+                    </a>
+                  ))}
+                </span>
+              </span>
             </address>
           </div>
 

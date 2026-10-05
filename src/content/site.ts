@@ -35,18 +35,26 @@ export const site = {
   founded: { value: "1997", placeholder: false } as Placeholder<string>,
 
   contact: {
-    addressLines: [
-      "GIDC Industrial Estate", // TODO: plot no. / street address
-      "Gujarat, India", // TODO: city + PIN
-    ],
-    city: "Gujarat", // TODO: replace with city once confirmed
+    addressLines: ["Plot No. 3909, 3920/21, Road No. W", "G.I.D.C. Phase III, Dared", "Jamnagar 361004, Gujarat, India"],
+    street: "Plot No. 3909, 3920/21, Road No. W, G.I.D.C. Phase III, Dared",
+    city: "Jamnagar",
+    postalCode: "361004",
     region: "Gujarat",
     country: "IN",
-    phone: { display: "+91 00000 00000", href: "tel:+910000000000", placeholder: true }, // TODO: real number, then placeholder: false (hidden until then)
-    email: { display: "sales@akshayenterprise.com", href: "mailto:sales@akshayenterprise.com", placeholder: true }, // TODO
-    whatsapp: { number: "910000000000", placeholder: true }, // TODO: international format, digits only, then placeholder: false (hidden until then)
+    /** First number is the main line (and WhatsApp). */
+    phones: [
+      { display: "+91 84694 08409", href: "tel:+918469408409" },
+      { display: "+91 89809 15994", href: "tel:+918980915994" },
+    ],
+    /** First address is the main sales inbox. */
+    emails: [
+      { label: "Sales", display: "sales@abcbrass.com", href: "mailto:sales@abcbrass.com" },
+      { label: "Enquiries", display: "info@abcbrass.com", href: "mailto:info@abcbrass.com" },
+      { label: "Factory", display: "factory@abcbrass.com", href: "mailto:factory@abcbrass.com" },
+    ],
+    whatsapp: { number: "918469408409", placeholder: false }, // TODO: confirm this is the WhatsApp number
     hours: { value: "Mon to Sat, 09:30 to 18:30 IST", placeholder: true }, // TODO
-    mapEmbedQuery: "Gujarat, India", // TODO: replace with exact factory address / Google Maps place name
+    mapEmbedQuery: "Plot No. 3909, Road No. W, GIDC Phase III, Dared, Jamnagar, Gujarat 361004",
   },
 
   quoteTurnaroundHours: { value: 48, placeholder: true } as Placeholder<number>, // TODO: confirm RFQ response time
@@ -158,8 +166,12 @@ export const site = {
 
 export type Site = typeof site;
 
-/** The phone and WhatsApp numbers are hidden site-wide until real ones are filled in, so no link dials a dummy number. */
-export const hasPhone = !site.contact.phone.placeholder;
+/** Main phone line and main (sales) inbox. */
+export const mainPhone = site.contact.phones[0];
+export const mainEmail = site.contact.emails[0];
+
+/** Phone and WhatsApp links are hidden site-wide when no confirmed number is set, so no link dials a dummy number. */
+export const hasPhone = site.contact.phones.length > 0;
 export const hasWhatsapp = !site.contact.whatsapp.placeholder;
 
 export function whatsappHref(message = "Hello Akshay Enterprise, I would like to discuss a part.") {

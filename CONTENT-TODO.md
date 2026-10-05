@@ -7,12 +7,12 @@ Every item below is currently a **placeholder**. On the live site, placeholders 
 - [ ] Registered legal entity name (`legalName`)
 - [ ] Production domain (`url`, or `NEXT_PUBLIC_SITE_URL`)
 - [ ] Year of establishment (`founded`)
-- [ ] Factory street address, city and PIN (`contact.addressLines`, `contact.city`)
-- [ ] Phone number (`contact.phone`)
-- [ ] Sales email (`contact.email`) and RFQ inbox (`RFQ_TO_EMAIL`)
-- [ ] WhatsApp number, international format (`contact.whatsapp`)
+- [x] Factory street address, city and PIN
+- [x] Phone numbers
+- [x] Sales / enquiry emails; [ ] RFQ inbox (`RFQ_TO_EMAIL`, defaults to sales@abcbrass.com)
+- [ ] Confirm WhatsApp number (currently +91 84694 08409)
 - [ ] Business hours (`contact.hours`)
-- [ ] Google Maps place name or exact address (`contact.mapEmbedQuery`)
+- [x] Google Maps address
 - [ ] RFQ response time in hours (`quoteTurnaroundHours`)
 - [ ] Social profile URLs (`social`; empty URLs are hidden)
 - [ ] Official logo (replace the hex mark in `src/components/layout/logo.tsx` and `src/app/icon.svg`)

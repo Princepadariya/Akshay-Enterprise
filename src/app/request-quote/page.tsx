@@ -3,7 +3,7 @@ import { Clock, FileCheck2, ShieldCheck } from "lucide-react";
 import { Breadcrumbs } from "@/components/sections/breadcrumbs";
 import { RfqForm } from "@/components/forms/rfq-form";
 import { TodoMark } from "@/components/todo-mark";
-import { site } from "@/content/site";
+import { site, mainEmail } from "@/content/site";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata = pageMetadata({
@@ -43,8 +43,8 @@ export default function RequestQuotePage() {
           </ul>
           <p className="mt-4 border-t border-border pt-6 text-sm text-muted-foreground">
             Prefer email? Write to{" "}
-            <a href={site.contact.email.href} className="font-mono text-foreground underline underline-offset-2">
-              {site.contact.email.display}
+            <a href={mainEmail.href} className="font-mono text-foreground underline underline-offset-2">
+              {mainEmail.display}
             </a>
           </p>
         </aside>
