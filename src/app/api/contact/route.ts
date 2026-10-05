@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { sendMail } from "@/lib/mail";
 import { clientIp, rateLimit } from "@/lib/rate-limit";
 import { contactSchema } from "@/lib/rfq-schema";
+import { findProductBySlug, getCategory } from "@/content/products";
 
 export const runtime = "nodejs";
 
@@ -27,15 +28,17 @@ export async function POST(req: Request) {
     return NextResponse.json({ ok: false, error: "Please check the form fields." }, { status: 422 });
   }
   const v = parsed.data;
+  const product = v.product ? findProductBySlug(v.product) : undefined;
 
   const result = await sendMail({
-    subject: `Website enquiry: ${v.name}${v.company ? ` / ${v.company}` : ""}`,
+    subject: `Website enquiry: ${v.name}${v.company ? ` / ${v.company}` : ""}${product ? ` / ${product.name}` : ""}`,
     replyTo: v.email,
     text: [
       `Name:     ${v.name}`,
       `Email:    ${v.email}`,
       `Phone:    ${v.phone || "-"}`,
       `Company:  ${v.company || "-"}`,
+      `Product:  ${product ? `${product.name} (${getCategory(product.category)?.name ?? product.category})` : "-"}`,
       "",
       v.message,
     ].join("\n"),

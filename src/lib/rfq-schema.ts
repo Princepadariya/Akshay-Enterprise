@@ -44,6 +44,7 @@ export const contactSchema = z.object({
   email: z.email("Enter a valid email address"),
   phone: z.string().trim().optional().or(z.literal("")),
   company: z.string().trim().optional().or(z.literal("")),
+  product: z.string().trim().max(120).optional().or(z.literal("")), // product slug from the catalogue
   message: z.string().trim().min(10, "Tell us a little more (10 characters minimum)").max(4000),
   website: z.string().max(0).optional(), // honeypot
 });

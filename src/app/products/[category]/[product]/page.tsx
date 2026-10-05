@@ -78,7 +78,7 @@ export default async function ProductPage({ params }: PageProps<"/products/[cate
                   Request a Quote for this part <ArrowRight strokeWidth={1.5} />
                 </Link>
               </Button>
-              <InquireNow name={p.name} sizes={p.sizes} />
+              <InquireNow slug={p.slug} />
             </div>
           </div>
         </div>

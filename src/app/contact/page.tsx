@@ -66,7 +66,7 @@ export default function ContactPage() {
           <MapEmbed query={c.mapEmbedQuery} title={`Map showing ${site.name}`} />
         </div>
         <div className="lg:col-span-7">
-          <h2 className="mb-6 font-display text-2xl font-semibold tracking-tight">Send a message</h2>
+          <h2 id="contact-form" className="mb-6 scroll-mt-28 font-display text-2xl font-semibold tracking-tight">Send a message</h2>
           <Suspense fallback={<div className="h-[480px] animate-pulse rounded-sm border border-border bg-card" />}>
             <ContactForm />
           </Suspense>
