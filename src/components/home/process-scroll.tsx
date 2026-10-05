@@ -83,7 +83,7 @@ export function ProcessScroll() {
                 aria-hidden
                 className="pointer-events-none absolute -right-4 top-1/2 -translate-y-1/2 font-display-wide text-[10rem] leading-none font-bold text-foreground/[0.04] select-none"
               >
-                {(i + 1) * 10}
+                {String(i + 1).padStart(2, "0")}
               </span>
               <div className="relative min-h-[8.5rem]">
                 <h3 className="font-display text-2xl leading-tight font-semibold tracking-tight">{s.title}</h3>
