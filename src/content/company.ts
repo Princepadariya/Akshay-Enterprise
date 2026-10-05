@@ -1,7 +1,6 @@
 /**
  * About / company content.
- * TODO: founder message and leadership profiles are PLACEHOLDERS. Replace with approved copy,
- * real names and real portraits (portrait photos go in /public/images/team/).
+ * TODO: founder message is a PLACEHOLDER. Replace with approved copy and the founder's real name.
  */
 
 export const about = {
@@ -9,13 +8,13 @@ export const about = {
   intro:
     "Akshay Enterprise turns brass and engineering metals into components that go inside switchgear, plumbing systems, gas equipment and machines built by OEMs in India and abroad.",
   overview: [
-    "We are a precision components manufacturer working from bar stock: brass, DZR brass, stainless steel, mild steel, aluminium and copper. Most of what we make is built to a customer's drawing, in volumes from development lots to repeat production.",
+    "We are a precision components manufacturer working from bar stock: brass, stainless steel, mild steel, copper and aluminium. Most of what we make is built to a customer's drawing, in volumes from development lots to repeat production.",
     "The shop combines cam automats for high-volume brass work with CNC turning and machining centres for tighter tolerances and shorter runs. Secondary operations such as thread rolling, cross-drilling, knurling and slotting are done in-house, so a part leaves as a finished component rather than a blank.",
     "Gujarat is one of the world's major centres for brass component manufacturing. We draw on that supply base for raw material and finishing, and add the process discipline and documentation that export buyers expect.",
   ],
   facts: [
     { label: "Headquarters", value: "Gujarat, India", placeholder: true },
-    { label: "Established", value: "2005", placeholder: true },
+    { label: "Established", value: "1997", placeholder: false },
     { label: "Core material", value: "Free-cutting brass" },
     { label: "Work type", value: "Build-to-print and catalogue parts" },
   ],
@@ -48,11 +47,3 @@ export const visionMissionValues = {
     { title: "Long relationships", body: "We plan capacity around customers we expect to serve for years.", icon: "Handshake" },
   ],
 };
-
-/** TODO: replace with the real management team. Initials render as monograms until photos are supplied. */
-export const leadership = [
-  { name: "" /* TODO */, role: "Founder & Managing Director", focus: "Strategy, key accounts, capacity planning", initials: "MD", placeholder: true },
-  { name: "" /* TODO */, role: "Director, Operations", focus: "Production, maintenance, delivery performance", initials: "OP", placeholder: true },
-  { name: "" /* TODO */, role: "Head of Quality", focus: "Inspection, quality system, customer audits", initials: "QA", placeholder: true },
-  { name: "" /* TODO */, role: "Export & Business Development", focus: "International customers, RFQs, logistics", initials: "EX", placeholder: true },
-];

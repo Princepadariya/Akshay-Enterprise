@@ -32,7 +32,7 @@ export const site = {
     "brass inserts manufacturer",
   ],
 
-  founded: { value: "2005", placeholder: true } as Placeholder<string>, // TODO: confirm year of establishment
+  founded: { value: "1997", placeholder: false } as Placeholder<string>,
 
   contact: {
     addressLines: [

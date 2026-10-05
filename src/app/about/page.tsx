@@ -19,7 +19,6 @@ export const metadata = pageMetadata({
 const sub = [
   { href: "/about/journey", title: "Journey", body: "Milestones from the first machine to export supply." },
   { href: "/about/vision-mission-values", title: "Vision, mission, values", body: "What we aim for and how we work." },
-  { href: "/about/leadership", title: "Leadership", body: "The people accountable for your parts." },
 ];
 
 export default function AboutPage() {

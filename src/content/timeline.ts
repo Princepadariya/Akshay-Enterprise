@@ -11,7 +11,7 @@ export type Milestone = {
 };
 
 export const timeline: Milestone[] = [
-  { year: "2005", title: "Workshop founded", body: "First cam automats installed, producing brass electrical parts for local panel builders.", placeholder: true },
+  { year: "1997", title: "Workshop founded", body: "First cam automats installed, producing brass electrical parts for local panel builders.", placeholder: true },
   { year: "2009", title: "Electrical range expands", body: "Terminal connectors and neutral links added for distribution board makers.", placeholder: true },
   { year: "2012", title: "First CNC turning centre", body: "CNC capacity introduced for tighter tolerances and faster changeovers.", placeholder: true },
   { year: "2015", title: "First export shipment", body: "Build-to-print components dispatched to an overseas OEM.", placeholder: true },
