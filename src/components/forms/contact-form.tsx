@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import { SiteImage as Image } from "@/components/site-image";
 import { Controller, useForm, useWatch } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useSearchParams } from "next/navigation";
@@ -117,7 +117,7 @@ export function ContactForm() {
               <SelectTrigger id="c-product" className={selectClass} onBlur={field.onBlur}>
                 <SelectValue placeholder="Select a product" />
               </SelectTrigger>
-              <SelectContent className="max-h-80 rounded-sm">
+              <SelectContent position="popper" className="max-h-80 rounded-sm">
                 <SelectItem value={NONE}>General enquiry (no specific product)</SelectItem>
                 {categories.map((c) => (
                   <SelectGroup key={c.slug}>

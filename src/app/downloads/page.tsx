@@ -6,6 +6,8 @@ import { TodoMark } from "@/components/todo-mark";
 import { downloads } from "@/content/misc";
 import { pageMetadata } from "@/lib/seo";
 import { BatchReveal } from "@/components/motion/batch-reveal";
+import { getCertificates } from "@/lib/certificates";
+import { CertificateGrid } from "@/components/sections/certificate-grid";
 
 export const metadata = pageMetadata({
   title: "Downloads",
@@ -14,6 +16,7 @@ export const metadata = pageMetadata({
 });
 
 export default function DownloadsPage() {
+  const certificates = getCertificates();
   return (
     <>
       <PageHero
@@ -21,7 +24,18 @@ export default function DownloadsPage() {
         title="Downloads"
         lead="Documents for supplier registration and technical evaluation. If a file is not yet online, request a copy and we will email it."
       />
+      {certificates.length ? (
+        <section aria-labelledby="certificates" className="container-x pt-14 md:pt-20">
+          <h2 id="certificates" className="font-display text-2xl font-semibold tracking-[-0.02em] md:text-3xl">
+            Certificates
+          </h2>
+          <CertificateGrid items={certificates} className="mt-6 lg:grid-cols-5" />
+        </section>
+      ) : null}
       <section className="container-x py-14 md:py-20">
+        {certificates.length ? (
+          <h2 className="mb-6 font-display text-2xl font-semibold tracking-[-0.02em] md:text-3xl">Documents</h2>
+        ) : null}
         <BatchReveal>
           <ul className="grid gap-4 md:grid-cols-2">
             {downloads.map((d) => (

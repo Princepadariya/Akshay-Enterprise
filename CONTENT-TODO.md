@@ -25,9 +25,10 @@ Every item below is currently a **placeholder**. On the live site, placeholders 
 - [ ] Number of clients
 
 ## Certifications and standards
-- [ ] Certifications actually held, with certificate numbers (`site.certifications`)
+- [x] Certifications actually held, with certificate numbers (`site.certifications`, `src/content/certificates.ts`)
 - [ ] Standards routinely manufactured to (`site.standards`, shown in the home page strip)
-- [ ] Certificate PDFs added to `/public/downloads` (`src/content/misc.ts > downloads`)
+- [x] Certificate files added to `/public/certificates` (listed automatically)
+- [ ] Renewed ISO 14001 and ISO 45001 certificates (recertification was due 05 Oct 2026)
 
 ## Products (`src/content/products.ts`)
 - [ ] Confirm the 10 categories (add, remove or rename freely; pages and navigation update automatically)
@@ -69,9 +70,9 @@ Every item below is currently a **placeholder**. On the live site, placeholders 
 ## Downloads (`src/content/misc.ts > downloads`)
 - [ ] Product catalogue PDF
 - [ ] Company profile PDF
-- [ ] Certificates
+- [x] Certificates
 - [ ] Quality policy PDF
-- [ ] RoHS / REACH declarations
+- [x] RoHS certificate (REACH: only if held)
 
 ## Company policies (`src/content/policies.ts`)
 - [ ] EHS policy reviewed against actual plant practice, approved and signed

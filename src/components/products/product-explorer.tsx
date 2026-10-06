@@ -1,9 +1,9 @@
 "use client";
 
 import { useSearchParams } from "next/navigation";
-import { useMemo, useState } from "react";
-import { AnimatePresence, motion, useReducedMotion } from "motion/react";
-import { Search, X } from "lucide-react";
+import Link from "next/link";
+import { useEffect, useMemo, useState } from "react";
+import { ArrowUpRight, Search, X } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { ProductCard } from "@/components/sections/product-card";
@@ -60,7 +60,6 @@ function FilterRow({
 
 export function ProductExplorer() {
   const params = useSearchParams();
-  const reduce = useReducedMotion();
   const [f, setF] = useState<Filters>({
     q: params.get("q") ?? "",
     category: params.get("category") ?? "",
@@ -92,6 +91,28 @@ export function ProductExplorer() {
   }, [f]);
 
   const active = f.q || f.category || f.material || f.industry;
+
+  // results grouped by product family, in catalogue order; empty families are left out
+  const groups = useMemo(
+    () => categories.map((c) => ({ c, items: results.filter((p) => p.category === c.slug) })).filter((g) => g.items.length),
+    [results],
+  );
+
+  // highlight the family currently in view in the side index
+  const [current, setCurrent] = useState("");
+  useEffect(() => {
+    const els = groups.map((g) => document.getElementById(`family-${g.c.slug}`)).filter((e): e is HTMLElement => !!e);
+    if (!els.length) return;
+    const io = new IntersectionObserver(
+      (entries) => {
+        const top = entries.filter((e) => e.isIntersecting).sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top)[0];
+        if (top) setCurrent(top.target.id.replace("family-", ""));
+      },
+      { rootMargin: "-25% 0px -65% 0px" },
+    );
+    els.forEach((e) => io.observe(e));
+    return () => io.disconnect();
+  }, [groups]);
 
   return (
     <div className="grid gap-10">
@@ -138,22 +159,60 @@ export function ProductExplorer() {
       </div>
 
       {results.length ? (
-        <motion.ul layout={!reduce} className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          <AnimatePresence mode="popLayout" initial={false}>
-            {results.map((p) => (
-              <motion.li
-                key={p.slug}
-                layout={!reduce}
-                initial={reduce ? false : { opacity: 0, scale: 0.98 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={reduce ? undefined : { opacity: 0, scale: 0.98 }}
-                transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-              >
-                <ProductCard product={p} className="h-full" />
-              </motion.li>
+        <div className="grid gap-10 lg:grid-cols-[13rem_minmax(0,1fr)] lg:gap-12">
+          {/* family index: jump to a family, current one highlighted (large screens) */}
+          <nav aria-label="Product families" className="hidden lg:block">
+            <ul className="sticky top-28 grid gap-0.5 border-l border-border">
+              {groups.map(({ c, items }) => {
+                const on = current === c.slug;
+                return (
+                  <li key={c.slug}>
+                    <a
+                      href={`#family-${c.slug}`}
+                      aria-current={on ? "true" : undefined}
+                      className={cn(
+                        "-ml-px flex items-baseline justify-between gap-3 border-l-2 py-1.5 pr-2 pl-4 text-[13.5px] leading-snug transition-colors duration-300",
+                        on ? "border-brass text-foreground" : "border-transparent text-muted-foreground hover:text-foreground",
+                      )}
+                    >
+                      <span>{c.name}</span>
+                      <span className="font-mono text-[11px] tabular text-muted-foreground">{items.length}</span>
+                    </a>
+                  </li>
+                );
+              })}
+            </ul>
+          </nav>
+
+          <div className="grid min-w-0 gap-14 md:gap-16">
+            {groups.map(({ c, items }) => (
+              <section key={c.slug} id={`family-${c.slug}`} aria-labelledby={`family-title-${c.slug}`} className="scroll-mt-28">
+                <div className="mb-6 flex flex-wrap items-end justify-between gap-x-6 gap-y-2 border-b border-border pb-4">
+                  <div className="min-w-0">
+                    <h3 id={`family-title-${c.slug}`} className="font-display text-2xl leading-tight font-semibold tracking-[-0.02em] md:text-[1.7rem]">
+                      {c.name}
+                    </h3>
+                    <p className="mt-1.5 max-w-[60ch] text-sm leading-relaxed text-muted-foreground">{c.description}</p>
+                  </div>
+                  <Link
+                    href={`/products/${c.slug}`}
+                    className="inline-flex shrink-0 items-center gap-1.5 text-sm font-medium text-brass-ink hover:underline"
+                  >
+                    {items.length} {items.length === 1 ? "product" : "products"}, view family
+                    <ArrowUpRight strokeWidth={1.5} className="size-4" />
+                  </Link>
+                </div>
+                <ul className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+                  {items.map((p) => (
+                    <li key={p.slug}>
+                      <ProductCard product={p} className="h-full" headingLevel={4} />
+                    </li>
+                  ))}
+                </ul>
+              </section>
             ))}
-          </AnimatePresence>
-        </motion.ul>
+          </div>
+        </div>
       ) : (
         <div className="grid place-items-center gap-4 rounded-sm border border-dashed border-border px-6 py-20 text-center">
           <p className="font-display text-2xl font-semibold">No standard part matches that.</p>

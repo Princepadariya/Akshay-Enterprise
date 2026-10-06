@@ -196,6 +196,20 @@ html.lenis body {
   overscroll-behavior: contain;
 }
 
+/* Radix hides the select list's scrollbar (it expects scroll buttons, which we removed); show a thin one */
+[data-slot="select-content"] [data-radix-select-viewport] {
+  scrollbar-width: thin !important;
+  scrollbar-color: color-mix(in srgb, var(--foreground) 25%, transparent) transparent;
+}
+[data-slot="select-content"] [data-radix-select-viewport]::-webkit-scrollbar {
+  display: block !important;
+  width: 6px;
+}
+[data-slot="select-content"] [data-radix-select-viewport]::-webkit-scrollbar-thumb {
+  border-radius: 3px;
+  background: color-mix(in srgb, var(--foreground) 25%, transparent);
+}
+
 @layer utilities {
   .font-display {
     font-family: var(--font-archivo), ui-sans-serif, system-ui, sans-serif;

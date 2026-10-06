@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import { SiteImage as Image } from "@/components/site-image";
 import { useRef, useState } from "react";
 import { Expand } from "lucide-react";
 import { ImageLightbox } from "@/components/sections/image-lightbox";

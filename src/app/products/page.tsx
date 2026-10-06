@@ -7,7 +7,7 @@ import { pageMetadata } from "@/lib/seo";
 export const metadata = pageMetadata({
   title: "Products",
   description:
-    "Precision turned components, electrical and switchgear parts, neutral links, cable glands, fasteners, inserts, plumbing, gas and sanitary fitting components in brass and engineering metals.",
+    "Turned components, electrical parts, cable glands, fasteners, inserts, plumbing, gas and sanitary fittings, castings, and brass rods, sheet and wire.",
   path: "/products",
 });
 
@@ -19,7 +19,10 @@ export default function ProductsPage() {
         title="Products"
         lead="Search the standard range or filter by what matters to your assembly. Anything not listed can be made to your drawing."
       />
-      <section className="container-x py-14 md:py-20">
+      <section aria-labelledby="catalogue" className="container-x py-14 md:py-20">
+        <h2 id="catalogue" className="sr-only">
+          Product catalogue
+        </h2>
         <Suspense fallback={<div className="h-96 animate-pulse rounded-sm bg-surface" />}>
           <ProductExplorer />
         </Suspense>

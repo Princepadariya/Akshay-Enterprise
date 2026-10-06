@@ -26,10 +26,10 @@ export function Footer() {
               </span>
               {hasPhone ? (
                 <span className="flex gap-3">
-                  <Phone strokeWidth={1.5} className="mt-0.5 size-4 shrink-0 text-brass" />
+                  <Phone strokeWidth={1.5} className="mt-1 size-4 shrink-0 text-brass" />
                   <span className="grid gap-1">
                     {site.contact.phones.map((p) => (
-                      <a key={p.href} href={p.href} className="font-mono text-[13px] hover:text-brass-ink">
+                      <a key={p.href} href={p.href} className="inline-flex min-h-6 items-center font-mono text-[13px] hover:text-brass-ink">
                         {p.display}
                       </a>
                     ))}
@@ -37,10 +37,10 @@ export function Footer() {
                 </span>
               ) : null}
               <span className="flex gap-3">
-                <Mail strokeWidth={1.5} className="mt-0.5 size-4 shrink-0 text-brass" />
+                <Mail strokeWidth={1.5} className="mt-1 size-4 shrink-0 text-brass" />
                 <span className="grid gap-1">
                   {site.contact.emails.map((e) => (
-                    <a key={e.href} href={e.href} className="font-mono text-[13px] hover:text-brass-ink">
+                    <a key={e.href} href={e.href} className="inline-flex min-h-6 items-center font-mono text-[13px] hover:text-brass-ink">
                       {e.display}
                     </a>
                   ))}

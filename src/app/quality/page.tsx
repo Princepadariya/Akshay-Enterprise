@@ -10,16 +10,19 @@ import { TodoMark } from "@/components/todo-mark";
 import { Button } from "@/components/ui/button";
 import { inspectionStages, instruments, qualityIntro, qualityPolicy, toleranceHighlights } from "@/content/quality";
 import { site } from "@/content/site";
+import { getCertificates } from "@/lib/certificates";
+import { CertificateGrid } from "@/components/sections/certificate-grid";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata = pageMetadata({
   title: "Quality",
   description:
-    "Incoming, in-process and final inspection of precision turned components. Measuring instruments, certifications and quality policy at Akshay Enterprise.",
+    "IATF 16949, ISO 9001, ISO 14001, ISO 45001 and RoHS certified. Incoming, in-process and final inspection of precision turned components.",
   path: "/quality",
 });
 
 export default function QualityPage() {
+  const certificates = getCertificates();
   return (
     <>
       <PageHero
@@ -55,33 +58,40 @@ export default function QualityPage() {
         </div>
       </section>
 
-      <section className="container-x grid gap-12 py-16 md:py-24 lg:grid-cols-2">
-        <div>
-          <h2 className="font-display text-3xl font-semibold tracking-[-0.03em] md:text-4xl">Certifications</h2>
-          <ul className="mt-8 grid gap-3 sm:grid-cols-2">
+      <section id="certifications" className="container-x scroll-mt-28 pt-16 md:pt-24">
+        <SectionHeader
+          title="Certifications"
+          lead="Our management systems are independently audited. Open any certificate to view it in full."
+        />
+        {certificates.length ? (
+          <CertificateGrid items={certificates} className="mt-10 lg:grid-cols-5" />
+        ) : (
+          <ul className="mt-10 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
             {site.certifications.map((c) => (
               <li key={c.code} className="flex items-start gap-3 rounded-sm border border-border p-5">
                 <BadgeCheck strokeWidth={1.5} className="size-6 shrink-0 text-brass" />
                 <div>
-                  <p className="font-medium">
-                    {c.code}
-                    <TodoMark show={c.placeholder} />
-                  </p>
+                  <p className="font-medium">{c.code}</p>
                   <p className="mt-1 text-sm text-muted-foreground">{c.label}</p>
                 </div>
               </li>
             ))}
           </ul>
-        </div>
-        <div className="relative overflow-hidden rounded-sm border border-border bg-surface p-8 md:p-10">
+        )}
+      </section>
+
+      <section className="container-x py-16 md:py-24">
+        <div className="relative overflow-hidden rounded-sm border border-border bg-surface p-8 md:p-12">
           <div aria-hidden className="grid-lines-fine absolute inset-0 opacity-60" />
-          <div className="relative">
-            <h2 className="font-display text-3xl font-semibold tracking-[-0.03em]">
-              Quality policy
-              <TodoMark show={qualityPolicy.placeholder} />
-            </h2>
-            <p className="mt-6 text-lg leading-relaxed text-muted-foreground">{qualityPolicy.text}</p>
-            <Button asChild variant="outline" className="mt-8">
+          <div className="relative grid gap-8 lg:grid-cols-[1fr_auto] lg:items-end">
+            <div>
+              <h2 className="font-display text-3xl font-semibold tracking-[-0.03em]">
+                Quality policy
+                <TodoMark show={qualityPolicy.placeholder} />
+              </h2>
+              <p className="mt-6 max-w-[70ch] text-lg leading-relaxed text-muted-foreground">{qualityPolicy.text}</p>
+            </div>
+            <Button asChild variant="outline">
               <Link href="/policies/quality">
                 <FileText strokeWidth={1.5} /> Read the full quality policy
               </Link>

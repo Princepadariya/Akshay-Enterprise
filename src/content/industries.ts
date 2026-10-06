@@ -73,11 +73,11 @@ export const industries: Industry[] = [
     icon: "Car",
     summary: "Sensor housings, fittings, bushes and fasteners for vehicle and aftermarket supply.",
     description:
-      "Automotive buyers need repeatability across long runs. We fix the process at first-off approval and hold it through every batch.",
+      "Automotive buyers need repeatability across long runs. Our quality system is certified to IATF 16949, the automotive quality standard: we fix the process at first-off approval and hold it through every batch.",
     parts: ["Sensor housings", "Brake and fuel fittings", "Bushes", "Special fasteners"],
     priorities: [
-      { title: "Run-to-run consistency", body: "Process parameters locked after first-off approval." },
-      { title: "Documentation", body: "Inspection reports supplied with each consignment on request." },
+      { title: "IATF 16949 certified", body: "Automotive quality management system certified by TÜV SÜD." },
+      { title: "Run-to-run consistency", body: "Process parameters locked after first-off approval, with inspection reports on request." },
       { title: "Volume capacity", body: "Multi-spindle and CNC capacity balanced for long programmes." },
     ],
     image: "engine",

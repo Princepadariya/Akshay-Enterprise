@@ -1,4 +1,4 @@
-import Image from "next/image";
+import { SiteImage as Image } from "@/components/site-image";
 import { photos, type PhotoKey } from "@/content/images";
 import { cn } from "@/lib/utils";
 

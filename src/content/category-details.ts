@@ -297,6 +297,33 @@ export const categoryDetails: Record<string, CategoryDetail> = {
       { q: "How long do first-off samples take?", a: "Usually two to three weeks from drawing sign-off, depending on tooling and finishing." },
     ],
   },
+
+  "brass-rods-sheets-wire": {
+    overview: [
+      "Alongside finished parts we supply brass in stock form: solid and hollow rods for machining, sheet for pressing and fabrication, and brass and copper wire for pins, springs and conductors.",
+      "Stock is identified by grade and heat number and can be cut to length, so it arrives ready for your machines with traceability back to the mill certificate.",
+    ],
+    features: [
+      { title: "Solid and hollow", body: "Hollow rod starts with the bore already formed, cutting cycle time and scrap on bushes and fittings." },
+      { title: "Cut to length", body: "Bar and sheet cut to your sizes so less handling and storage on your side." },
+      { title: "Traceable", body: "Every lot is tagged by grade and heat number with the mill certificate available on request." },
+      { title: "Same source as our parts", body: "The grades we machine every day, so you know how the material behaves on the lathe." },
+    ],
+    route: [
+      { op: "OP 10", body: "Material received and checked against the mill certificate" },
+      { op: "OP 20", body: "Grade and heat number tagged" },
+      { op: "OP 30", body: "Cut to length or sheared to size if ordered" },
+      { op: "OP 40", body: "Dimensional and visual check" },
+      { op: "OP 50", body: "Bundled or coiled, labelled and packed" },
+    ],
+    checks: ["Grade against mill certificate", "Diameter, section and thickness", "Straightness and surface condition", "Length and quantity"],
+    options: ["Standard or cut lengths", "Round, hex and square sections", "Coils or straight lengths for wire", "Customer labelling"],
+    standards: ["IS 319 free-cutting brass bar", "BS EN 12164 brass rod for machining", "BS EN 12163 / 12166 copper and copper-alloy rod and wire"],
+    faqs: [
+      { q: "Can you supply small quantities?", a: "Yes. Stock can be supplied by weight or by count of cut lengths; tell us the section, grade and quantity." },
+      { q: "Do you supply material certificates?", a: "Yes. A mill test certificate can be supplied with each lot on request." },
+    ],
+  },
 };
 
 export function getCategoryDetail(slug: string): CategoryDetail | undefined {

@@ -53,8 +53,11 @@ export function MaterialRack() {
   const m = materials[active];
 
   // background preload after the page has loaded; once the code is in, mount the scene straight away
-  // (it only draws a few frames while off screen) so the bar is already rendered when the section arrives
+  // (it only draws a few frames while off screen) so the bar is already rendered when the section arrives.
+  // Desktop only: on phones and low-power devices the ~1 MB three.js bundle would tie up the CPU right
+  // after load, so there it is fetched by the "near" observer below, a couple of screens ahead.
   useEffect(() => {
+    if (!window.matchMedia("(min-width: 1024px)").matches || prefersLightEffects()) return;
     const w = window as Window & { requestIdleCallback?: (cb: () => void, o?: { timeout: number }) => number; cancelIdleCallback?: (id: number) => void };
     let idle = 0;
     let cancelled = false;
@@ -76,7 +79,7 @@ export function MaterialRack() {
   useEffect(() => {
     const el = stage.current;
     if (!el) return;
-    const near = new IntersectionObserver(([e]) => e.isIntersecting && setMounted(true), { rootMargin: "1200px 0px" });
+    const near = new IntersectionObserver(([e]) => e.isIntersecting && setMounted(true), { rootMargin: "1800px 0px" });
     const visible = new IntersectionObserver(([e]) => setInView(e.isIntersecting), { rootMargin: "100px 0px" });
     near.observe(el);
     visible.observe(el);
@@ -188,7 +191,7 @@ export function MaterialRack() {
                       style={{ background: LOOKS[mat.key].color, borderColor: "rgb(0 0 0 / 0.15)", transform: on ? "scale(1.35)" : "scale(1)" }}
                     />
                     <span className="min-w-0">
-                      <span className={cn("block font-display text-lg font-semibold tracking-tight transition-colors md:text-xl", on ? "text-foreground" : "text-foreground/55 group-hover:text-foreground")}>
+                      <span className={cn("block font-display text-lg font-semibold tracking-tight transition-colors md:text-xl", on ? "text-foreground" : "text-foreground/70 group-hover:text-foreground")}>
                         {mat.name}
                       </span>
                       <span

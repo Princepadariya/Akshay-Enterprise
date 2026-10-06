@@ -4,8 +4,9 @@ import type { LegalDoc } from "./legal";
  * Company policies (EHS, Quality, Cyber security, Conflict minerals, Counterfeit parts).
  * TODO: These are complete drafts based on recognised frameworks, written for a precision turned-parts
  * manufacturer. Management must review, adjust to actual practice, approve and sign each one before
- * launch. Set `updated` to the approval date and `approvedBy` to the signatory. Do not reference a
- * certification (ISO 14001, ISO 45001, ISO 27001, ISO 9001) unless it is actually held.
+ * launch. Set `updated` to the approval date and `approvedBy` to the signatory. Certifications held:
+ * IATF 16949, ISO 9001, ISO 14001, ISO 45001 and RoHS (see /public/certificates). Do not reference
+ * any other certification (e.g. ISO 27001) unless it is actually held.
  */
 
 export type Policy = LegalDoc & {
@@ -28,7 +29,7 @@ export const policies: Policy[] = [
     approvedBy: "Managing Director", // TODO: name
     placeholder: true,
     intro:
-      "Akshay Enterprise is committed to providing a safe and healthy workplace for everyone on our premises and to minimising the environmental impact of our machining operations. Safe working and responsible manufacturing are conditions of doing business, not targets to trade against output.",
+      "Akshay Enterprise is committed to providing a safe and healthy workplace for everyone on our premises and to minimising the environmental impact of our machining operations. Safe working and responsible manufacturing are conditions of doing business, not targets to trade against output. Our environmental and occupational health and safety management systems are certified to ISO 14001:2015 and ISO 45001:2018.",
     sections: [
       {
         heading: "Scope",
@@ -91,7 +92,7 @@ export const policies: Policy[] = [
     approvedBy: "Managing Director", // TODO: name
     placeholder: true,
     intro:
-      "Akshay Enterprise is committed to supplying precision components that conform to customer drawings and specifications, delivered on time. We achieve this through controlled processes, trained people, calibrated measuring equipment and continual improvement of our quality management system.",
+      "Akshay Enterprise is committed to supplying precision components that conform to customer drawings and specifications, delivered on time. We achieve this through controlled processes, trained people, calibrated measuring equipment and continual improvement of our quality management system, which is certified to ISO 9001:2015 and to the automotive standard IATF 16949.",
     sections: [
       {
         heading: "Our commitments",

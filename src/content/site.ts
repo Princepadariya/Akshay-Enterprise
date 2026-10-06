@@ -73,12 +73,13 @@ export const site = {
     { value: 200, suffix: "+", label: "OEM and trade clients", placeholder: false },
   ],
 
-  /** Certifications held. TODO: confirm each; remove what is not held; add certificate PDFs in /public/downloads */
+  /** Certifications held, from the supplied certificates (files and details: /public/certificates, src/content/certificates.ts). */
   certifications: [
-    { code: "ISO 9001:2015", label: "Quality management system", placeholder: true },
-    { code: "RoHS", label: "Restricted substances compliance", placeholder: true },
-    { code: "REACH", label: "EU chemical regulation compliance", placeholder: true },
-    { code: "Udyam", label: "MSME registration", placeholder: true },
+    { code: "IATF 16949", label: "Automotive quality management system", placeholder: false },
+    { code: "ISO 9001:2015", label: "Quality management system", placeholder: false },
+    { code: "ISO 14001:2015", label: "Environmental management system", placeholder: false },
+    { code: "ISO 45001:2018", label: "Occupational health and safety management system", placeholder: false },
+    { code: "RoHS", label: "Restriction of hazardous substances compliance", placeholder: false },
   ],
 
   /** Standards the shop routinely manufactures to. TODO: confirm with engineering. */
@@ -90,9 +91,11 @@ export const site = {
     "BS EN ISO 228 BSP",
     "ASME B1.20.1 NPT",
     "ASME B1.1 UNC / UNF",
-    "RoHS",
-    "REACH",
+    "IATF 16949",
     "ISO 9001:2015",
+    "ISO 14001:2015",
+    "ISO 45001:2018",
+    "RoHS compliant",
   ],
 
   differentiators: [

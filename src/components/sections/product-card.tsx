@@ -6,7 +6,8 @@ import { materialName } from "@/content/materials";
 import { cn } from "@/lib/utils";
 
 /** Product tile with a hover spec reveal (pure CSS, keyboard-focus aware). */
-export function ProductCard({ product, className }: { product: Product; className?: string }) {
+export function ProductCard({ product, className, headingLevel = 3 }: { product: Product; className?: string; headingLevel?: 3 | 4 }) {
+  const Heading = headingLevel === 4 ? "h4" : "h3";
   return (
     <Link
       href={productHref(product)}
@@ -41,7 +42,7 @@ export function ProductCard({ product, className }: { product: Product; classNam
       </div>
       <div className="flex flex-1 items-start justify-between gap-4 p-5">
         <div>
-          <h3 className="font-display text-lg leading-tight font-semibold tracking-tight">{product.name}</h3>
+          <Heading className="font-display text-lg leading-tight font-semibold tracking-tight">{product.name}</Heading>
           <p className="mt-1.5 line-clamp-2 text-sm leading-relaxed text-muted-foreground">{product.summary}</p>
         </div>
         <ArrowUpRight

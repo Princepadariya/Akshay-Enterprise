@@ -50,17 +50,19 @@ These appear as large animated figures. Please give real, defensible numbers onl
 | 3.4 | Number of countries you export to | 15+ | |
 | 3.5 | Number of OEM and trade clients | 200+ | |
 
-## 4. Certifications and registrations 🔴
+## 4. Certifications and registrations ✅
 
-Tick only what you **actually hold today**, and send a copy of each certificate (PDF).
+Received and live on the Quality and Downloads pages (files in `public/certificates/`):
 
-| Certification | Currently shown | Held? | Certificate number | Valid until |
-|---|---|---|---|---|
-| ISO 9001:2015 | Yes | | | |
-| RoHS compliance | Yes | | | |
-| REACH compliance | Yes | | | |
-| Udyam (MSME) registration | Yes | | | |
-| Others (e.g. ISO 14001, IATF 16949, BIS, export house): please list | | | | |
+| Certification | Issuer | Certificate number | Valid until |
+|---|---|---|---|
+| IATF 16949 | TÜV SÜD | IATF 0599222 | 10 Mar 2029 |
+| ISO 9001:2015 | LMS Certifications | IN124492A | 01 Dec 2028 |
+| ISO 14001:2015 | LMS Certifications | IN122099B | **recertification was due 05 Oct 2026: please send the renewed certificate** |
+| ISO 45001:2018 | LMS Certifications | IN122099C-1 | **recertification was due 05 Oct 2026: please send the renewed certificate** |
+| RoHS | QSA International, UK | QSA-1503404 | 17 Jul 2027 |
+
+REACH and Udyam were removed from the site because no certificate was supplied. Send them if held.
 
 - [ ] Which **standards** do you routinely make parts to? The site currently lists: BS EN 12164 CW614N, ASTM B16 C36000,
       IS 319, ISO 965 metric threads, BS EN ISO 228 BSP, ASME B1.20.1 NPT, ASME B1.1 UNC / UNF. Please confirm, remove or add.
@@ -92,14 +94,16 @@ shoot is better.
 - [ ] **Raw material store**: bar stock racked by alloy (1 to 2)
 - [ ] **Inspection room**: profile projector, height gauge, micrometers, thread gauges, XRF if available (3 to 5)
 - [ ] **Operators at work**: hands-on shots, with permission (2 to 3)
-- [ ] **Finished parts, one set per product family** on a plain background (10 sets, see section 7)
+- [ ] **Finished parts, one set per product family** on a plain background (11 sets, see section 7)
 - [ ] **Packing and dispatch**: cartons, VCI bags, pallets, container loading (2 to 3)
 - [ ] **Chip and scrap recovery**: chip bins sorted by alloy (1 to 2)
 - [ ] **Team / leadership portraits**: plain background, shoulders up (one per person in section 9)
 
 ## 7. Products 🟠
 
-The site has **10 product families** and **26 product lines**. Please confirm the families, then review each line.
+The site has **11 product families** and **54 product lines**. Please confirm the families, then review each line.
+
+> 26 lines were added to match a typical Jamnagar brass-parts range (rods/sheet/wire, cable gland types, manifolds, forged, flare, air brake, hose nipple, transition/electrofusion fittings, plug pins, cam-lok connectors, MS/SS/copper parts, aluminium machined, die-cast and investment-cast parts). **Please remove any you do not make or supply.**
 
 | # | Product family | Keep / rename / remove |
 |---|---|---|
@@ -113,6 +117,7 @@ The site has **10 product families** and **26 product lines**. Please confirm th
 | 7.8 | Gas Fittings | |
 | 7.9 | Sanitary & Bath Fitting Components | |
 | 7.10 | Custom / Build-to-Print Components | |
+| 7.11 | Brass Rods, Sheets & Wire | |
 | | Any family missing? | |
 
 For **each product line**, we will send you a one-page summary to check. On it, please confirm:
@@ -194,10 +199,8 @@ The Downloads page lists these. Until a PDF is supplied, visitors see "Request a
 
 - [ ] Product catalogue
 - [ ] Company profile
-- [ ] ISO 9001:2015 certificate
 - [ ] Quality policy
 - [ ] Material grades reference
-- [ ] RoHS / REACH declaration
 - [ ] Anything else buyers ask for (e.g. vendor registration form, GST certificate, bank details letter)?
 
 ## 14. Policies and legal 🟢

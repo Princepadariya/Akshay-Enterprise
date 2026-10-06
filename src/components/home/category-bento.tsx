@@ -8,11 +8,12 @@ import { productsInCategory } from "@/content/products";
 import { cn } from "@/lib/utils";
 
 /**
- * 10 categories -> exactly 10 cells on a 4-column grid:
+ * 11 categories -> exactly 11 cells on a 4-column grid:
  *   [1 1 2 3]
  *   [1 1 4 5]
  *   [6 7 7 8]
  *   [6 9 10 10]
+ *   [11 11 11 11]   (a wide closing band; on two columns it pairs with 9)
  * Cells alternate between photographic, brushed-steel and blueprint surfaces.
  */
 const layout: { span: string; surface: "photo" | "steel" | "blueprint" | "brass" }[] = [
@@ -26,6 +27,7 @@ const layout: { span: string; surface: "photo" | "steel" | "blueprint" | "brass"
   { span: "", surface: "blueprint" },
   { span: "", surface: "photo" },
   { span: "sm:col-span-2 lg:col-span-2", surface: "brass" },
+  { span: "lg:col-span-4", surface: "photo" },
 ];
 
 export function CategoryBento() {
@@ -34,7 +36,7 @@ export function CategoryBento() {
       <div className="mb-12 md:mb-16">
         <SectionHeader
           title="What we make"
-          lead="Ten product families in brass and engineering metals. Anything not listed can be made to your drawing."
+          lead={`${categories.length} product families in brass and engineering metals. Anything not listed can be made to your drawing.`}
         />
       </div>
       <div className="grid grid-flow-dense auto-rows-[240px] grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4 lg:auto-rows-[230px]">
