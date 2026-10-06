@@ -43,7 +43,7 @@
   --color-silver: #c9cbcf;
   --color-blueprint: var(--blueprint);
   --color-graphite: #120b0a;
-  --color-paper: #f7f3ef;
+  --color-paper: #ffffff;
 
   --color-steel-50: #f4f4f5;
   --color-steel-100: #e6e6e8;
@@ -77,23 +77,23 @@
 :root {
   --radius: 2px;
 
-  --background: #f7f3ef;
-  --surface: #efe8e2;
-  --surface-2: #e7dfd7;
+  --background: #ffffff;
+  --surface: #f5f5f6;
+  --surface-2: #ececee;
   --foreground: #1a1311;
-  --card: #fcfaf8;
+  --card: #ffffff;
   --card-foreground: #1a1311;
-  --popover: #fcfaf8;
+  --popover: #ffffff;
   --popover-foreground: #1a1311;
-  --muted: #ebe3dc;
-  --muted-foreground: #61574f;
-  --secondary: #e7dfd7;
+  --muted: #f1f1f3;
+  --muted-foreground: #5c5d61;
+  --secondary: #ececee;
   --secondary-foreground: #1a1311;
-  --accent: #ebe3dc;
+  --accent: #f1f1f3;
   --accent-foreground: #1a1311;
-  --border: #ddd3ca;
+  --border: #e2e2e5;
   --line: rgb(26 19 17 / 0.08);
-  --input: #d3c8be;
+  --input: #d4d4d8;
   --ring: #af2f0c;
   --destructive: #b3261e;
 
