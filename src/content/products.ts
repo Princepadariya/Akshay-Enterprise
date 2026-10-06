@@ -1062,6 +1062,37 @@ export function productHref(p: Pick<Product, "category" | "slug">) {
   return `/products/${p.category}/${p.slug}`;
 }
 
+/**
+ * Material ranges: the top level of /products. Each groups every product line made in that
+ * material, sub-grouped by category. Slugs share the /products/[slug] route with categories,
+ * so they must never collide with a category slug.
+ */
+export type MaterialRange = {
+  slug: string;
+  name: string;
+  materials: MaterialKey[];
+  image: PhotoKey;
+};
+
+export const materialRanges: MaterialRange[] = [
+  { slug: "brass-parts", name: "Brass Parts", materials: ["brass"], image: "brassParts" },
+  { slug: "aluminium-parts", name: "Aluminium Parts", materials: ["aluminium"], image: "castParts" },
+  { slug: "mild-steel-parts", name: "Mild Steel Parts", materials: ["mild-steel"], image: "barStock" },
+  { slug: "stainless-steel-parts", name: "Stainless Steel Parts", materials: ["stainless-steel"], image: "boltsSteel" },
+  { slug: "copper-and-other-metal-parts", name: "Copper & Other Metal Parts", materials: ["copper"], image: "copperProfiles" },
+];
+
+export function getMaterialRange(slug: string) {
+  return materialRanges.find((m) => m.slug === slug);
+}
+
+/** products in a material range, grouped by category in catalogue order; empty categories are left out */
+export function materialRangeGroups(range: MaterialRange) {
+  return categories
+    .map((c) => ({ key: c.slug, label: c.name, items: products.filter((p) => p.category === c.slug && p.materials.some((m) => range.materials.includes(m))) }))
+    .filter((g) => g.items.length > 0);
+}
+
 export function findProductBySlug(slug: string) {
   return products.find((p) => p.slug === slug);
 }

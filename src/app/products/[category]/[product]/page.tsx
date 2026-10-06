@@ -1,27 +1,18 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
-import { ArrowRight, Check } from "lucide-react";
+import { ArrowDown, FileText, Mail, MessageCircle, Phone } from "lucide-react";
 import { Breadcrumbs } from "@/components/sections/breadcrumbs";
-import { DimensionLine } from "@/components/sections/dimension-line";
 import { ProductCard } from "@/components/sections/product-card";
-import { SpecTable } from "@/components/sections/spec-table";
 import { ProductGallery } from "@/components/products/product-gallery";
+import { ProductInquiryForm } from "@/components/forms/product-inquiry-form";
 import { JsonLd } from "@/components/json-ld";
-import { TodoMark } from "@/components/todo-mark";
 import { Button } from "@/components/ui/button";
-import { findProductBySlug, getCategory, getProduct, products } from "@/content/products";
+import { findProductBySlug, getCategory, getProduct, products, productsInCategory } from "@/content/products";
 import { finishName, materialName } from "@/content/materials";
-import { industryName } from "@/content/industries";
+import { hasPhone, hasWhatsapp, mainEmail, mainPhone, whatsappHref } from "@/content/site";
 import { pageMetadata } from "@/lib/seo";
 import { productSchema } from "@/lib/schema";
-import { getCategoryDetail } from "@/content/category-details";
-import { DetailOptions, DetailRouting } from "@/components/products/category-detail-sections";
-import { BatchReveal } from "@/components/motion/batch-reveal";
-import { SplitReveal } from "@/components/motion/split-reveal";
-import { MaterialFinishPicker } from "@/components/products/material-finish-picker";
-import { QuoteDock } from "@/components/products/quote-dock";
-import { InquireNow } from "@/components/products/inquire-now";
 
 export const dynamicParams = false;
 
@@ -46,18 +37,30 @@ export default async function ProductPage({ params }: PageProps<"/products/[cate
   const c = getCategory(category);
   if (!p || !c) notFound();
 
-  const related = (p.related ?? []).map(findProductBySlug).filter((x) => x !== undefined);
-  const detail = getCategoryDetail(c.slug);
-  const rfqHref =`/request-quote?category=${p.category}&product=${p.slug}`;
+  // explicit related parts first, topped up from the same category
+  const related = [
+    ...(p.related ?? []).map(findProductBySlug).filter((x) => x !== undefined),
+    ...productsInCategory(c.slug).filter((x) => x.slug !== p.slug),
+  ]
+    .filter((x, i, arr) => arr.findIndex((y) => y.slug === x.slug) === i)
+    .slice(0, 3);
+
+  const specs = [
+    { label: "Material", value: p.materials.map(materialName).join(", ") },
+    { label: "Size range", value: p.sizes },
+    { label: "Threads", value: p.threads.length ? p.threads.join(", ") : "Plain / as per drawing" },
+    { label: "Finish", value: p.finishes.map(finishName).join(", ") },
+    { label: "Tolerance", value: p.tolerance },
+  ];
 
   return (
     <>
-      <section className="relative border-b border-border">
-        <div aria-hidden className="grid-lines mask-fade-b absolute inset-0 opacity-60" />
-        <div className="container-x relative grid gap-12 pt-28 pb-16 md:pt-32 lg:grid-cols-12 lg:gap-16">
+      <section className="border-b border-border">
+        <div className="container-x grid gap-10 pt-28 pb-14 md:pt-32 lg:grid-cols-12 lg:gap-14">
           <div className="lg:col-span-7">
             <ProductGallery images={p.images} name={p.name} />
           </div>
+
           <div className="flex flex-col gap-6 lg:col-span-5">
             <Breadcrumbs
               items={[
@@ -66,123 +69,114 @@ export default async function ProductPage({ params }: PageProps<"/products/[cate
                 { name: p.name, href: `/products/${c.slug}/${p.slug}` },
               ]}
             />
-            <SplitReveal as="h1" trigger="load" className="font-display text-4xl leading-[1.02] font-semibold tracking-[-0.035em] md:text-5xl">{p.name}</SplitReveal>
-            <DimensionLine label={p.sizes} className="max-w-md" />
-            <p className="text-lg leading-relaxed text-muted-foreground">{p.description}</p>
+            <div>
+              <Link href={`/products/${c.slug}`} className="font-mono text-[11px] tracking-[0.16em] text-brass-ink uppercase hover:underline">
+                {c.name}
+              </Link>
+              <h1 className="mt-3 font-display text-4xl leading-[1.05] font-semibold tracking-[-0.03em] md:text-5xl">{p.name}</h1>
+              <p className="mt-4 text-lg leading-relaxed text-muted-foreground">{p.summary}</p>
+            </div>
 
-            <MaterialFinishPicker materialKeys={p.materials} finishKeys={p.finishes} />
+            <dl className="divide-y divide-border rounded-sm border border-border bg-card text-sm">
+              {specs.map((s) => (
+                <div key={s.label} className="grid grid-cols-[7.5rem_1fr] gap-4 px-4 py-3">
+                  <dt className="text-muted-foreground">{s.label}</dt>
+                  <dd className="font-medium">{s.value}</dd>
+                </div>
+              ))}
+            </dl>
 
-            <div id="product-quote" className="flex flex-wrap gap-3 pt-2">
+            <div className="flex flex-wrap gap-3">
               <Button asChild size="lg">
-                <Link href={rfqHref}>
-                  Request a Quote for this part <ArrowRight strokeWidth={1.5} />
+                <a href="#enquire">
+                  Enquire about this part <ArrowDown strokeWidth={1.5} />
+                </a>
+              </Button>
+              <Button asChild size="lg" variant="outline">
+                <Link href={`/request-quote?category=${p.category}&product=${p.slug}`}>
+                  <FileText strokeWidth={1.5} /> Have a drawing? Upload it
                 </Link>
               </Button>
-              <InquireNow slug={p.slug} />
             </div>
+
+            <ul className="flex flex-wrap gap-x-6 gap-y-2 text-sm">
+              {hasPhone ? (
+                <li>
+                  <a href={mainPhone.href} className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground">
+                    <Phone strokeWidth={1.5} className="size-4 text-brass" /> {mainPhone.display}
+                  </a>
+                </li>
+              ) : null}
+              {hasWhatsapp ? (
+                <li>
+                  <a
+                    href={whatsappHref(`Hello Akshay Enterprise, I would like to enquire about ${p.name}.`)}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground"
+                  >
+                    <MessageCircle strokeWidth={1.5} className="size-4 text-[#25D366]" /> WhatsApp
+                  </a>
+                </li>
+              ) : null}
+              <li>
+                <a href={mainEmail.href} className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground">
+                  <Mail strokeWidth={1.5} className="size-4 text-brass" /> {mainEmail.display}
+                </a>
+              </li>
+            </ul>
           </div>
         </div>
       </section>
 
-      <section className="container-x grid gap-14 py-16 md:py-24 lg:grid-cols-12">
-        <div className="min-w-0 lg:col-span-7">
-          <h2 className="font-display text-2xl font-semibold tracking-tight md:text-3xl">Specifications</h2>
-          <p className="mt-2 text-sm text-muted-foreground">
-            Typical ranges. Your drawing always takes precedence.
-            <TodoMark />
+      <section id="enquire" className="container-x grid scroll-mt-24 gap-10 py-14 md:py-20 lg:grid-cols-12 lg:gap-14">
+        <div className="flex flex-col gap-5 lg:col-span-5">
+          <h2 className="font-display text-3xl font-semibold tracking-tight md:text-4xl">About this part</h2>
+          <p className="text-base leading-relaxed md:text-lg">{p.description}</p>
+          <p className="leading-relaxed text-muted-foreground">
+            Every part is made to order. Tell us the material grade, size, thread and finish you need, or attach your own
+            drawing, and we will make it to your specification.
           </p>
-          <SpecTable
-            className="mt-8"
-            title={`Specification sheet / ${p.name}`}
-            note={`${p.materials.length} material${p.materials.length === 1 ? "" : "s"}`}
-            groups={[
-              {
-                title: "Geometry",
-                rows: [
-                  { label: "Size range", value: p.sizes },
-                  { label: "Threads", value: p.threads.length ? p.threads.join(", ") : "Plain / as drawing" },
-                  { label: "Tolerance", value: p.tolerance },
-                ],
-              },
-              {
-                title: "Material & finish",
-                rows: [
-                  { label: "Materials", value: p.materials.map(materialName).join(", ") },
-                  { label: "Finishes", value: p.finishes.map(finishName).join(", ") },
-                ],
-              },
-              {
-                title: "Supply",
-                rows: [
-                  { label: "Category", value: c.name },
-                  { label: "Packing", value: "Bulk, counted bags or customer-specified" },
-                  { label: "Documents", value: "Inspection report and material certificate on request" },
-                ],
-              },
-            ]}
-          />
-        </div>
-        <div className="grid content-start gap-10 lg:col-span-5">
-          <div>
-            <h2 className="font-display text-2xl font-semibold tracking-tight">Applications</h2>
-            <ul className="mt-5 grid gap-3">
-              {p.applications.map((a) => (
-                <li key={a} className="flex items-start gap-3">
-                  <Check strokeWidth={1.5} className="mt-0.5 size-4 shrink-0 text-brass" />
-                  {a}
-                </li>
-              ))}
-            </ul>
-          </div>
-          <div>
-            <h2 className="font-display text-2xl font-semibold tracking-tight">Industries</h2>
-            <ul className="mt-5 flex flex-wrap gap-2">
-              {p.industries.map((i) => (
-                <li key={i}>
-                  <Link href={`/industries/${i}`} className="inline-block rounded-sm border border-border px-3 py-1.5 text-sm hover:border-brass/60">
-                    {industryName(i)}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-          <div className="rounded-sm border border-border bg-surface p-6">
-            <p className="font-display text-lg font-semibold">Have your own drawing for this part?</p>
-            <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-              Attach it to the quote request and we will price your version, not the catalogue one.
-            </p>
-            <Link href={rfqHref} className="mt-4 inline-flex items-center gap-2 text-sm font-medium text-brass-ink hover:underline">
-              Continue to quote form <ArrowRight strokeWidth={1.5} className="size-4" />
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {detail ? (
-        <>
-          <DetailRouting detail={detail} partName={p.name} />
-          <DetailOptions detail={detail} />
-        </>
-      ) : null}
-
-      {related.length ? (
-        <section className="border-t border-border bg-surface py-16 md:py-24">
-          <div className="container-x">
-            <h2 className="font-display text-2xl font-semibold tracking-tight md:text-3xl">Related products</h2>
-            <BatchReveal>
-              <ul className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                {related.map((r) => (
-                  <li key={r.slug}>
-                    <ProductCard product={r} className="h-full" />
+          {p.applications.length ? (
+            <div className="mt-2">
+              <h3 className="font-display text-lg font-semibold">Typical uses</h3>
+              <ul className="mt-3 flex flex-wrap gap-2">
+                {p.applications.map((a) => (
+                  <li key={a} className="rounded-sm border border-border bg-card px-3 py-1.5 text-sm">
+                    {a}
                   </li>
                 ))}
               </ul>
-            </BatchReveal>
+            </div>
+          ) : null}
+        </div>
+
+        <div className="lg:col-span-7">
+          <div className="rounded-sm border border-border bg-card p-6 md:p-8">
+            <h2 className="font-display text-2xl font-semibold tracking-tight">Enquire about {p.name}</h2>
+            <p className="mt-2 mb-6 text-sm text-muted-foreground">
+              Fill in your details and we will reply by email within one working day.
+            </p>
+            <ProductInquiryForm slug={p.slug} name={p.name} />
+          </div>
+        </div>
+      </section>
+
+      {related.length ? (
+        <section className="border-t border-border bg-surface py-14 md:py-20">
+          <div className="container-x">
+            <h2 className="mb-8 font-display text-2xl font-semibold tracking-tight md:text-3xl">You may also need</h2>
+            <ul className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+              {related.map((r) => (
+                <li key={r.slug}>
+                  <ProductCard product={r} className="h-full" />
+                </li>
+              ))}
+            </ul>
           </div>
         </section>
       ) : null}
 
-      <QuoteDock name={p.name} sizes={p.sizes} image={p.images[0] ?? c.image} href={rfqHref} anchorId="product-quote" />
       <JsonLd data={productSchema(p)} />
     </>
   );

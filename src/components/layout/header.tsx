@@ -16,7 +16,7 @@ import {
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
 import { Button } from "@/components/ui/button";
-import { categories } from "@/content/products";
+import { categories, materialRanges } from "@/content/products";
 import { photos } from "@/content/images";
 import { companyNav, manufacturingNav, policyNav } from "@/content/navigation";
 import { cn } from "@/lib/utils";
@@ -84,6 +84,20 @@ export function Header() {
                     ))}
                   </ul>
                   <div className="flex flex-col justify-between gap-6 border-l border-border bg-surface p-5">
+                    <div>
+                      <p className="font-mono text-[10.5px] tracking-[0.14em] text-muted-foreground uppercase">By material</p>
+                      <ul className="mt-2 grid gap-0.5">
+                        {materialRanges.map((m) => (
+                          <li key={m.slug}>
+                            <NavigationMenuLink asChild>
+                              <Link href={`/products/${m.slug}`} className="block rounded-sm px-2 py-1.5 text-[13.5px] font-medium hover:bg-foreground/[0.05]">
+                                {m.name}
+                              </Link>
+                            </NavigationMenuLink>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
                     <div>
                       <p className="font-display text-lg leading-tight font-semibold">Have a drawing?</p>
                       <p className="mt-2 text-sm leading-relaxed text-muted-foreground">

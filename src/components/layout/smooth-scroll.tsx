@@ -8,6 +8,13 @@ import { useEffect, useRef } from "react";
 
 gsap.registerPlugin(ScrollTrigger);
 
+let active: Lenis | null = null;
+
+/** The running Lenis instance, for components that need to scroll programmatically (null under reduced motion). */
+export function getLenis() {
+  return active;
+}
+
 /**
  * Lenis smooth scrolling, driven by GSAP's ticker so ScrollTrigger pins stay in sync.
  * Not started at all when the user prefers reduced motion.
@@ -22,6 +29,7 @@ export function SmoothScroll() {
 
     const lenis = new Lenis({ duration: 1.1, easing: (t) => 1 - Math.pow(1 - t, 4), anchors: true });
     lenisRef.current = lenis;
+    active = lenis;
     lenis.on("scroll", ScrollTrigger.update);
     const tick = (time: number) => lenis.raf(time * 1000);
     gsap.ticker.add(tick);
@@ -31,6 +39,7 @@ export function SmoothScroll() {
       gsap.ticker.remove(tick);
       lenis.destroy();
       lenisRef.current = null;
+      active = null;
     };
   }, []);
 

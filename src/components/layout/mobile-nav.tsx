@@ -7,7 +7,7 @@ import { ArrowUpRight, Menu } from "lucide-react";
 import { Sheet, SheetContent, SheetDescription, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
-import { categories } from "@/content/products";
+import { categories, materialRanges } from "@/content/products";
 import { companyNav, manufacturingNav, policyNav } from "@/content/navigation";
 import { mainEmail } from "@/content/site";
 import { cn } from "@/lib/utils";
@@ -22,7 +22,7 @@ export function MobileNav() {
   };
 
   const groups = [
-    { title: "Products", links: [{ label: "All products", href: "/products" }, ...categories.map((c) => ({ label: c.short, href: `/products/${c.slug}`, description: c.spec }))] },
+    { title: "Products", links: [{ label: "All products", href: "/products" }, ...materialRanges.map((m) => ({ label: m.name, href: `/products/${m.slug}`, description: "By material" })), ...categories.map((c) => ({ label: c.short, href: `/products/${c.slug}`, description: c.spec }))] },
     { title: "Manufacturing", links: manufacturingNav },
     { title: "Company", links: companyNav },
     { title: "Policies", links: policyNav },

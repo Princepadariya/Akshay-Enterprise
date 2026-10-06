@@ -38,6 +38,7 @@ export async function POST(req: Request) {
       `Email:    ${v.email}`,
       `Phone:    ${v.phone || "-"}`,
       `Company:  ${v.company || "-"}`,
+      `Country:  ${v.country || "-"}`,
       `Product:  ${product ? `${product.name} (${getCategory(product.category)?.name ?? product.category})` : "-"}`,
       "",
       v.message,
