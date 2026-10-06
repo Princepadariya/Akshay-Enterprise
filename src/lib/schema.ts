@@ -59,7 +59,7 @@ export function productSchema(p: Product) {
   };
 }
 
-export function faqSchema(items: Faq[]) {
+export function faqSchema(items: Pick<Faq, "q" | "a">[]) {
   return {
     "@context": "https://schema.org",
     "@type": "FAQPage",
