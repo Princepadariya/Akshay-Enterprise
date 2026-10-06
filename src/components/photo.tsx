@@ -29,7 +29,8 @@ export function Photo({ k, className, imgClassName, sizes = "100vw", priority, t
         alt={alt ?? p.alt}
         fill
         sizes={sizes}
-        priority={priority}
+        loading={priority ? "eager" : undefined}
+        fetchPriority={priority ? "high" : undefined}
         className={cn("object-cover", imgClassName)}
       />
     </div>

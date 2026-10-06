@@ -35,7 +35,8 @@ export function ProductGallery({ images, name }: { images: PhotoKey[]; name: str
             src={photos[images[current]].src}
             alt={`${name}: ${photos[images[current]].alt}`}
             fill
-            priority
+            loading="eager"
+            fetchPriority="high"
             sizes="(min-width: 1024px) 55vw, 100vw"
             className="object-cover"
           />
