@@ -14,7 +14,7 @@ export function organizationSchema() {
     name: site.name,
     legalName: site.legalName,
     url: site.url,
-    logo: absoluteUrl("/icon.svg"),
+    logo: absoluteUrl("/logo.png"),
     description: site.description,
     email: mainEmail.display,
     telephone: mainPhone.display,

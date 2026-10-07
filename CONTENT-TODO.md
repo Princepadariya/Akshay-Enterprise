@@ -15,7 +15,7 @@ Every item below is currently a **placeholder**. On the live site, placeholders 
 - [x] Google Maps address
 - [ ] RFQ response time in hours (`quoteTurnaroundHours`)
 - [ ] Social profile URLs (`social`; empty URLs are hidden)
-- [ ] Official logo (replace the hex mark in `src/components/layout/logo.tsx` and `src/app/icon.svg`)
+- [x] Official logo (abc + brass badge: `public/logo.png`, favicon `src/app/icon.png`)
 
 ## Numbers (`site.stats`)
 - [ ] Years of experience
