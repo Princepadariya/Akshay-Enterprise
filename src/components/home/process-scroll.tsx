@@ -80,7 +80,7 @@ export function ProcessScroll() {
               <div className="relative h-44 shrink-0 overflow-hidden border-b border-border bg-surface lg:h-52">
                 <Image src={photos[s.image].src} alt={photos[s.image].alt} fill sizes="(min-width: 1024px) 22rem, (min-width: 640px) 46vw, 78vw" className="object-cover" />
                 <span className="absolute top-4 left-4 rounded-sm bg-background/90 px-2 py-1 font-mono text-xs tracking-widest text-brass-ink backdrop-blur-sm">
-                  OP {(i + 1) * 10}
+                  OP {(i + 1) * 10} · Step {i + 1}
                 </span>
               </div>
               <div className="relative flex flex-1 flex-col justify-between p-6 lg:p-8">
