@@ -10,7 +10,7 @@ import { pageMetadata } from "@/lib/seo";
 export const metadata = pageMetadata({
   title: "Products",
   description:
-    "Precision parts in brass, aluminium, mild steel, stainless steel and copper: turned components, electrical parts, cable glands, fasteners, inserts, plumbing, gas and sanitary fittings, and brass rods, sheet and wire.",
+    "Precision parts in brass, aluminium, mild steel, stainless steel and copper: turned components, electrical parts, inserts, plumbing, gas and sanitary fittings, and brass rods, sheet and wire.",
   path: "/products",
 });
 

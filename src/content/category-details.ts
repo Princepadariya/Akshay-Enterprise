@@ -44,7 +44,7 @@ export const categoryDetails: Record<string, CategoryDetail> = {
     standards: ["ISO 2768-m general tolerances (unless the drawing states otherwise)", "BS EN 12164 / IS 319 brass bar", "ASTM A582 free-machining stainless bar"],
   },
 
-  "electrical-switchgear-parts": {
+  "electrical-parts": {
     overview: [
       "Electrical parts carry current, so they are judged at the contact face: thread fit, surface finish and plating all affect resistance and heating. We make terminals, connectors, contact pins and modular switch parts in free-cutting brass and copper alloys for panel builders, switchgear makers and wiring-device brands.",
       "Plating is specified by type and thickness, checked when parts return from the finishing line, and recorded on the inspection report so you can show compliance to your own customers.",
@@ -73,77 +73,8 @@ export const categoryDetails: Record<string, CategoryDetail> = {
     standards: ["IEC 60947-7-1 terminal blocks (design reference)", "IS 13947 low-voltage switchgear (design reference)", "RoHS compliant materials on request"],
   },
 
-  "neutral-links-earth-bars": {
-    overview: [
-      "Neutral links and earth bars collect and distribute conductors inside distribution boards, meter enclosures and control panels. They are simple parts that must be exact: hole pitch has to match the board, screws have to clamp the full conductor range, and the bar has to carry the current without heating.",
-      "We produce links from extruded brass or copper section, drilled and tapped on dedicated fixtures so pitch and position stay consistent across every way.",
-    ],
-    features: [
-      { title: "Board-matched pitch", body: "Hole spacing and way count made to your enclosure layout." },
-      { title: "Full conductor range", body: "Clamp screw size and hole diameter chosen for the conductor sizes you specify." },
-      { title: "Section options", body: "Square, rectangular and profiled brass or copper sections." },
-      { title: "Mount ready", body: "Supplied bare or on insulated carriers with fixing holes." },
-    ],
-    route: [
-      { op: "OP 10", body: "Section cut to length" },
-      { op: "OP 20", body: "Drill conductor holes on pitch fixture" },
-      { op: "OP 30", body: "Drill and tap screw holes" },
-      { op: "OP 40", body: "Deburr and clean" },
-      { op: "OP 50", body: "Plate if specified" },
-      { op: "OP 60", body: "Fit screws, inspect, pack" },
-    ],
-    checks: ["Hole pitch against drawing", "Thread gauging on every screw hole", "Overall length and squareness", "Screw clamping check"],
-    options: ["2 to 24 ways or custom", "Insulated mounts", "Combination neutral / earth bars", "Tin or nickel plating", "Custom screw heads"],
-    standards: ["IEC 61439 assemblies (design reference)", "BS EN 12163 / 12167 copper and brass sections"],
-  },
 
-  "cable-glands-accessories": {
-    overview: [
-      "Cable glands seal and secure cables where they enter an enclosure. The machined parts (body, dome nut and cone) have to compress the seal evenly, and the thread has to engage cleanly with the enclosure or lock nut, or the ingress rating is lost.",
-      "We machine gland components in brass and stainless steel and supply them as individual parts or complete kits with seals, lock nuts and earth tags.",
-    ],
-    features: [
-      { title: "Even seal compression", body: "Cone and dome geometry controlled so the seal compresses uniformly." },
-      { title: "Kit supply", body: "Bodies, domes, cones, lock nuts, earth tags and seals packed as complete sets." },
-      { title: "Entry threads", body: "Metric as standard, with NPT and PG on request." },
-      { title: "Finish options", body: "Natural brass, nickel plated or stainless steel for corrosive sites." },
-    ],
-    route: [
-      { op: "OP 10", body: "Hex bar issued by grade" },
-      { op: "OP 20", body: "Turn body, dome and cone" },
-      { op: "OP 30", body: "Cut or roll entry and dome threads" },
-      { op: "OP 40", body: "Deburr and clean" },
-      { op: "OP 50", body: "Nickel plate if specified" },
-      { op: "OP 60", body: "Kit with seals and accessories, inspect, pack" },
-    ],
-    checks: ["Thread gauging on entry and dome threads", "Cone angle and bore", "Assembly trial of the complete kit", "Plating visual check"],
-    options: ["Single or double compression", "Armoured or unarmoured cable", "Custom entry threads", "Branded packing"],
-    standards: ["BS 6121 / IEC 62444 cable glands (design reference)", "ISO 965 metric threads", "ASME B1.20.1 NPT"],
-  },
 
-  fasteners: {
-    overview: [
-      "Standard fasteners are easy to buy. We focus on the ones that are not: non-standard lengths, heads, threads and materials, or brass and stainless fasteners in quantities that do not justify a cold-forming die.",
-      "Parts are turned from bar or headed and thread-rolled depending on volume, and supplied plain or plated with the documentation your quality team needs.",
-    ],
-    features: [
-      { title: "Non-standard made easy", body: "Special heads, lengths, pitches and features without minimum die quantities." },
-      { title: "Rolled threads", body: "Thread rolling where volume allows, for strength and a smooth flank." },
-      { title: "Material choice", body: "Brass, stainless 303 / 304 / 316, mild steel and copper." },
-      { title: "Traceable lots", body: "Heat and lot numbers carried to the label." },
-    ],
-    route: [
-      { op: "OP 10", body: "Bar or wire issued" },
-      { op: "OP 20", body: "Turn or head the blank" },
-      { op: "OP 30", body: "Roll or cut thread, slot or recess head" },
-      { op: "OP 40", body: "Deburr and clean" },
-      { op: "OP 50", body: "Plate or passivate" },
-      { op: "OP 60", body: "Inspect, count and pack" },
-    ],
-    checks: ["Thread ring and plug gauges", "Head height and across-flats", "Length and point geometry", "Plating thickness"],
-    options: ["Captive and shouldered screws", "Nylon-insert or serrated features", "Custom recess types", "Coloured passivation"],
-    standards: ["ISO 4032 / 4017 / 7045 (hex nuts, bolts, pan screws) as reference", "ISO 965 / ASME B1.1 thread tolerances"],
-  },
 
   "inserts-anchors": {
     overview: [

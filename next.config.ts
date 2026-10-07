@@ -15,6 +15,10 @@ const nextConfig: NextConfig = {
       { source: "/about/leadership", destination: "/about", permanent: true },
       { source: "/gallery", destination: "/about", permanent: true },
       { source: "/faq", destination: "/contact", permanent: true },
+      { source: "/products/electrical-switchgear-parts/:path*", destination: "/products/electrical-parts/:path*", permanent: true },
+      { source: "/products/neutral-links-earth-bars/:path*", destination: "/products", permanent: true },
+      { source: "/products/cable-glands-accessories/:path*", destination: "/products", permanent: true },
+      { source: "/products/fasteners/:path*", destination: "/products", permanent: true },
     ];
   },
 };

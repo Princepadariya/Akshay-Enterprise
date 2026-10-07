@@ -27,10 +27,10 @@ export const industries: Industry[] = [
     slug: "automotive",
     name: "Automotive",
     icon: "Car",
-    summary: "Sensor housings, fittings, bushes and fasteners for vehicle and aftermarket supply.",
+    summary: "Sensor housings, fittings, bushes and contact pins for vehicle and aftermarket supply.",
     description:
       "Automotive buyers need repeatability across long runs. Our quality system is certified to IATF 16949, the automotive quality standard: we fix the process at first-off approval and hold it through every batch.",
-    parts: ["Sensor housings", "Brake and fuel fittings", "Bushes", "Special fasteners"],
+    parts: ["Sensor housings", "Brake and fuel fittings", "Bushes", "Contact pins"],
     priorities: [
       { title: "IATF 16949 certified", body: "Automotive quality management system certified by TÜV SÜD." },
       { title: "Run-to-run consistency", body: "Process parameters locked after first-off approval, with inspection reports on request." },
@@ -57,10 +57,10 @@ export const industries: Industry[] = [
     slug: "energy",
     name: "Energy",
     icon: "PlugZap",
-    summary: "Terminals, busbar connectors, earthing parts and gland components for power distribution and solar installations.",
+    summary: "Terminals, busbar connectors and copper contact parts for power distribution and solar installations.",
     description:
       "Power equipment carries high current for decades. Contact faces, thread engagement and plating are controlled so joints stay tight and cool, whether in switchgear, transformers or solar balance-of-system hardware.",
-    parts: ["Busbar and terminal connectors", "Earthing and bonding parts", "Cable gland components", "Copper contact parts"],
+    parts: ["Busbar and terminal connectors", "Cam-Lok power connectors", "Copper contact parts"],
     priorities: [
       { title: "Conductivity", body: "Brass and copper grades chosen for current rating, with tin or silver plating where specified." },
       { title: "Secure joints", body: "Thread form and seating faces checked so connections hold their torque in service." },
@@ -87,10 +87,10 @@ export const industries: Industry[] = [
     slug: "electrical",
     name: "Electrical & switchgear",
     icon: "Zap",
-    summary: "Terminals, connectors, neutral links and earthing parts that carry current reliably.",
+    summary: "Terminals, connectors, contact pins and plug pins that carry current reliably.",
     description:
       "Electrical parts fail at the contact face first. We control thread fit, surface finish and plating thickness so terminals clamp firmly and stay low-resistance through thermal cycling.",
-    parts: ["Terminal connectors", "Neutral links", "Earth bars", "Switch contacts", "Plug pins"],
+    parts: ["Terminal connectors", "Switch contacts", "Pin and socket contacts", "Plug pins"],
     priorities: [
       { title: "Conductivity", body: "Brass and copper grades chosen for current rating, not just price." },
       { title: "Plating control", body: "Tin, nickel or silver plating specified by thickness and checked on return." },
@@ -150,7 +150,7 @@ export const industries: Industry[] = [
     summary: "Build-to-print turned and milled parts for machine builders and OEM assemblies.",
     description:
       "If it can be turned, drilled, threaded or knurled from bar, we can quote it. Most of our general engineering work arrives as a drawing.",
-    parts: ["Shafts and spindles", "Bushes and spacers", "Adaptors", "Custom fasteners"],
+    parts: ["Shafts and spindles", "Bushes and spacers", "Adaptors", "Threaded studs and pins"],
     priorities: [
       { title: "Build-to-print", body: "We work from your drawing and your tolerances, not a catalogue." },
       { title: "Low to high volume", body: "From prototype lots to repeat production schedules." },

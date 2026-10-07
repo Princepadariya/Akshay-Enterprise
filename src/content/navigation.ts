@@ -43,7 +43,7 @@ export const footerColumns: { title: string; links: NavLink[] }[] = [
     links: [
       { label: "All products", href: "/products" },
       { label: "Turned components", href: "/products/precision-turned-components" },
-      { label: "Electrical parts", href: "/products/electrical-switchgear-parts" },
+      { label: "Electrical parts", href: "/products/electrical-parts" },
       { label: "Inserts", href: "/products/inserts-anchors" },
       { label: "Build-to-print", href: "/products/custom-build-to-print" },
       { label: "Rods & wire", href: "/products/brass-rods-sheets-wire" },

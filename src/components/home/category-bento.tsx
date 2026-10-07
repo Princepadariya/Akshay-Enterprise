@@ -8,26 +8,23 @@ import { productsInCategory } from "@/content/products";
 import { cn } from "@/lib/utils";
 
 /**
- * 11 categories -> exactly 11 cells on a 4-column grid:
+ * 8 categories -> a full 4-column grid with no gaps:
  *   [1 1 2 3]
- *   [1 1 4 5]
- *   [6 7 7 8]
- *   [6 9 10 10]
- *   [11 11 11 11]   (a wide closing band; on two columns it pairs with 9)
- * Cells alternate between photographic, brushed-steel and blueprint surfaces.
+ *   [1 1 4 3]
+ *   [5 6 7 7]
+ *   [8 8 8 8]   (a wide closing band)
+ * On two columns: 1 | 2 3 | 4 | 5 6 | 7 | 8, also gap-free.
+ * Cells alternate between photographic, blueprint and brass surfaces.
  */
 const layout: { span: string; surface: "photo" | "steel" | "blueprint" | "brass" }[] = [
   { span: "sm:col-span-2 lg:col-span-2 lg:row-span-2", surface: "photo" },
   { span: "", surface: "photo" },
-  { span: "", surface: "blueprint" },
-  { span: "", surface: "steel" },
-  { span: "", surface: "photo" },
   { span: "lg:row-span-2", surface: "photo" },
-  { span: "sm:col-span-2 lg:col-span-2", surface: "photo" },
+  { span: "sm:col-span-2 lg:col-span-1", surface: "photo" },
   { span: "", surface: "blueprint" },
   { span: "", surface: "photo" },
   { span: "sm:col-span-2 lg:col-span-2", surface: "brass" },
-  { span: "lg:col-span-4", surface: "photo" },
+  { span: "sm:col-span-2 lg:col-span-4", surface: "photo" },
 ];
 
 export function CategoryBento() {
