@@ -1,4 +1,4 @@
-import { Suspense } from "react";
+import { Fragment, Suspense } from "react";
 import { Clock, Mail, MapPin, MessageCircle, Phone } from "lucide-react";
 import { PageHero } from "@/components/sections/page-hero";
 import { ContactForm } from "@/components/forms/contact-form";
@@ -18,8 +18,6 @@ export default function ContactPage() {
   type Link = { label?: string; display: string; href?: string; external?: boolean };
   const rows: { icon: typeof Phone; label: string; links: readonly Link[]; placeholder?: boolean }[] = [
     { icon: MapPin, label: "Factory", links: [{ display: c.addressLines.join(", "), href: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(c.mapEmbedQuery)}`, external: true }] },
-    ...(hasPhone ? [{ icon: Phone, label: "Phone", links: c.phones }] : []),
-    { icon: Mail, label: "Email", links: c.emails },
     ...(hasWhatsapp ? [{ icon: MessageCircle, label: "WhatsApp", links: [{ display: "Chat with us", href: whatsappHref(), external: true }] }] : []),
     { icon: Clock, label: "Business hours", links: [{ display: c.hours.value }], placeholder: c.hours.placeholder },
   ];
@@ -38,34 +36,63 @@ export default function ContactPage() {
               <span>{site.name}</span>
             </div>
             <ul>
-              {rows.map((r) => (
-                <li key={r.label} className="flex items-start gap-4 border-b border-dashed border-border p-5 transition-colors duration-300 last:border-b-0 hover:bg-brass-soft">
-                  <span className="grid size-10 shrink-0 place-items-center rounded-full border border-border bg-background">
-                    <r.icon strokeWidth={1.5} className="size-[18px] text-brass" />
-                  </span>
-                  <div className="min-w-0 flex-1">
-                    <p className="font-mono text-[11px] tracking-[0.16em] text-muted-foreground uppercase">{r.label}</p>
-                    <ul className="mt-1 grid gap-1.5">
-                      {r.links.map((l) => (
-                        <li key={l.display} className="flex flex-wrap items-center gap-x-2">
-                          {l.label ? <span className="basis-full text-xs text-muted-foreground sm:basis-auto sm:w-20 sm:shrink-0">{l.label}</span> : null}
-                          {l.href ? (
-                            <a
-                              href={l.href}
-                              {...(l.external ? { target: "_blank", rel: "noreferrer" } : {})}
-                              className="min-w-0 font-medium break-words hover:text-brass-ink"
-                            >
-                              {l.display}
-                            </a>
-                          ) : (
-                            <p className="font-medium">{l.display}</p>
-                          )}
-                        </li>
-                      ))}
-                    </ul>
-                    <TodoMark show={r.placeholder} />
-                  </div>
-                </li>
+              {rows.map((r, ri) => (
+                <Fragment key={r.label}>
+                  {ri === 1 && hasPhone ? (
+                    <li className="flex items-start gap-4 border-b border-dashed border-border p-5 transition-colors duration-300 hover:bg-brass-soft">
+                      <span className="grid size-10 shrink-0 place-items-center rounded-full border border-border bg-background">
+                        <Phone strokeWidth={1.5} className="size-[18px] text-brass" />
+                      </span>
+                      <div className="min-w-0 flex-1">
+                        <p className="font-mono text-[11px] tracking-[0.16em] text-muted-foreground uppercase">Phone &amp; email</p>
+                        <ul className="mt-2 grid gap-3">
+                          {c.departments.map((d) => (
+                            <li key={d.label}>
+                              <p className="text-xs text-muted-foreground">{d.label}</p>
+                              <div className="mt-0.5 flex flex-wrap items-center gap-x-4 gap-y-0.5">
+                                <a href={d.phone.href} className="inline-flex items-center gap-1.5 font-medium whitespace-nowrap hover:text-brass-ink">
+                                  <Phone strokeWidth={1.5} aria-hidden className="size-3.5 text-brass" />
+                                  {d.phone.display}
+                                </a>
+                                <a href={d.email.href} className="inline-flex min-w-0 items-center gap-1.5 font-medium break-all hover:text-brass-ink">
+                                  <Mail strokeWidth={1.5} aria-hidden className="size-3.5 shrink-0 text-brass" />
+                                  {d.email.display}
+                                </a>
+                              </div>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    </li>
+                  ) : null}
+                  <li className="flex items-start gap-4 border-b border-dashed border-border p-5 transition-colors duration-300 last:border-b-0 hover:bg-brass-soft">
+                    <span className="grid size-10 shrink-0 place-items-center rounded-full border border-border bg-background">
+                      <r.icon strokeWidth={1.5} className="size-[18px] text-brass" />
+                    </span>
+                    <div className="min-w-0 flex-1">
+                      <p className="font-mono text-[11px] tracking-[0.16em] text-muted-foreground uppercase">{r.label}</p>
+                      <ul className="mt-1 grid gap-1.5">
+                        {r.links.map((l) => (
+                          <li key={l.display} className="flex flex-wrap items-center gap-x-2">
+                            {l.label ? <span className="basis-full text-xs text-muted-foreground sm:basis-auto sm:w-20 sm:shrink-0">{l.label}</span> : null}
+                            {l.href ? (
+                              <a
+                                href={l.href}
+                                {...(l.external ? { target: "_blank", rel: "noreferrer" } : {})}
+                                className="min-w-0 font-medium break-words hover:text-brass-ink"
+                              >
+                                {l.display}
+                              </a>
+                            ) : (
+                              <p className="font-medium">{l.display}</p>
+                            )}
+                          </li>
+                        ))}
+                      </ul>
+                      <TodoMark show={r.placeholder} />
+                    </div>
+                  </li>
+                </Fragment>
               ))}
             </ul>
           </div>

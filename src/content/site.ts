@@ -41,17 +41,11 @@ export const site = {
     postalCode: "361004",
     region: "Gujarat",
     country: "IN",
-    /** First number is the main line (and WhatsApp). */
-    phones: [
-      { display: "+91 84694 08409", href: "tel:+918469408409" },
-      { display: "+91 89809 15994", href: "tel:+918980915994" },
-      { display: "+91 95001 04405", href: "tel:+919500104405" },
-    ],
-    /** First address is the main sales inbox. */
-    emails: [
-      { label: "Sales", display: "sales@abcbrass.com", href: "mailto:sales@abcbrass.com" },
-      { label: "Enquiries", display: "info@abcbrass.com", href: "mailto:info@abcbrass.com" },
-      { label: "Factory", display: "factory@abcbrass.com", href: "mailto:factory@abcbrass.com" },
+    /** Each desk has its own number and inbox; the first (Sales) is the main contact. */
+    departments: [
+      { label: "Sales", phone: { display: "+91 95001 04405", href: "tel:+919500104405" }, email: { display: "sales@abcbrass.com", href: "mailto:sales@abcbrass.com" } },
+      { label: "Enquiries", phone: { display: "+91 89809 15994", href: "tel:+918980915994" }, email: { display: "info@abcbrass.com", href: "mailto:info@abcbrass.com" } },
+      { label: "Factory", phone: { display: "+91 84694 08409", href: "tel:+918469408409" }, email: { display: "factory@abcbrass.com", href: "mailto:factory@abcbrass.com" } },
     ],
     whatsapp: { number: "918469408409", placeholder: false }, // TODO: confirm this is the WhatsApp number
     hours: { value: "Mon to Sat, 09:30 to 18:30 IST", placeholder: true }, // TODO
@@ -171,11 +165,11 @@ export const site = {
 export type Site = typeof site;
 
 /** Main phone line and main (sales) inbox. */
-export const mainPhone = site.contact.phones[0];
-export const mainEmail = site.contact.emails[0];
+export const mainPhone = site.contact.departments[0].phone;
+export const mainEmail = site.contact.departments[0].email;
 
 /** Phone and WhatsApp links are hidden site-wide when no confirmed number is set, so no link dials a dummy number. */
-export const hasPhone = site.contact.phones.length > 0;
+export const hasPhone = site.contact.departments.length > 0;
 export const hasWhatsapp = !site.contact.whatsapp.placeholder;
 
 export function whatsappHref(message = "Hello Akshay Enterprise, I would like to discuss a part.") {

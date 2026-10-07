@@ -24,28 +24,23 @@ export function Footer() {
                   <TodoMark />
                 </span>
               </span>
-              {hasPhone ? (
-                <span className="flex gap-3">
-                  <Phone strokeWidth={1.5} className="mt-1 size-4 shrink-0 text-brass" />
-                  <span className="grid gap-1">
-                    {site.contact.phones.map((p) => (
-                      <a key={p.href} href={p.href} className="inline-flex min-h-6 items-center font-mono text-[13px] hover:text-brass-ink">
-                        {p.display}
+              {site.contact.departments.map((d) => (
+                <span key={d.label} className="grid gap-0.5">
+                  <span className="font-mono text-[10.5px] tracking-[0.14em] text-muted-foreground uppercase">{d.label}</span>
+                  <span className="flex flex-wrap items-center gap-x-3 gap-y-0.5">
+                    {hasPhone ? (
+                      <a href={d.phone.href} className="inline-flex min-h-6 items-center gap-1.5 font-mono text-[13px] whitespace-nowrap hover:text-brass-ink">
+                        <Phone strokeWidth={1.5} aria-hidden className="size-3.5 text-brass" />
+                        {d.phone.display}
                       </a>
-                    ))}
+                    ) : null}
+                    <a href={d.email.href} className="inline-flex min-h-6 items-center gap-1.5 font-mono text-[13px] hover:text-brass-ink">
+                      <Mail strokeWidth={1.5} aria-hidden className="size-3.5 text-brass" />
+                      {d.email.display}
+                    </a>
                   </span>
                 </span>
-              ) : null}
-              <span className="flex gap-3">
-                <Mail strokeWidth={1.5} className="mt-1 size-4 shrink-0 text-brass" />
-                <span className="grid gap-1">
-                  {site.contact.emails.map((e) => (
-                    <a key={e.href} href={e.href} className="inline-flex min-h-6 items-center font-mono text-[13px] hover:text-brass-ink">
-                      {e.display}
-                    </a>
-                  ))}
-                </span>
-              </span>
+              ))}
             </address>
           </div>
 
