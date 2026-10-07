@@ -45,6 +45,7 @@ export const site = {
     phones: [
       { display: "+91 84694 08409", href: "tel:+918469408409" },
       { display: "+91 89809 15994", href: "tel:+918980915994" },
+      { display: "+91 95001 04405", href: "tel:+919500104405" },
     ],
     /** First address is the main sales inbox. */
     emails: [
