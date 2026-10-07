@@ -4,7 +4,9 @@ import { useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
+import Image from "next/image";
 import { processSteps } from "@/content/capabilities";
+import { photos } from "@/content/images";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
@@ -73,21 +75,26 @@ export function ProcessScroll() {
           {processSteps.map((s, i) => (
             <article
               key={s.title}
-              className="relative flex h-[26rem] w-[78vw] shrink-0 snap-start flex-col justify-between overflow-hidden rounded-sm border border-border bg-card p-6 sm:w-[46vw] lg:h-[30rem] lg:w-[22rem] lg:p-8"
+              className="relative flex h-[30rem] w-[78vw] shrink-0 snap-start flex-col overflow-hidden rounded-sm border border-border bg-card sm:w-[46vw] lg:h-[32rem] lg:w-[22rem]"
             >
-              <div className="flex items-center justify-between">
-                <span className="font-mono text-xs tracking-widest text-brass-ink">OP {(i + 1) * 10}</span>
-                <span className="font-mono text-[11px] text-muted-foreground">{s.spec}</span>
+              <div className="relative h-44 shrink-0 overflow-hidden border-b border-border bg-surface lg:h-52">
+                <Image src={photos[s.image].src} alt={photos[s.image].alt} fill sizes="(min-width: 1024px) 22rem, (min-width: 640px) 46vw, 78vw" className="object-cover" />
+                <span className="absolute top-4 left-4 rounded-sm bg-background/90 px-2 py-1 font-mono text-xs tracking-widest text-brass-ink backdrop-blur-sm">
+                  OP {(i + 1) * 10}
+                </span>
               </div>
-              <span
-                aria-hidden
-                className="pointer-events-none absolute -right-4 top-1/2 -translate-y-1/2 font-display-wide text-[10rem] leading-none font-bold text-foreground/[0.04] select-none"
-              >
-                {String(i + 1).padStart(2, "0")}
-              </span>
-              <div className="relative min-h-[8.5rem]">
-                <h3 className="font-display text-2xl leading-tight font-semibold tracking-tight">{s.title}</h3>
-                <p className="mt-3 leading-relaxed text-muted-foreground">{s.body}</p>
+              <div className="relative flex flex-1 flex-col justify-between p-6 lg:p-8">
+                <span
+                  aria-hidden
+                  className="pointer-events-none absolute -right-3 bottom-2 font-display-wide text-[7rem] leading-none font-bold text-foreground/[0.05] select-none"
+                >
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+                <div className="relative">
+                  <h3 className="font-display text-2xl leading-tight font-semibold tracking-tight">{s.title}</h3>
+                  <p className="mt-3 leading-relaxed text-muted-foreground">{s.body}</p>
+                </div>
+                <span className="relative font-mono text-[11px] text-muted-foreground">{s.spec}</span>
               </div>
               <span aria-hidden className="metal-brass absolute bottom-0 left-0 h-[2px] w-12" />
             </article>
