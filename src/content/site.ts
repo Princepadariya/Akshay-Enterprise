@@ -73,7 +73,7 @@ export const site = {
     { value: 200, suffix: "+", label: "OEM and trade clients", placeholder: false },
   ],
 
-  /** Certifications held, from the supplied certificates (files and details: /public/certificates, src/content/certificates.ts). */
+  /** Certifications held, from the supplied certificates (logos: src/content/certificates.ts; supplied copies: /docs/certificates). */
   certifications: [
     { code: "IATF 16949", label: "Automotive quality management system", placeholder: false },
     { code: "ISO 9001:2015", label: "Quality management system", placeholder: false },

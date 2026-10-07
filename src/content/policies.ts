@@ -5,7 +5,7 @@ import type { LegalDoc } from "./legal";
  * TODO: These are complete drafts based on recognised frameworks, written for a precision turned-parts
  * manufacturer. Management must review, adjust to actual practice, approve and sign each one before
  * launch. Set `updated` to the approval date and `approvedBy` to the signatory. Certifications held:
- * IATF 16949, ISO 9001, ISO 14001, ISO 45001 and RoHS (see /public/certificates). Do not reference
+ * IATF 16949, ISO 9001, ISO 14001, ISO 45001 and RoHS (see /docs/certificates). Do not reference
  * any other certification (e.g. ISO 27001) unless it is actually held.
  */
 

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { BadgeCheck, FileText } from "lucide-react";
+import { FileText } from "lucide-react";
 import { PageHero } from "@/components/sections/page-hero";
 import { SectionHeader } from "@/components/sections/section-header";
 import { CtaBand } from "@/components/sections/cta-band";
@@ -9,9 +9,7 @@ import { InspectionFlow } from "@/components/sections/inspection-flow";
 import { TodoMark } from "@/components/todo-mark";
 import { Button } from "@/components/ui/button";
 import { inspectionStages, instruments, qualityIntro, qualityPolicy, toleranceHighlights } from "@/content/quality";
-import { site } from "@/content/site";
-import { getCertificates } from "@/lib/certificates";
-import { CertificateGrid } from "@/components/sections/certificate-grid";
+import { CertificationList } from "@/components/sections/certification-list";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata = pageMetadata({
@@ -22,7 +20,6 @@ export const metadata = pageMetadata({
 });
 
 export default function QualityPage() {
-  const certificates = getCertificates();
   return (
     <>
       <PageHero
@@ -61,23 +58,9 @@ export default function QualityPage() {
       <section id="certifications" className="container-x scroll-mt-28 pt-16 md:pt-24">
         <SectionHeader
           title="Certifications"
-          lead="Our management systems are independently audited. Open any certificate to view it in full."
+          lead="Our management systems are independently audited and certified."
         />
-        {certificates.length ? (
-          <CertificateGrid items={certificates} className="mt-10 lg:grid-cols-5" />
-        ) : (
-          <ul className="mt-10 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-            {site.certifications.map((c) => (
-              <li key={c.code} className="flex items-start gap-3 rounded-sm border border-border p-5">
-                <BadgeCheck strokeWidth={1.5} className="size-6 shrink-0 text-brass" />
-                <div>
-                  <p className="font-medium">{c.code}</p>
-                  <p className="mt-1 text-sm text-muted-foreground">{c.label}</p>
-                </div>
-              </li>
-            ))}
-          </ul>
-        )}
+        <CertificationList className="mt-10" />
       </section>
 
       <section className="container-x py-16 md:py-24">

@@ -1,59 +1,22 @@
 /**
- * Details shown with each certificate file in /public/certificates. A file picks up the first entry
- * whose `match` fits its file name, so files can be renamed or replaced with renewed copies without
- * touching this list. A file with no match still appears, titled from its file name.
- * Source: the certificate documents supplied by Akshay Enterprise.
+ * Certifications shown on the site: name and the certifying body's logo only (the certificate
+ * documents themselves are not published; the supplied copies are kept in /docs/certificates).
+ * Logos in /public/logos were taken from those certificates.
  */
-export type CertificateDetail = {
-  match: RegExp;
+export type Certification = {
   /** official standard name, shown as the title */
   code: string;
-  /** what the standard covers, in plain words */
+  /** what the standard covers, used for alt text and search descriptions */
   label: string;
-  issuer: string;
-  number: string;
-  scope: string;
+  logo: { src: string; alt: string; width: number; height: number };
 };
 
-export const certificateDetails: CertificateDetail[] = [
-  {
-    match: /IATF\s*16949/i,
-    code: "IATF 16949",
-    label: "Automotive quality management system",
-    issuer: "TÜV SÜD Management Service GmbH",
-    number: "IATF 0599222",
-    scope: "Manufacture of brass machined components",
-  },
-  {
-    match: /ISO\s*9001/i,
-    code: "ISO 9001:2015",
-    label: "Quality management system",
-    issuer: "LMS Certifications Pvt. Ltd.",
-    number: "IN124492A",
-    scope: "Manufacture of brass extrusion rod and brass machined components",
-  },
-  {
-    match: /ISO\s*14001/i,
-    code: "ISO 14001:2015",
-    label: "Environmental management system",
-    issuer: "LMS Certifications Pvt. Ltd.",
-    number: "IN122099B",
-    scope: "Manufacture of brass machined components",
-  },
-  {
-    match: /ISO\s*45001/i,
-    code: "ISO 45001:2018",
-    label: "Occupational health and safety management system",
-    issuer: "LMS Certifications Pvt. Ltd.",
-    number: "IN122099C-1",
-    scope: "Manufacture of brass machined components",
-  },
-  {
-    match: /RoHS/i,
-    code: "RoHS",
-    label: "Restriction of hazardous substances compliance",
-    issuer: "QSA International Ltd., UK",
-    number: "QSA-1503404",
-    scope: "Ferrous and non-ferrous extrusion rod and precision brass components",
-  },
+const LMS = { src: "/logos/lms.png", alt: "LMS Certifications logo", width: 230, height: 137 };
+
+export const certifications: Certification[] = [
+  { code: "IATF 16949", label: "Automotive quality management system", logo: { src: "/logos/iatf.png", alt: "IATF logo", width: 148, height: 118 } },
+  { code: "ISO 9001:2015", label: "Quality management system", logo: LMS },
+  { code: "ISO 14001:2015", label: "Environmental management system", logo: LMS },
+  { code: "ISO 45001:2018", label: "Occupational health and safety management system", logo: LMS },
+  { code: "RoHS", label: "Restriction of hazardous substances compliance", logo: { src: "/logos/qsa.png", alt: "QSA International logo", width: 455, height: 235 } },
 ];

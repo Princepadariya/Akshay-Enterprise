@@ -52,7 +52,7 @@ export const sustainability = {
 
 /* ---------------------------------------------------------------- Downloads */
 /** TODO: add the real PDFs to /public/downloads and set `file` to their path. Items without a file show "Request a copy".
- * Certificates are not listed here: they come from /public/certificates automatically. */
+ * Certificates are not offered for download; certifications are shown by name and logo on /quality. */
 export const downloads: { title: string; description: string; type: string; size?: string; file?: string }[] = [
   { title: "Product catalogue", description: "Full range of standard components with materials and sizes.", type: "PDF" },
   { title: "Company profile", description: "Plant, machinery, quality system and export experience.", type: "PDF" },
