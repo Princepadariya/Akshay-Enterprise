@@ -13,7 +13,6 @@ export const companyNav: NavLink[] = [
   { label: "Vision, mission, values", href: "/about/vision-mission-values" },
   { label: "Sustainability", href: "/sustainability" },
   { label: "Downloads", href: "/downloads" },
-  { label: "FAQ", href: "/faq" },
   { label: "Resources", href: "/resources", description: "Guides for buyers and engineers" },
 ];
 
@@ -64,7 +63,6 @@ export const footerColumns: { title: string; links: NavLink[] }[] = [
       { label: "Request a Quote", href: "/request-quote" },
       { label: "Contact", href: "/contact" },
       { label: "Downloads", href: "/downloads" },
-      { label: "FAQ", href: "/faq" },
       { label: "Resources", href: "/resources" },
       { label: "Site map", href: "/site-map" },
     ],

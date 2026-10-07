@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import {
@@ -14,10 +13,6 @@ import { pageMetadata } from "@/lib/seo";
 import { PageHero } from "@/components/sections/page-hero";
 import { CtaBand } from "@/components/sections/cta-band";
 import { ProductTabs, type ProductGroup } from "@/components/products/category-product-grid";
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { JsonLd } from "@/components/json-ld";
-import { getCategoryDetail } from "@/content/category-details";
-import { faqSchema } from "@/lib/schema";
 
 export const dynamicParams = false;
 
@@ -77,7 +72,6 @@ export default async function CategoryPage({ params }: PageProps<"/products/[cat
       stats={[`${items.length} products`, `${groups.length} material${groups.length === 1 ? "" : "s"}`]}
       groups={groups}
       all="flat"
-      faqs={getCategoryDetail(c.slug)?.faqs}
     />
   );
 }
@@ -90,7 +84,6 @@ function Layout({
   stats,
   groups,
   all,
-  faqs = [],
 }: {
   crumb: { name: string; href: string };
   title: string;
@@ -99,7 +92,6 @@ function Layout({
   stats: string[];
   groups: ProductGroup[];
   all: "grouped" | "flat";
-  faqs?: { q: string; a: string }[];
 }) {
   return (
     <>
@@ -115,35 +107,6 @@ function Layout({
       <div className="pb-6">
         <ProductTabs groups={groups} all={all} />
       </div>
-      {faqs.length ? (
-        <section aria-labelledby="faq" className="border-t border-border bg-surface py-14 md:py-20">
-          <div className="container-x grid gap-6 lg:grid-cols-12">
-            <div className="lg:col-span-4">
-              <h2 id="faq" className="font-display text-3xl font-semibold tracking-tight md:text-4xl">
-                Common questions
-              </h2>
-              <p className="mt-3 text-muted-foreground">
-                About {title.toLowerCase()}. More answers on our{" "}
-                <Link href="/faq" className="text-brass-ink underline-offset-4 hover:underline">
-                  FAQ page
-                </Link>
-                .
-              </p>
-            </div>
-            <Accordion type="single" collapsible defaultValue={faqs[0].q} className="lg:col-span-8">
-              {faqs.map((f) => (
-                <AccordionItem key={f.q} value={f.q} className="border-border">
-                  <AccordionTrigger className="py-5 text-left font-display text-lg font-semibold tracking-tight hover:no-underline md:text-xl">
-                    {f.q}
-                  </AccordionTrigger>
-                  <AccordionContent className="max-w-[68ch] pb-6 text-base leading-relaxed text-muted-foreground">{f.a}</AccordionContent>
-                </AccordionItem>
-              ))}
-            </Accordion>
-          </div>
-          <JsonLd data={faqSchema(faqs)} />
-        </section>
-      ) : null}
       <CtaBand
         title="Can't find the exact part?"
         body="Send a drawing, a sample or a photo with the size and quantity. We make parts to your specification."

@@ -1,5 +1,4 @@
 import { site, mainEmail, mainPhone } from "@/content/site";
-import type { Faq } from "@/content/faq";
 import type { Product } from "@/content/products";
 import { getCategory, productHref } from "@/content/products";
 import { photos } from "@/content/images";
@@ -56,17 +55,5 @@ export function productSchema(p: Product) {
     url: absoluteUrl(productHref(p)),
     brand: { "@type": "Brand", name: site.name },
     manufacturer: { "@type": "Organization", name: site.name, url: site.url },
-  };
-}
-
-export function faqSchema(items: Pick<Faq, "q" | "a">[]) {
-  return {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    mainEntity: items.map((f) => ({
-      "@type": "Question",
-      name: f.q,
-      acceptedAnswer: { "@type": "Answer", text: f.a },
-    })),
   };
 }

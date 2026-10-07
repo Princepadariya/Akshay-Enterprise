@@ -1,6 +1,6 @@
 /**
  * Long-form detail for each product family: overview, features, manufacturing route,
- * inspection checks, customisation options, applicable standards and FAQs.
+ * inspection checks, customisation options, applicable standards.
  * Used on category pages and on every product page in that family.
  * TODO: confirm with engineering (routes, checks and standards describe typical practice).
  */
@@ -12,7 +12,6 @@ export type CategoryDetail = {
   checks: string[];
   options: string[];
   standards: string[];
-  faqs: { q: string; a: string }[];
 };
 
 export const categoryDetails: Record<string, CategoryDetail> = {
@@ -43,10 +42,6 @@ export const categoryDetails: Record<string, CategoryDetail> = {
     ],
     options: ["Special chamfers and edge breaks", "Laser or stamp marking", "Custom lengths and bar sizes", "Selective plating", "Bagging by count with part-number labels"],
     standards: ["ISO 2768-m general tolerances (unless the drawing states otherwise)", "BS EN 12164 / IS 319 brass bar", "ASTM A582 free-machining stainless bar"],
-    faqs: [
-      { q: "What is the smallest and largest diameter you turn?", a: "Typically from about Ø 2 mm on sliding-head machines up to Ø 65 mm from bar on turning centres. Larger parts can be quoted case by case." },
-      { q: "Can you hold tighter than ISO 2768-m?", a: "Yes. Critical diameters are routinely held to hundredths of a millimetre. Mark them on the drawing and we will confirm capability before quoting." },
-    ],
   },
 
   "electrical-switchgear-parts": {
@@ -76,10 +71,6 @@ export const categoryDetails: Record<string, CategoryDetail> = {
     ],
     options: ["Screws supplied loose or pre-assembled", "Captive washers", "Custom way counts and pitches", "Lead-free brass grades", "Anti-tarnish packing"],
     standards: ["IEC 60947-7-1 terminal blocks (design reference)", "IS 13947 low-voltage switchgear (design reference)", "RoHS compliant materials on request"],
-    faqs: [
-      { q: "Can you supply terminals with screws assembled?", a: "Yes. Screws can be supplied loose, or pre-assembled at a specified depth so your line does not have to fit them." },
-      { q: "Which plating is best for terminals?", a: "Tin is the common choice for solderability and stable contact resistance; nickel for wear and appearance; silver where the lowest contact resistance is needed." },
-    ],
   },
 
   "neutral-links-earth-bars": {
@@ -104,9 +95,6 @@ export const categoryDetails: Record<string, CategoryDetail> = {
     checks: ["Hole pitch against drawing", "Thread gauging on every screw hole", "Overall length and squareness", "Screw clamping check"],
     options: ["2 to 24 ways or custom", "Insulated mounts", "Combination neutral / earth bars", "Tin or nickel plating", "Custom screw heads"],
     standards: ["IEC 61439 assemblies (design reference)", "BS EN 12163 / 12167 copper and brass sections"],
-    faqs: [
-      { q: "Can you match an existing link design?", a: "Yes. Send a sample or drawing with the enclosure layout and we will replicate the pitch, section and screw specification." },
-    ],
   },
 
   "cable-glands-accessories": {
@@ -131,9 +119,6 @@ export const categoryDetails: Record<string, CategoryDetail> = {
     checks: ["Thread gauging on entry and dome threads", "Cone angle and bore", "Assembly trial of the complete kit", "Plating visual check"],
     options: ["Single or double compression", "Armoured or unarmoured cable", "Custom entry threads", "Branded packing"],
     standards: ["BS 6121 / IEC 62444 cable glands (design reference)", "ISO 965 metric threads", "ASME B1.20.1 NPT"],
-    faqs: [
-      { q: "Do you supply seals?", a: "Seals are sourced from qualified rubber suppliers and supplied with the kits, or you can supply your own." },
-    ],
   },
 
   fasteners: {
@@ -158,9 +143,6 @@ export const categoryDetails: Record<string, CategoryDetail> = {
     checks: ["Thread ring and plug gauges", "Head height and across-flats", "Length and point geometry", "Plating thickness"],
     options: ["Captive and shouldered screws", "Nylon-insert or serrated features", "Custom recess types", "Coloured passivation"],
     standards: ["ISO 4032 / 4017 / 7045 (hex nuts, bolts, pan screws) as reference", "ISO 965 / ASME B1.1 thread tolerances"],
-    faqs: [
-      { q: "Is there a minimum order quantity for special fasteners?", a: "Because we turn from bar, special fasteners do not need a forming die, so smaller quantities are practical. Share the annual requirement for the best price." },
-    ],
   },
 
   "inserts-anchors": {
@@ -184,9 +166,6 @@ export const categoryDetails: Record<string, CategoryDetail> = {
     checks: ["Thread gauging", "Knurl diameter and pattern", "Overall length and undercut", "Chip-free check on internal threads"],
     options: ["Blind or through threads", "Custom knurl patterns", "Flanged and headed inserts", "Nickel plating"],
     standards: ["ISO 965 metric threads", "ASME B1.1 unified threads"],
-    faqs: [
-      { q: "Which knurl gives the best pull-out strength?", a: "It depends on the plastic and installation method. Diamond knurls resist both torque and pull-out; helical knurls are common for heat-set installation. We can recommend a design if you share the material and boss size." },
-    ],
   },
 
   "plumbing-pipe-fittings": {
@@ -211,9 +190,6 @@ export const categoryDetails: Record<string, CategoryDetail> = {
     checks: ["Thread gauging (BSP / NPT)", "Seat and cone geometry", "Surface finish on sealing faces", "Leak test on sample basis if specified"],
     options: ["Olive material choice", "Custom thread combinations", "Branded marking", "Individual poly-bag packing"],
     standards: ["BS EN ISO 228-1 and ISO 7-1 BSP threads", "ASME B1.20.1 NPT", "BS EN 12165 / 12164 brass (CW617N, CW614N, CW602N)"],
-    faqs: [
-      { q: "Do you offer DZR brass?", a: "Yes. DZR brass (CW602N) is available for fittings in potable water service." },
-    ],
   },
 
   "gas-fittings": {
@@ -238,9 +214,6 @@ export const categoryDetails: Record<string, CategoryDetail> = {
     checks: ["Orifice diameter", "Seat geometry and finish", "Thread gauging", "Internal burr inspection"],
     options: ["Customer-specified leak test", "Nickel plating", "Laser marking of batch codes"],
     standards: ["IS 8737 / EN 16129 regulators (design reference)", "BS EN ISO 228-1 BSP threads"],
-    faqs: [
-      { q: "Can you leak test gas components?", a: "Leak testing can be carried out to your specified method and pressure. Tell us the requirement when you request a quote." },
-    ],
   },
 
   "sanitary-bath-fitting-components": {
@@ -265,9 +238,6 @@ export const categoryDetails: Record<string, CategoryDetail> = {
     checks: ["Spline and thread fit", "O-ring groove dimensions", "Surface finish on cosmetic faces", "Plating appearance"],
     options: ["Bright-turned or polished", "Chrome, satin nickel or PVD-ready", "Individual protective packing"],
     standards: ["BS EN 200 / IS 8931 sanitary tapware (design reference)", "BS EN 12164 brass bar"],
-    faqs: [
-      { q: "Can you supply parts ready for our own plating line?", a: "Yes. Parts can be supplied bright-turned and degreased, ready for your plating process." },
-    ],
   },
 
   "custom-build-to-print": {
@@ -292,10 +262,6 @@ export const categoryDetails: Record<string, CategoryDetail> = {
     checks: ["Full dimensional report on first-off", "Critical-to-function dimensions on every lot", "Material certificate check", "Finish and plating verification"],
     options: ["Any material we machine", "Any finish we coordinate", "Kitting and sub-assembly", "Customer-specific packing and labelling"],
     standards: ["Your drawing and specification", "ISO 2768 general tolerances where not specified"],
-    faqs: [
-      { q: "What do you need to quote?", a: "A drawing (PDF, DWG, DXF or STEP), material, finish, quantity per order or year, and the delivery destination. A sample is useful if there is no drawing." },
-      { q: "How long do first-off samples take?", a: "Usually two to three weeks from drawing sign-off, depending on tooling and finishing." },
-    ],
   },
 
   "brass-rods-sheets-wire": {
@@ -319,10 +285,6 @@ export const categoryDetails: Record<string, CategoryDetail> = {
     checks: ["Grade against mill certificate", "Diameter, section and thickness", "Straightness and surface condition", "Length and quantity"],
     options: ["Standard or cut lengths", "Round, hex and square sections", "Coils or straight lengths for wire", "Customer labelling"],
     standards: ["IS 319 free-cutting brass bar", "BS EN 12164 brass rod for machining", "BS EN 12163 / 12166 copper and copper-alloy rod and wire"],
-    faqs: [
-      { q: "Can you supply small quantities?", a: "Yes. Stock can be supplied by weight or by count of cut lengths; tell us the section, grade and quantity." },
-      { q: "Do you supply material certificates?", a: "Yes. A mill test certificate can be supplied with each lot on request." },
-    ],
   },
 };
 
