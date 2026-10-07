@@ -61,7 +61,7 @@ export const site = {
   ],
 
   stats: [
-    { value: 25, suffix: "+", label: "Years of turning experience", placeholder: false },
+    { value: 29, suffix: "+", label: "Years of turning experience", placeholder: false },
     { value: 1.5, suffix: "M", decimals: 1, label: "Parts per month capacity", placeholder: false },
     { value: 45, suffix: "+", label: "Machines on the shop floor", placeholder: false },
     { value: 25, suffix: "+", label: "Export countries", placeholder: false },
