@@ -123,14 +123,20 @@ export function MaterialRack() {
           <div className="lg:order-2 lg:col-span-7">
             <div
               ref={stage}
-              className="relative overflow-hidden rounded-sm border border-border bg-gradient-to-b from-white to-surface text-foreground"
-              style={{ height: "clamp(360px, 42vw, 560px)" }}
+              className="relative overflow-hidden rounded-sm border border-border text-foreground"
+              style={{
+                height: "clamp(360px, 42vw, 560px)",
+                // photo-studio backdrop: soft white spotlight behind the bar, falling off to light grey
+                background: "radial-gradient(75% 70% at 50% 42%, #ffffff 0%, #f7f7f7 40%, #e6e6e6 100%)",
+              }}
             >
-              <div aria-hidden className="grid-lines-fine absolute inset-0 opacity-70" />
+              {/* the sweep curving into the floor */}
+              <div aria-hidden className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-b from-transparent to-black/[0.035]" />
+              {/* soft contact shadow under the bar */}
               <div
                 aria-hidden
-                className="absolute inset-0"
-                style={{ background: "radial-gradient(60% 50% at 50% 55%, rgb(0 0 0 / 0.06), transparent 70%)" }}
+                className="absolute left-1/2 top-[52%] h-[9%] w-[72%] -translate-x-1/2 sm:top-[60%] lg:top-[64%] lg:w-[62%]"
+                style={{ background: "radial-gradient(closest-side, rgb(0 0 0 / 0.22), rgb(0 0 0 / 0.08) 55%, transparent)", filter: "blur(6px)" }}
               />
               <div className="absolute inset-0">
                 {mounted ? (
