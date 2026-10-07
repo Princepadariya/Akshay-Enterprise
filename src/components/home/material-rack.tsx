@@ -115,7 +115,7 @@ export function MaterialRack() {
       <div className="container-x">
         <SectionHeader
           title="Materials we machine"
-          lead="Brass, steels, aluminium and copper, run from bar on the same machines. Pick a material to load its bar."
+          lead="Brass, stainless steel, mild steel, copper and aluminium, run from bar on the same machines. Pick a material to load its bar."
         />
 
         <div className="mt-12 grid gap-8 lg:grid-cols-12 lg:gap-12">

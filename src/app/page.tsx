@@ -18,7 +18,7 @@ import { site } from "@/content/site";
 export const metadata: Metadata = {
   title: { absolute: `${site.name} | Precision Turned Components, India` },
   description:
-    "Precision turned and CNC machined parts in brass, stainless steel, aluminium and copper. Build-to-print manufacturer and exporter from Gujarat, India.",
+    "Precision turned and CNC machined parts in brass, stainless steel, mild steel, copper and aluminium. Build-to-print manufacturer and exporter from Gujarat, India.",
   alternates: { canonical: "/" },
 };
 

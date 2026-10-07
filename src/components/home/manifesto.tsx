@@ -14,7 +14,7 @@ gsap.registerPlugin(ScrollTrigger, useGSAP);
  */
 const STATEMENT: { t: string; brass?: boolean }[] = [
   { t: "We" }, { t: "turn" }, { t: "brass,", brass: true }, { t: "stainless", brass: true }, { t: "steel,", brass: true },
-  { t: "aluminium", brass: true }, { t: "and" }, { t: "copper", brass: true }, { t: "bar" }, { t: "into" }, { t: "finished" },
+  { t: "mild", brass: true }, { t: "steel,", brass: true }, { t: "copper", brass: true }, { t: "and" }, { t: "aluminium", brass: true }, { t: "bar" }, { t: "into" }, { t: "finished" },
   { t: "components." }, { t: "Turned," }, { t: "threaded," }, { t: "knurled," }, { t: "plated," }, { t: "inspected" },
   { t: "and" }, { t: "packed" }, { t: "for" }, { t: "your" }, { t: "assembly" }, { t: "line," }, { t: "from" }, { t: "one" },
   { t: "plant" }, { t: "in" }, { t: "Gujarat." },

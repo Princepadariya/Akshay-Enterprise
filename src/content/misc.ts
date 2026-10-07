@@ -57,5 +57,5 @@ export const downloads: { title: string; description: string; type: string; size
   { title: "Product catalogue", description: "Full range of standard components with materials and sizes.", type: "PDF" },
   { title: "Company profile", description: "Plant, machinery, quality system and export experience.", type: "PDF" },
   { title: "Quality policy", description: "Signed quality policy statement.", type: "PDF" },
-  { title: "Material grades reference", description: "Brass, stainless, steel, aluminium and copper grades we machine.", type: "PDF" },
+  { title: "Material grades reference", description: "Brass, stainless steel, mild steel, copper and aluminium grades we machine.", type: "PDF" },
 ];

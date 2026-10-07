@@ -30,7 +30,7 @@ export function Hero() {
             parts, made to <span className="text-sphere">your drawing.</span>
           </h1>
           <p className={`${enter} delay-150 max-w-[44ch] text-lg leading-relaxed text-muted-foreground`}>
-            Brass, stainless steel, aluminium and copper components for OEMs in India and abroad, from sample lots to volume
+            Brass, stainless steel, mild steel, copper and aluminium components for OEMs in India and abroad, from sample lots to volume
             production.
           </p>
           <div className={`${enter} delay-200 flex flex-wrap gap-3`}>
