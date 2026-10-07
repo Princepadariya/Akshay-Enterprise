@@ -7,6 +7,7 @@ export type IndustrySlug =
   | "automotive"
   | "hvac-refrigeration"
   | "telecom-electronics"
+  | "energy"
   | "agriculture"
   | "general-engineering";
 
@@ -22,6 +23,66 @@ export type Industry = {
 };
 
 export const industries: Industry[] = [
+  {
+    slug: "automotive",
+    name: "Automotive",
+    icon: "Car",
+    summary: "Sensor housings, fittings, bushes and fasteners for vehicle and aftermarket supply.",
+    description:
+      "Automotive buyers need repeatability across long runs. Our quality system is certified to IATF 16949, the automotive quality standard: we fix the process at first-off approval and hold it through every batch.",
+    parts: ["Sensor housings", "Brake and fuel fittings", "Bushes", "Special fasteners"],
+    priorities: [
+      { title: "IATF 16949 certified", body: "Automotive quality management system certified by TÜV SÜD." },
+      { title: "Run-to-run consistency", body: "Process parameters locked after first-off approval, with inspection reports on request." },
+      { title: "Volume capacity", body: "Multi-spindle and CNC capacity balanced for long programmes." },
+    ],
+    image: "engine",
+  },
+  {
+    slug: "hvac-refrigeration",
+    name: "HVAC & refrigeration",
+    icon: "Snowflake",
+    summary: "Flare nuts, service valve parts and connectors for refrigerant circuits.",
+    description:
+      "Refrigerant circuits are unforgiving of leaks. Flare angles, sealing seats and thread quality are controlled closely on every lot.",
+    parts: ["Flare nuts", "Service valve cores", "Access fittings", "Unions"],
+    priorities: [
+      { title: "Flare geometry", body: "Cone angles and seats checked against the drawing on every batch." },
+      { title: "Cleanliness", body: "Degreased and packed to keep oil and chips out of the circuit." },
+      { title: "Brass and copper", body: "Material pairing chosen for brazing and thermal cycling." },
+    ],
+    image: "hvac",
+  },
+  {
+    slug: "energy",
+    name: "Energy",
+    icon: "PlugZap",
+    summary: "Terminals, busbar connectors, earthing parts and gland components for power distribution and solar installations.",
+    description:
+      "Power equipment carries high current for decades. Contact faces, thread engagement and plating are controlled so joints stay tight and cool, whether in switchgear, transformers or solar balance-of-system hardware.",
+    parts: ["Busbar and terminal connectors", "Earthing and bonding parts", "Cable gland components", "Copper contact parts"],
+    priorities: [
+      { title: "Conductivity", body: "Brass and copper grades chosen for current rating, with tin or silver plating where specified." },
+      { title: "Secure joints", body: "Thread form and seating faces checked so connections hold their torque in service." },
+      { title: "Outdoor duty", body: "Plating and material options for corrosion resistance in substations and solar fields." },
+    ],
+    image: "solarRoof",
+  },
+  {
+    slug: "telecom-electronics",
+    name: "Telecom & electronics",
+    icon: "RadioTower",
+    summary: "RF connector parts, standoffs and small precision pins for electronic assemblies.",
+    description:
+      "Small parts, fine tolerances. Our turning cells handle miniature diameters and the plating these assemblies require.",
+    parts: ["RF connector bodies", "Standoffs and spacers", "Contact pins", "Grounding hardware"],
+    priorities: [
+      { title: "Miniature turning", body: "Small diameters turned and inspected under magnification." },
+      { title: "Plating options", body: "Gold-flash, silver or tin coordinated with finishing partners." },
+      { title: "Packaging", body: "Anti-tarnish packing for plated contact surfaces." },
+    ],
+    image: "circuit",
+  },
   {
     slug: "electrical",
     name: "Electrical & switchgear",
@@ -66,51 +127,6 @@ export const industries: Industry[] = [
       { title: "Thread standards", body: "BSP, NPT and metric forms gauged to the specified class." },
     ],
     image: "gauges",
-  },
-  {
-    slug: "automotive",
-    name: "Automotive",
-    icon: "Car",
-    summary: "Sensor housings, fittings, bushes and fasteners for vehicle and aftermarket supply.",
-    description:
-      "Automotive buyers need repeatability across long runs. Our quality system is certified to IATF 16949, the automotive quality standard: we fix the process at first-off approval and hold it through every batch.",
-    parts: ["Sensor housings", "Brake and fuel fittings", "Bushes", "Special fasteners"],
-    priorities: [
-      { title: "IATF 16949 certified", body: "Automotive quality management system certified by TÜV SÜD." },
-      { title: "Run-to-run consistency", body: "Process parameters locked after first-off approval, with inspection reports on request." },
-      { title: "Volume capacity", body: "Multi-spindle and CNC capacity balanced for long programmes." },
-    ],
-    image: "engine",
-  },
-  {
-    slug: "hvac-refrigeration",
-    name: "HVAC & refrigeration",
-    icon: "Snowflake",
-    summary: "Flare nuts, service valve parts and connectors for refrigerant circuits.",
-    description:
-      "Refrigerant circuits are unforgiving of leaks. Flare angles, sealing seats and thread quality are controlled closely on every lot.",
-    parts: ["Flare nuts", "Service valve cores", "Access fittings", "Unions"],
-    priorities: [
-      { title: "Flare geometry", body: "Cone angles and seats checked against the drawing on every batch." },
-      { title: "Cleanliness", body: "Degreased and packed to keep oil and chips out of the circuit." },
-      { title: "Brass and copper", body: "Material pairing chosen for brazing and thermal cycling." },
-    ],
-    image: "hvac",
-  },
-  {
-    slug: "telecom-electronics",
-    name: "Telecom & electronics",
-    icon: "RadioTower",
-    summary: "RF connector parts, standoffs and small precision pins for electronic assemblies.",
-    description:
-      "Small parts, fine tolerances. Our turning cells handle miniature diameters and the plating these assemblies require.",
-    parts: ["RF connector bodies", "Standoffs and spacers", "Contact pins", "Grounding hardware"],
-    priorities: [
-      { title: "Miniature turning", body: "Small diameters turned and inspected under magnification." },
-      { title: "Plating options", body: "Gold-flash, silver or tin coordinated with finishing partners." },
-      { title: "Packaging", body: "Anti-tarnish packing for plated contact surfaces." },
-    ],
-    image: "circuit",
   },
   {
     slug: "agriculture",
