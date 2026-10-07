@@ -1,13 +1,23 @@
 "use client";
 
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
-/** Stages of the brass loop, clockwise from the top (from the chip-recovery pillar text). */
+/** Metals kept in the loop, with the bar colour used in the materials viewer. */
+const METALS = [
+  { name: "Brass", color: "#d4ac5c" },
+  { name: "Stainless steel", color: "#a9b0b8" },
+  { name: "Mild steel", color: "#6f767e" },
+  { name: "Copper", color: "#cf7a4a" },
+  { name: "Aluminium", color: "#c3c9ce" },
+];
+const CYCLE_MS = 2600;
+
+/** Stages of the material loop, clockwise from the top (from the chip-recovery pillar text). */
 const STAGES = [
   "Bar stock",
   "Turning",
@@ -28,12 +38,22 @@ const point = (i: number, r = R) => {
 };
 
 /**
- * The brass loop as a circular flow diagram. Scrolling draws the ring, a brass marker rides the tip
+ * The material loop as a circular flow diagram; the centre cycles through every metal. Scrolling draws the ring, a brass marker rides the tip
  * of the line, and each stage lights as the line reaches it; the marker fades once the loop closes.
  * Shown complete and still under reduced motion.
  */
 export function MaterialLoop() {
   const root = useRef<HTMLDivElement>(null);
+  const [metal, setMetal] = useState(0);
+  const [picked, setPicked] = useState(false);
+  const m = METALS[metal];
+
+  // the centre steps through every metal until the visitor picks one (not under reduced motion)
+  useEffect(() => {
+    if (picked || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const id = window.setInterval(() => setMetal((i) => (i + 1) % METALS.length), CYCLE_MS);
+    return () => window.clearInterval(id);
+  }, [picked]);
 
   useGSAP(
     () => {
@@ -155,19 +175,27 @@ export function MaterialLoop() {
               opacity="0.5"
             />
           </g>
-          {/* centre: hex bar end */}
+          {/* centre: hex bar end, tinted with the current metal */}
           <path
             d="M50 33.5 L64.29 41.75 L64.29 58.25 L50 66.5 L35.71 58.25 L35.71 41.75 Z"
-            fill="var(--brass-soft)"
+            fill="var(--background)"
             stroke="var(--brass)"
             strokeWidth="0.5"
+          />
+          <path
+            d="M50 33.5 L64.29 41.75 L64.29 58.25 L50 66.5 L35.71 58.25 L35.71 41.75 Z"
+            fill={m.color}
+            fillOpacity="0.28"
+            style={{ transition: "fill 700ms ease" }}
           />
         </svg>
 
         {/* centre caption: sized to sit inside the hexagon; the subline wraps to two lines on small screens */}
         <div className="absolute inset-0 grid place-items-center text-center">
           <div className="grid justify-items-center gap-1">
-            <p className="font-display text-lg leading-none font-semibold tracking-tight sm:text-xl md:text-2xl">Brass</p>
+            <p key={m.name} aria-live="polite" className="animate-in fade-in max-w-[7.5ch] font-display text-lg leading-[1.05] font-semibold tracking-tight duration-500 sm:max-w-none sm:text-xl md:text-2xl">
+              {m.name}
+            </p>
             <p className="max-w-[10.5ch] font-mono text-[9.5px] leading-tight tracking-[0.12em] text-muted-foreground uppercase sm:max-w-none sm:text-[10px] sm:tracking-[0.14em]">
               kept in the loop
             </p>
@@ -200,6 +228,26 @@ export function MaterialLoop() {
           );
         })}
       </div>
+
+      {/* every metal that goes round the loop; picking one shows it in the centre */}
+      <ul aria-label="Metals in the loop" className="mt-8 flex flex-wrap justify-center gap-2">
+        {METALS.map((mt, i) => (
+          <li key={mt.name}>
+            <button
+              type="button"
+              aria-pressed={i === metal}
+              onClick={() => {
+                setPicked(true);
+                setMetal(i);
+              }}
+              className={`inline-flex items-center gap-2 rounded-full border px-3 py-1.5 text-sm transition-colors ${i === metal ? "border-brass bg-brass-soft text-foreground" : "border-border text-muted-foreground hover:border-brass/60 hover:text-foreground"}`}
+            >
+              <span aria-hidden className="size-2.5 rounded-full border border-black/15" style={{ background: mt.color }} />
+              {mt.name}
+            </button>
+          </li>
+        ))}
+      </ul>
 
       {/* small screens: stage names as a legend under the ring */}
       <ol className="mt-8 grid grid-cols-2 gap-x-6 gap-y-3 lg:hidden">

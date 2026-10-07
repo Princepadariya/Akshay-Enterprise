@@ -8,7 +8,7 @@ export const sustainability = {
   pillars: [
     {
       title: "Chip and scrap recovery",
-      body: "Brass chips are separated by alloy at every machine, de-oiled and returned to the mill for remelting. Mixed scrap is avoided so it keeps its value.",
+      body: "Brass, stainless steel, mild steel, copper and aluminium chips are kept separate by alloy at every machine, de-oiled and returned for remelting. Mixed scrap is avoided so every metal keeps its value.",
       image: "chips" as PhotoKey,
       placeholder: true,
     },

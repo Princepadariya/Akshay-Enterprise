@@ -34,11 +34,11 @@ export default function SustainabilityPage() {
         <ScrollStatement text={sustainability.intro} />
       </section>
 
-      {/* the brass loop */}
+      {/* the metal loop */}
       <section className="border-y border-border bg-surface py-16 md:py-24">
         <div className="container-x grid items-center gap-14 lg:grid-cols-12 lg:gap-16">
           <div className="lg:col-span-5">
-            <SectionHeader title="The brass loop" />
+            <SectionHeader title="The metal loop" />
             <p className="mt-6 max-w-[48ch] text-lg leading-relaxed text-muted-foreground">
               {chips.body}
               <TodoMark show={chips.placeholder} />
