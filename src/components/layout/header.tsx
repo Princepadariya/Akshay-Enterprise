@@ -16,7 +16,7 @@ import {
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
 import { Button } from "@/components/ui/button";
-import { categories, materialRanges } from "@/content/products";
+import { categories, materialRanges, productsInCategory } from "@/content/products";
 import { photos } from "@/content/images";
 import { companyNav, manufacturingNav, policyNav } from "@/content/navigation";
 import { cn } from "@/lib/utils";
@@ -65,24 +65,48 @@ export function Header() {
                 Products
               </NavigationMenuTrigger>
               <NavigationMenuContent>
-                <div className="grid w-[min(920px,calc(100vw-4rem))] grid-cols-[1fr_16rem] gap-0">
-                  <ul className="grid grid-cols-2 gap-1 p-3">
-                    {categories.map((c) => (
-                      <li key={c.slug}>
-                        <NavigationMenuLink asChild>
-                          <Link href={`/products/${c.slug}`} className="group flex items-center gap-3 rounded-sm p-2 hover:bg-foreground/[0.05]">
-                            <span className="relative size-11 shrink-0 overflow-hidden rounded-sm">
-                              <Image src={photos[c.image].src} alt="" fill sizes="44px" className="object-cover" />
-                            </span>
-                            <span className="flex min-w-0 flex-col">
-                              <span className="truncate text-[13.5px] font-medium">{c.short}</span>
-                              <span className="truncate font-mono text-[10.5px] text-muted-foreground">{c.spec}</span>
-                            </span>
-                          </Link>
-                        </NavigationMenuLink>
-                      </li>
-                    ))}
-                  </ul>
+                <div className="grid w-[min(920px,calc(100vw-20rem))] grid-cols-[1fr_15rem] gap-0 xl:grid-cols-[1fr_16rem]">
+                  <div className="flex flex-col p-4">
+                    <div className="flex items-baseline justify-between px-2 pb-3">
+                      <p className="font-mono text-[10.5px] tracking-[0.14em] text-muted-foreground uppercase">
+                        Product range · {categories.length} families
+                      </p>
+                      <NavigationMenuLink asChild>
+                        <Link href="/products" className="inline-flex items-center gap-1 text-xs font-medium text-brass-ink hover:underline">
+                          View all <ArrowRight strokeWidth={1.5} className="size-3.5" />
+                        </Link>
+                      </NavigationMenuLink>
+                    </div>
+                    {/* content-start: rows keep their own height instead of stretching to the side panel */}
+                    <ul className="grid grid-cols-2 content-start gap-2">
+                      {categories.map((c) => (
+                        <li key={c.slug}>
+                          <NavigationMenuLink asChild>
+                            <Link
+                              href={`/products/${c.slug}`}
+                              className="group flex items-center gap-3 rounded-sm border border-transparent p-2 transition-colors hover:border-brass/40 hover:bg-brass-soft/60"
+                            >
+                              <span className="relative size-14 shrink-0 overflow-hidden rounded-sm border border-border">
+                                <Image src={photos[c.image].src} alt="" fill sizes="56px" className="object-cover transition-transform duration-500 group-hover:scale-110" />
+                              </span>
+                              <span className="flex min-w-0 flex-1 flex-col gap-0.5">
+                                <span className="truncate text-[14px] font-semibold">{c.short}</span>
+                                <span className="truncate font-mono text-[10.5px] text-muted-foreground">{c.spec}</span>
+                                <span className="text-[11px] text-brass-ink">
+                                  {productsInCategory(c.slug).length} products
+                                </span>
+                              </span>
+                              <ArrowRight
+                                strokeWidth={1.5}
+                                aria-hidden
+                                className="size-4 shrink-0 -translate-x-1 text-brass-ink opacity-0 transition-all group-hover:translate-x-0 group-hover:opacity-100"
+                              />
+                            </Link>
+                          </NavigationMenuLink>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
                   <div className="flex flex-col justify-between gap-6 border-l border-border bg-surface p-5">
                     <div>
                       <p className="font-mono text-[10.5px] tracking-[0.14em] text-muted-foreground uppercase">By material</p>
