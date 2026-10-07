@@ -184,6 +184,8 @@ export default function BarStockScene({
       <directionalLight position={[3, 4, 5]} intensity={1.2} />
       <Rack looks={looks} active={active} reduceMotion={reduceMotion} still={still} onSlow={onSlow} onReady={onReady} />
       <Environment resolution={256} frames={1}>
+        {/* mid-grey studio: bright enough to read on the light stage, dark enough to keep metal contrast */}
+        <color attach="background" args={["#5c5f63"]} />
         <group rotation={[-Math.PI / 3, 0, 1]}>
           <Lightformer form="rect" intensity={3} position={[0, 5, -9]} scale={[10, 10, 1]} />
           <Lightformer form="rect" intensity={2} rotation-y={Math.PI / 2} position={[-5, 1, -1]} scale={[20, 0.6, 1]} />

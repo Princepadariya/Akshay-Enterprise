@@ -123,14 +123,14 @@ export function MaterialRack() {
           <div className="lg:order-2 lg:col-span-7">
             <div
               ref={stage}
-              className="relative overflow-hidden rounded-sm border border-border bg-graphite text-paper"
+              className="relative overflow-hidden rounded-sm border border-border bg-gradient-to-b from-white to-surface text-foreground"
               style={{ height: "clamp(360px, 42vw, 560px)" }}
             >
-              <div aria-hidden className="grid-lines-fine absolute inset-0 opacity-40" />
+              <div aria-hidden className="grid-lines-fine absolute inset-0 opacity-70" />
               <div
                 aria-hidden
                 className="absolute inset-0"
-                style={{ background: "radial-gradient(60% 50% at 50% 55%, rgb(175 47 12 / 0.14), transparent 70%)" }}
+                style={{ background: "radial-gradient(60% 50% at 50% 55%, rgb(0 0 0 / 0.06), transparent 70%)" }}
               />
               <div className="absolute inset-0">
                 {mounted ? (
@@ -143,20 +143,20 @@ export function MaterialRack() {
               {/* readout */}
               <div className="pointer-events-none absolute inset-x-0 top-0 flex items-start justify-between gap-4 p-4 font-mono text-[11px] md:p-6">
                 <div data-readout className="overflow-hidden">
-                  <p className="text-brass">{m.composition.grade}</p>
-                  <p className="mt-1 text-paper/60">{m.composition.standard}</p>
+                  <p className="text-brass-ink">{m.composition.grade}</p>
+                  <p className="mt-1 text-muted-foreground">{m.composition.standard}</p>
                 </div>
-                <p className="text-paper/60 tabular">
+                <p className="text-muted-foreground tabular">
                   {String(active + 1).padStart(2, "0")} / {String(materials.length).padStart(2, "0")}
                 </p>
               </div>
               <div className="pointer-events-none absolute inset-x-0 bottom-0 p-4 md:p-6">
-                <p className="font-mono text-[10.5px] tracking-[0.16em] text-paper/50 uppercase">Nominal composition, % by weight</p>
+                <p className="font-mono text-[10.5px] tracking-[0.16em] text-muted-foreground uppercase">Nominal composition, % by weight</p>
                 <dl data-readout className="mt-2 flex flex-wrap gap-x-6 gap-y-1 font-mono text-[12px]">
                   {m.composition.elements.map((e) => (
                     <div key={e.el} className="flex gap-2">
-                      <dt className="text-brass">{e.el}</dt>
-                      <dd className="text-paper/85">{e.range}</dd>
+                      <dt className="text-brass-ink">{e.el}</dt>
+                      <dd className="text-foreground">{e.range}</dd>
                     </div>
                   ))}
                 </dl>
