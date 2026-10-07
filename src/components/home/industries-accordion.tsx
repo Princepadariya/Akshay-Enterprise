@@ -31,21 +31,24 @@ export function IndustriesAccordion() {
     const panels = gsap.utils.toArray<HTMLElement>("[data-panel]", root.current);
     panels.forEach((panel, i) => {
       const on = i === index;
-      gsap.to(panel, { flexGrow: on ? OPEN : CLOSED, duration: reduce ? 0 : 0.8, ease: "expo.out", overwrite: "auto" });
-      gsap.to(panel.querySelector("[data-img]"), { scale: on ? 1 : 1.12, duration: reduce ? 0 : 1.2, ease: "expo.out", overwrite: "auto" });
-      gsap.to(panel.querySelector("[data-closed]"), { autoAlpha: on ? 0 : 1, duration: reduce ? 0 : 0.3, overwrite: "auto" });
+      const img = panel.querySelector("[data-img]");
+      const closed = panel.querySelector("[data-closed]");
+      const layers = panel.querySelectorAll("[data-gray], [data-wash]");
+      const body = panel.querySelector("[data-body]");
+      // Cancel anything still running or waiting on this panel (e.g. a delayed open from a quick
+      // hover pass), so only the latest state wins and closed panels never keep their copy card.
+      gsap.killTweensOf([panel, img, closed, body, ...layers]);
+      gsap.to(panel, { flexGrow: on ? OPEN : CLOSED, duration: reduce ? 0 : 0.8, ease: "expo.out" });
+      gsap.to(img, { scale: on ? 1 : 1.12, duration: reduce ? 0 : 1.2, ease: "expo.out" });
+      gsap.to(closed, { autoAlpha: on ? 0 : 1, duration: reduce ? 0 : 0.3 });
       // Open panel shows the photo in original colour: fade out the grey layer and the dark wash
       // (opacity-only tweens on composited layers, so this stays cheap).
-      gsap.to(panel.querySelectorAll("[data-gray], [data-wash]"), { autoAlpha: on ? 0 : 1, duration: reduce ? 0 : 0.6, ease: "power2.out", overwrite: "auto" });
-      const body = panel.querySelector("[data-body]");
+      gsap.to(layers, { autoAlpha: on ? 0 : 1, duration: reduce ? 0 : 0.6, ease: "power2.out" });
       if (on) {
-        gsap.fromTo(
-          body,
-          { autoAlpha: 0, y: 24 },
-          { autoAlpha: 1, y: 0, duration: reduce ? 0 : 0.7, delay: reduce ? 0 : 0.18, ease: "expo.out", overwrite: "auto" },
-        );
+        gsap.fromTo(body, { autoAlpha: 0, y: 24 }, { autoAlpha: 1, y: 0, duration: reduce ? 0 : 0.7, delay: reduce ? 0 : 0.18, ease: "expo.out" });
       } else {
-        gsap.to(body, { autoAlpha: 0, y: 12, duration: reduce ? 0 : 0.25, overwrite: "auto" });
+        // closing panels drop their card at once, so it never overlaps the neighbouring panels
+        gsap.to(body, { autoAlpha: 0, y: 12, duration: reduce ? 0 : 0.15 });
       }
     });
   };
