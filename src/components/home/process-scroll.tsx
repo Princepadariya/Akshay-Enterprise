@@ -14,7 +14,7 @@ gsap.registerPlugin(ScrollTrigger, useGSAP);
  * Manufacturing route as a pinned horizontal pan (storytelling: a part moving through the shop in order).
  * Every screen size: pinned, scrubbed pan driven by normal vertical scrolling, with a brass progress rule.
  * Reduced motion only: native horizontal scroll-snap, no pinning.
- * Operation numbers (OP 10, OP 20...) follow the convention of a real process routing sheet.
+ * Each card is labelled with its step number.
  */
 export function ProcessScroll() {
   const wrap = useRef<HTMLElement>(null);
@@ -80,7 +80,7 @@ export function ProcessScroll() {
               <div className="relative h-44 shrink-0 overflow-hidden border-b border-border bg-surface lg:h-52">
                 <Image src={photos[s.image].src} alt={photos[s.image].alt} fill sizes="(min-width: 1024px) 22rem, (min-width: 640px) 46vw, 78vw" className="object-cover" />
                 <span className="absolute top-4 left-4 rounded-sm bg-background/90 px-2 py-1 font-mono text-xs tracking-widest text-brass-ink backdrop-blur-sm">
-                  OP {(i + 1) * 10} · Step {i + 1}
+                  Step {i + 1}
                 </span>
               </div>
               <div className="relative flex flex-1 flex-col justify-between p-6 lg:p-8">
