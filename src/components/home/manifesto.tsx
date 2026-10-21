@@ -4,6 +4,7 @@ import { useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
+import { prefersLightEffects } from "@/lib/device";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
@@ -27,6 +28,7 @@ export function Manifesto() {
     () => {
       const mm = gsap.matchMedia();
       mm.add("(prefers-reduced-motion: no-preference)", () => {
+        if (prefersLightEffects()) return; // phones / low-power: static text, no per-word or per-line animation setup
         const words = gsap.utils.toArray<HTMLElement>("[data-word]");
         gsap.fromTo(
           words,

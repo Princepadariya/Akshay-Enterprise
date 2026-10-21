@@ -2,9 +2,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 
-/** Brand badge: the abc + brass logo (public/logo.png). */
+/** Brand badge: the abc + brass logo (public/logo.webp; logo.png kept for structured data). */
 export function LogoMark({ className }: { className?: string }) {
-  return <Image src="/logo.png" alt="" width={40} height={40} priority className={cn("size-10 shrink-0", className)} />;
+  return <Image src="/logo.webp" alt="" width={40} height={40} priority className={cn("size-10 shrink-0", className)} />;
 }
 
 export function Logo({ className }: { className?: string }) {

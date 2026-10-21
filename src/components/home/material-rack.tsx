@@ -10,7 +10,7 @@ import { ArrowRight } from "lucide-react";
 import { SectionHeader } from "@/components/sections/section-header";
 import { materials, type MaterialKey } from "@/content/materials";
 import type { BarLook } from "@/components/three/bar-stock-scene";
-import { prefersLightEffects } from "@/lib/device";
+import { markLite, prefersLightEffects, useLightEffects } from "@/lib/device";
 import { cn } from "@/lib/utils";
 
 gsap.registerPlugin(useGSAP);
@@ -47,7 +47,20 @@ export function MaterialRack() {
   const [sceneReady, setSceneReady] = useState(false);
   // still 3D (no continuous animation) on low-power devices, or after the scene reports it is too slow
   const [lite, setLite] = useState(() => prefersLightEffects());
-  const goLite = useCallback(() => setLite(true), []);
+  const goLite = useCallback(() => {
+    markLite();
+    setLite(true);
+  }, []);
+  // phones / low-power devices: pre-rendered WebP stills of each bar instead of a WebGL scene
+  // (no 1 MB download, no mid-scroll GPU start-up); they appear instantly and swap like the 3D feed
+  const pictures = useLightEffects();
+  useEffect(() => {
+    if (!pictures) return;
+    materials.forEach((mat) => {
+      const img = new window.Image();
+      img.src = `/materials/bar-${mat.key}.webp`;
+    });
+  }, [pictures]);
   const reduce = useReducedMotion() ?? false;
   const [userPicked, setUserPicked] = useState(false);
   const m = materials[active];
@@ -139,7 +152,19 @@ export function MaterialRack() {
                 style={{ background: "radial-gradient(closest-side, rgb(0 0 0 / 0.22), rgb(0 0 0 / 0.08) 55%, transparent)", filter: "blur(6px)" }}
               />
               <div className="absolute inset-0">
-                {mounted ? (
+                {pictures ? (
+                  <div className="absolute inset-0 flex items-center justify-center px-[7%]">
+                    {/* eslint-disable-next-line @next/next/no-img-element -- small pre-rendered WebP, sized by CSS */}
+                    <img
+                      key={m.key}
+                      src={`/materials/bar-${m.key}.webp`}
+                      alt=""
+                      aria-hidden
+                      decoding="async"
+                      className="w-full max-w-[640px] -translate-y-[8%] animate-in fade-in slide-in-from-left-8 duration-700 ease-out"
+                    />
+                  </div>
+                ) : mounted ? (
                   <div className="absolute inset-0 transition-opacity duration-700" style={{ opacity: sceneReady ? 1 : 0 }}>
                     <BarStockScene looks={looks} active={active} running={inView} reduceMotion={reduce} still={lite || reduce} onSlow={goLite} onReady={() => setSceneReady(true)} />
                   </div>

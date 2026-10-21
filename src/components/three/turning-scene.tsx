@@ -6,6 +6,7 @@ import { Environment, Lightformer } from "@react-three/drei";
 import { useEffect, useMemo, useRef } from "react";
 import * as THREE from "three";
 import { CALLOUT_Y } from "./callouts";
+import { createFrameWatchdog } from "@/lib/device";
 
 /**
  * Live turning simulation (illustrative, not a real machining program).
@@ -119,12 +120,20 @@ function Machine({
   reduceMotion,
   drawing,
   hud,
+  onReady,
+  onSlow,
 }: {
   runId: number;
   reduceMotion: boolean;
   drawing: boolean;
   hud: React.RefObject<HudSink | null>;
+  onReady?: () => void;
+  onSlow?: () => void;
 }) {
+  // first real frame -> parent may swap the placeholder photo for the scene;
+  // live frame-rate check -> parent falls back to the photo on devices that cannot keep up
+  const drawn = useRef(false);
+  const watchdog = useMemo(() => createFrameWatchdog({ onSlow: () => onSlow?.() }), [onSlow]);
   const tilt = useRef<THREE.Group>(null);
   const spin = useRef<THREE.Group>(null);
   const chuck = useRef<THREE.Group>(null);
@@ -213,6 +222,11 @@ function Machine({
   }, []);
 
   useFrame((state, dRaw) => {
+    if (!drawn.current) {
+      drawn.current = true;
+      requestAnimationFrame(() => onReady?.());
+    }
+    watchdog(dRaw * 1000);
     const d = Math.min(dRaw, 1 / 30);
     const c = clock.current;
     c.t += d;
@@ -423,16 +437,22 @@ export default function TurningScene({
   drawing = false,
   runId = 0,
   hud,
+  onReady,
+  onSlow,
 }: {
   active?: boolean;
   reduceMotion?: boolean;
   drawing?: boolean;
   runId?: number;
   hud: React.RefObject<HudSink | null>;
+  /** called once the first frame has been drawn */
+  onReady?: () => void;
+  /** called once if the device cannot keep a smooth frame rate */
+  onSlow?: () => void;
 }) {
   return (
     <Canvas
-      dpr={[1, 1.75]}
+      dpr={[1, 1.5]}
       frameloop={active ? "always" : "never"}
       // Camera sits slightly below centre and further back so the whole part clears the readout panel.
       camera={{ position: [0, -0.5, 9.8], fov: 30 }}
@@ -444,7 +464,7 @@ export default function TurningScene({
     >
       <ambientLight intensity={0.25} />
       <directionalLight position={[3, 4, 5]} intensity={1.4} />
-      <Machine runId={runId} reduceMotion={reduceMotion} drawing={drawing} hud={hud} />
+      <Machine runId={runId} reduceMotion={reduceMotion} drawing={drawing} hud={hud} onReady={onReady} onSlow={onSlow} />
       <Environment resolution={256} frames={1}>
         <group rotation={[-Math.PI / 3, 0, 1]}>
           <Lightformer form="rect" intensity={3} position={[0, 5, -9]} scale={[10, 10, 1]} />

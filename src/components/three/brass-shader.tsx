@@ -1,15 +1,15 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { createFrameWatchdog, prefersLightEffects } from "@/lib/device";
+import { createFrameWatchdog, markLite, prefersLightEffects, useLightEffects } from "@/lib/device";
 import { cn } from "@/lib/utils";
 
 /**
  * "Liquid brass" WebGL background: domain-warped noise shaded like polished, brushed brass,
  * with a specular highlight that drifts toward the pointer. Plain WebGL (no three.js), one quad.
  *
- * Performance: renders at 55% resolution (upscaled by CSS, the effect is soft anyway), goes still on
- * low-end devices or if the frame rate cannot be sustained (see lib/device.ts),
+ * Performance: renders at 55% resolution (upscaled by CSS, the effect is soft anyway), shows a
+ * pre-rendered WebP still on phones / low-end devices, freezes if the frame rate cannot be sustained (see lib/device.ts),
  * pauses whenever off screen, and draws a single still frame under reduced motion.
  * Theme-aware: lighter "paper and brass" palette in light mode, graphite and brass in dark mode.
  * If WebGL is unavailable the canvas stays empty and the CSS background beneath shows through.
@@ -77,10 +77,17 @@ void main() {
 
 const SCALE = 0.55;
 
+/** Still frame of the shader, shown instead of WebGL on phones and low-power devices. */
+const STILL_SRC = "/effects/brass-shader.webp";
+
 export function BrassShader({ className }: { className?: string }) {
   const ref = useRef<HTMLCanvasElement>(null);
+  // Phones / low-power devices never create a WebGL context (that stalls the page mid-scroll):
+  // they get a pre-rendered WebP of the same effect instead.
+  const still = useLightEffects();
 
   useEffect(() => {
+    if (prefersLightEffects()) return;
     const canvas = ref.current;
     if (!canvas) return;
     const gl = canvas.getContext("webgl", { antialias: false, alpha: false, powerPreference: "low-power", preserveDrawingBuffer: false });
@@ -128,6 +135,7 @@ export function BrassShader({ className }: { className?: string }) {
     let lastNow = 0;
     const watchdog = createFrameWatchdog({
       onSlow: () => {
+        markLite();
         still = true;
         frozenT = lastT;
       },
@@ -199,5 +207,9 @@ export function BrassShader({ className }: { className?: string }) {
     };
   }, []);
 
+  if (still) {
+    // eslint-disable-next-line @next/next/no-img-element -- decorative background, already a small WebP
+    return <img src={STILL_SRC} alt="" aria-hidden decoding="async" className={cn("block size-full object-cover", className)} />;
+  }
   return <canvas ref={ref} aria-hidden className={cn("block size-full", className)} />;
 }

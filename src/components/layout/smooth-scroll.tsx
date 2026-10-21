@@ -5,8 +5,12 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef } from "react";
+import { prefersLightEffects } from "@/lib/device";
 
 gsap.registerPlugin(ScrollTrigger);
+// Phones show / hide the address bar while scrolling, which resizes the viewport. Without this,
+// every such resize re-measures every scroll animation mid-scroll (a visible stutter on phones).
+ScrollTrigger.config({ ignoreMobileResize: true });
 
 let active: Lenis | null = null;
 
@@ -17,7 +21,8 @@ export function getLenis() {
 
 /**
  * Lenis smooth scrolling, driven by GSAP's ticker so ScrollTrigger pins stay in sync.
- * Not started at all when the user prefers reduced motion.
+ * Not started when the user prefers reduced motion, or on phones / low-power devices, where native
+ * scrolling is smoother than re-driving every scroll frame from JavaScript.
  */
 export function SmoothScroll() {
   const lenisRef = useRef<Lenis | null>(null);
@@ -25,7 +30,7 @@ export function SmoothScroll() {
 
   useEffect(() => {
     const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
-    if (mq.matches) return;
+    if (mq.matches || prefersLightEffects()) return;
 
     const lenis = new Lenis({ duration: 1.1, easing: (t) => 1 - Math.pow(1 - t, 4), anchors: true });
     lenisRef.current = lenis;

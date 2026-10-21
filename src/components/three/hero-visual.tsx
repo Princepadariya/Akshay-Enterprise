@@ -2,10 +2,11 @@
 
 import dynamic from "next/dynamic";
 import { useInView, useReducedMotion } from "motion/react";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { RotateCcw } from "lucide-react";
 import { Photo } from "@/components/photo";
 import { cn } from "@/lib/utils";
+import { markLite, prefersLightEffects } from "@/lib/device";
 import type { HudFrame, HudSink } from "./turning-scene";
 import { CALLOUT_LABELS } from "./callouts";
 
@@ -25,12 +26,16 @@ function canRender3D() {
   } catch {
     webgl = false;
   }
-  return wide && cores >= 4 && memory >= 4 && !saveData && webgl;
+  return wide && cores >= 4 && memory >= 4 && !saveData && !prefersLightEffects() && webgl;
 }
 
 /**
  * Hero visual: a live turning cycle (bar -> finished part) inside an engineering-drawing frame,
  * with a CNC-style readout. Phones and low-power devices get a static photograph instead.
+ *
+ * Loading: the photograph is always painted first (it is the hero's LCP image), the three.js bundle
+ * is only fetched after the page has loaded and gone idle, and the scene replaces the photo only once
+ * it has drawn a real frame. If the frame rate then drops, the photo comes back and the scene unmounts.
  */
 export function HeroVisual() {
   const ref = useRef<HTMLDivElement>(null);
@@ -76,22 +81,29 @@ export function HeroVisual() {
     };
   }, []);
 
+  // decide after the page has loaded and the main thread is idle, so text and photo paint first
   useEffect(() => {
+    const w = window as Window & { requestIdleCallback?: (cb: () => void, o?: { timeout: number }) => number; cancelIdleCallback?: (id: number) => void };
+    let idle = 0;
     const decide = () => setMode(canRender3D() ? "3d" : "image");
-    const w = window as Window & { requestIdleCallback?: (cb: () => void) => number; cancelIdleCallback?: (id: number) => void };
-    if (w.requestIdleCallback) {
-      const id = w.requestIdleCallback(decide);
-      return () => w.cancelIdleCallback?.(id);
-    }
-    const t = window.setTimeout(decide, 200);
-    return () => window.clearTimeout(t);
+    const schedule = () => {
+      idle = w.requestIdleCallback ? w.requestIdleCallback(decide, { timeout: 2500 }) : window.setTimeout(decide, 600);
+    };
+    if (document.readyState === "complete") schedule();
+    else window.addEventListener("load", schedule, { once: true });
+    return () => {
+      window.removeEventListener("load", schedule);
+      if (w.cancelIdleCallback) w.cancelIdleCallback(idle);
+      else window.clearTimeout(idle);
+    };
   }, []);
 
-  useEffect(() => {
-    if (mode !== "3d") return;
-    const t = window.setTimeout(() => setReady(true), 300);
-    return () => window.clearTimeout(t);
-  }, [mode]);
+  const onReady = useCallback(() => setReady(true), []);
+  const onSlow = useCallback(() => {
+    markLite();
+    setReady(false);
+    setMode("image");
+  }, []);
 
   return (
     <div ref={ref} className="relative aspect-[4/3] w-full md:aspect-square">
@@ -107,17 +119,17 @@ export function HeroVisual() {
         ))}
       </div>
 
-      {/* Static image: mobile always; desktop when 3D is not suitable */}
+      {/* Static image: painted immediately everywhere; fades out only once the 3D scene is drawing */}
       <Photo
         k="brassParts"
         priority
         sizes="(min-width: 768px) 45vw, 100vw"
-        className={cn("absolute inset-4 overflow-hidden rounded-sm md:inset-6", mode !== "image" && "md:hidden")}
+        className={cn("absolute inset-4 overflow-hidden rounded-sm transition-opacity duration-700 md:inset-6", ready && "md:opacity-0")}
       />
 
       {mode === "3d" ? (
         <div className={cn("absolute inset-0 hidden transition-opacity duration-1000 md:block", ready ? "opacity-100" : "opacity-0")}>
-          <TurningScene active={inView} reduceMotion={reduce} drawing={drawing} runId={runId} hud={hud} />
+          <TurningScene active={inView} reduceMotion={reduce} drawing={drawing} runId={runId} hud={hud} onReady={onReady} onSlow={onSlow} />
           {/* feature callouts, positioned each frame from projected 3D anchors */}
           <div aria-hidden className="pointer-events-none absolute inset-0">
             {CALLOUT_LABELS.map((label) => (
@@ -140,7 +152,7 @@ export function HeroVisual() {
         </div>
       ) : null}
 
-      {mode === "3d" ? (
+      {mode === "3d" && ready ? (
         <>
           {/* Title block, like the corner of a drawing sheet */}
           <div className="absolute top-4 left-4 hidden font-mono text-[10px] leading-relaxed tracking-wider text-muted-foreground md:block">

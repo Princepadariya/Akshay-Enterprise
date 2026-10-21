@@ -312,6 +312,21 @@ html.lenis body {
   }
 }
 
+/*
+ * Light rendering path (html.lite, set before first paint on phones / low-power devices, or later if
+ * a device proves slow): drop the full-screen grain layer and glass blur. Both force the GPU to
+ * re-composite large areas on every scroll frame, which is what made weaker devices stutter.
+ */
+html.lite .grain::after {
+  display: none;
+}
+html.lite *,
+html.lite *::before,
+html.lite *::after {
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+}
+
 /* Fixed film grain. Lives on a fixed, pointer-events-none layer only (never on scrolling containers). */
 .grain::after {
   content: "";

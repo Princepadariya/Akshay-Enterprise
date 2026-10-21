@@ -27,7 +27,7 @@ function unsplash(
   alt: string,
 ): Photo {
   return {
-    src: `https://images.unsplash.com/photo-${id}?auto=format&fit=crop&w=2400&q=80`,
+    src: `https://images.unsplash.com/photo-${id}?fm=webp&fit=crop&w=2400&q=80`,
     alt,
     width,
     height,

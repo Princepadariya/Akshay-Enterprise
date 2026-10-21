@@ -1,3 +1,5 @@
+import { useSyncExternalStore } from "react";
+
 /**
  * Helpers that keep continuous WebGL effects from straining older or low-power devices.
  * Effects start normally, and either skip animation up front (clear low-end signals) or
@@ -9,11 +11,19 @@ type Nav = Navigator & { connection?: { saveData?: boolean }; deviceMemory?: num
 /** Cheap, synchronous signals that a device should get still versions of heavy effects. */
 export function prefersLightEffects(): boolean {
   if (typeof window === "undefined") return false;
+  if (document.documentElement.classList.contains("lite")) return true; // decided before first paint (layout.tsx)
   const nav = navigator as Nav;
   if (nav.connection?.saveData) return true; // visitor asked to save data
-  if ((nav.deviceMemory ?? 8) <= 2) return true; // 2 GB RAM or less (Chromium only)
-  if ((nav.hardwareConcurrency ?? 8) <= 2) return true; // dual-core or less
+  if ((nav.deviceMemory ?? 8) <= 4) return true; // 4 GB RAM or less (Chromium only)
+  if ((nav.hardwareConcurrency ?? 8) <= 4) return true; // quad-core or less
+  // phones and tablets: GPU and battery budget is tight, so continuous WebGL animation runs still
+  if (window.matchMedia("(pointer: coarse)").matches) return true;
   return false;
+}
+
+/** Marks the page as running in light mode (CSS drops grain, glass blur, etc.) once a device proves slow. */
+export function markLite() {
+  if (typeof document !== "undefined") document.documentElement.classList.add("lite");
 }
 
 /**
@@ -37,4 +47,13 @@ export function createFrameWatchdog({ onSlow, samples = 45, warmup = 10, maxMs =
       if (total / counted > maxMs) onSlow();
     }
   };
+}
+
+const noop = () => () => {};
+/**
+ * React hook form of prefersLightEffects(): false while server rendering / hydrating, then the real
+ * value on the client, without a setState-in-effect re-render.
+ */
+export function useLightEffects(): boolean {
+  return useSyncExternalStore(noop, prefersLightEffects, () => false);
 }

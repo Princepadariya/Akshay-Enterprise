@@ -5,6 +5,7 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { SplitText } from "gsap/SplitText";
 import { useGSAP } from "@gsap/react";
+import { prefersLightEffects } from "@/lib/device";
 
 gsap.registerPlugin(ScrollTrigger, SplitText, useGSAP);
 
@@ -22,6 +23,7 @@ export function FooterWordmark() {
       if (!el) return;
       const mm = gsap.matchMedia();
       mm.add("(prefers-reduced-motion: no-preference)", () => {
+        if (prefersLightEffects()) return; // phones / low-power: static text, no per-word or per-line animation setup
         const split = SplitText.create(el, { type: "chars", charsClass: "inline-block will-change-transform" });
         gsap.fromTo(
           split.chars,

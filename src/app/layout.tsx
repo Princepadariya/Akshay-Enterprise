@@ -67,6 +67,15 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       suppressHydrationWarning
       className={`${archivo.variable} ${body.variable} ${mono.variable}`}
     >
+      <head>
+        {/* Runs before first paint: low-power devices get the light rendering path (no film grain,
+            no glass blur, still 3D) from the start instead of after a janky first few seconds. */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `try{var n=navigator,c=n.connection||{};if(c.saveData||(n.deviceMemory||8)<=4||(n.hardwareConcurrency||8)<=4||matchMedia("(pointer: coarse)").matches)document.documentElement.classList.add("lite")}catch(e){}`,
+          }}
+        />
+      </head>
       <body className="grain flex min-h-dvh flex-col" suppressHydrationWarning>
         <Providers>
           <SmoothScroll />
