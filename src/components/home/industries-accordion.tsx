@@ -2,7 +2,7 @@
 
 import { SiteImage as Image } from "@/components/site-image";
 import Link from "next/link";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { ArrowUpRight } from "lucide-react";
 import { SectionHeader } from "@/components/sections/section-header";
@@ -17,10 +17,32 @@ import { getIcon, ICON_STROKE } from "@/lib/icons";
  */
 const OPEN = 7;
 const CLOSED = 1;
+/** the open panel shows at most ~900px of the fixed-size photo layer */
+const PANEL_SIZES = "(min-width: 1024px) 900px, 72vw";
+const markLoaded = (e: React.SyntheticEvent<HTMLImageElement>) => {
+  const wrap = e.currentTarget.closest<HTMLElement>("[data-img]");
+  if (wrap) wrap.dataset.loaded = "1";
+};
 
 export function IndustriesAccordion() {
   const root = useRef<HTMLDivElement>(null);
+  const section = useRef<HTMLElement>(null);
   const active = useRef(0);
+  // start downloading the sector photos about two screens before the section arrives
+  // (native lazy loading waits until it is almost in view, so photos were still arriving on screen)
+  const [near, setNear] = useState(false);
+  useEffect(() => {
+    const el = section.current;
+    if (!el) return;
+    const io = new IntersectionObserver(([e]) => {
+      if (e.isIntersecting) {
+        setNear(true);
+        io.disconnect();
+      }
+    }, { rootMargin: "2000px 0px" });
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
   // Plain event handler: one-shot tweens on hover/focus, nothing to clean up on unmount.
   // No React state on hover: the active index lives in a ref and GSAP does all visual changes,
   // so moving the pointer across panels never re-renders the eight panels.
@@ -54,7 +76,7 @@ export function IndustriesAccordion() {
   };
 
   return (
-    <section className="border-t border-border py-24 md:py-36">
+    <section ref={section} className="border-t border-border py-24 md:py-36">
       <div className="container-x">
         <div className="mb-12 flex flex-wrap items-end justify-between gap-6 md:mb-16">
           <SectionHeader title="Industries we supply" lead="Hover a sector to see the parts we make for it." />
@@ -86,16 +108,34 @@ export function IndustriesAccordion() {
                   is rasterised once instead of every frame.
                 */}
                 <div className="absolute inset-y-0 left-1/2 -z-10 w-[min(1000px,72vw)] -translate-x-1/2">
-                  <div data-img className="absolute inset-0 will-change-transform" style={{ transform: `scale(${i === 0 ? 1 : 1.12})` }}>
+                  {/* hidden until the photo has fully loaded, so it fades in instead of painting top-down */}
+                  <div
+                    data-img
+                    className="absolute inset-0 opacity-0 transition-opacity duration-500 will-change-transform data-[loaded=1]:opacity-100"
+                    style={{ transform: `scale(${i === 0 ? 1 : 1.12})` }}
+                  >
                     {/* original colour photo */}
-                    <Image src={p.src} alt="" fill sizes="(min-width: 1024px) 1000px, 72vw" className="object-cover" />
+                    <Image
+                      src={p.src}
+                      alt=""
+                      fill
+                      sizes={PANEL_SIZES}
+                      quality={60}
+                      maxWidth={1200}
+                      loading={near ? "eager" : "lazy"}
+                      onLoad={markLoaded}
+                      className="object-cover"
+                    />
                     {/* grey, brass-toned copy on top (same file, cached): visible on closed panels only */}
                     <Image
                       data-gray
                       src={p.src}
                       alt=""
                       fill
-                      sizes="(min-width: 1024px) 1000px, 72vw"
+                      sizes={PANEL_SIZES}
+                      quality={60}
+                      maxWidth={1200}
+                      loading={near ? "eager" : "lazy"}
                       className="object-cover will-change-[opacity] [filter:grayscale(1)_sepia(0.22)_contrast(1.08)_brightness(0.82)]"
                       style={{ opacity: on ? 0 : 1, visibility: on ? "hidden" : "visible" }}
                     />
@@ -154,8 +194,18 @@ export function IndustriesAccordion() {
             return (
               <li key={ind.slug}>
                 <Link href={`/industries/${ind.slug}`} className="relative isolate flex min-h-72 flex-col justify-end overflow-hidden rounded-sm border border-border p-5 sm:min-h-80">
-                  <div className="absolute inset-0 -z-10">
-                    <Image src={p.src} alt="" fill sizes="(min-width: 768px) 1px, 100vw" className="object-cover" />
+                  <div className="absolute inset-0 -z-10 bg-graphite">
+                    <Image
+                      src={p.src}
+                      alt=""
+                      fill
+                      sizes="(min-width: 768px) 1px, 100vw"
+                      quality={60}
+                      maxWidth={900}
+                      loading={near ? "eager" : "lazy"}
+                      onLoad={(e) => (e.currentTarget.dataset.loaded = "1")}
+                      className="object-cover opacity-0 transition-opacity duration-500 data-[loaded=1]:opacity-100"
+                    />
                   </div>
                   {/* shade sized for the text block: a light even dim plus a tall dark fade, so light photos stay readable */}
                   <div
