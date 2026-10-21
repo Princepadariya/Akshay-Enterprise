@@ -163,7 +163,7 @@ export function IndustriesAccordion() {
                         "linear-gradient(to top, rgb(18 11 10 / 0.94) 0%, rgb(18 11 10 / 0.82) 32%, rgb(18 11 10 / 0.4) 62%, rgb(18 11 10 / 0) 88%), rgb(18 11 10 / 0.15)",
                     }}
                   />
-                  <span className="grid size-10 place-items-center rounded-full border border-white/15 bg-graphite/60 backdrop-blur-sm">
+                  <span className="grid size-10 place-items-center rounded-full border border-white/15 bg-graphite/70">
                     <Icon strokeWidth={ICON_STROKE} className="size-5 text-cream" />
                   </span>
                   <div style={{ textShadow: "0 1px 12px rgb(0 0 0 / 0.5)" }}>

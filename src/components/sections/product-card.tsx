@@ -25,7 +25,7 @@ export function ProductCard({ product, className, headingLevel = 3 }: { product:
           sizes="(min-width: 1024px) 30vw, (min-width: 640px) 45vw, 100vw"
         />
         {/* hover spec reveal */}
-        <div className="absolute inset-x-0 bottom-0 z-[2] translate-y-full bg-graphite/85 p-4 backdrop-blur-sm transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-y-0 group-focus-visible:translate-y-0">
+        <div className="absolute inset-x-0 bottom-0 z-[2] translate-y-full bg-graphite/90 p-4 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-y-0 group-focus-visible:translate-y-0">
           <dl className="grid grid-cols-2 gap-x-4 gap-y-1.5 font-mono text-[11px] text-steel-200">
             <dt className="text-steel-400">Size</dt>
             <dd className="truncate">{product.sizes}</dd>

@@ -2,7 +2,7 @@
 
 import dynamic from "next/dynamic";
 import { useInView, useReducedMotion } from "motion/react";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { RotateCcw } from "lucide-react";
 import { Photo } from "@/components/photo";
 import { cn } from "@/lib/utils";
@@ -47,27 +47,52 @@ export function HeroVisual() {
   const doneRef = useRef(false);
   const hud = useRef<HudSink | null>(null);
 
+  // Overlay size, measured on resize only: reading clientWidth inside the frame loop (right after
+  // the text writes above it) would force a synchronous layout on every frame.
+  const size = useRef({ w: 0, h: 0 });
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const ro = new ResizeObserver(([entry]) => {
+      size.current = { w: entry.contentRect.width, h: entry.contentRect.height };
+    });
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, []);
+
   useEffect(() => {
     const cache: Record<string, HTMLElement | null> = {};
     const get = (k: string) => {
       if (!cache[k] || !cache[k]!.isConnected) cache[k] = hudRoot.current?.querySelector<HTMLElement>(`[data-hud="${k}"]`) ?? null;
       return cache[k];
     };
+    let labels: HTMLElement[] = [];
+    // only touch the DOM when a value actually changes
+    const last = new WeakMap<HTMLElement, string>();
+    const text = (k: string, v: string) => {
+      const el = get(k);
+      if (!el || last.get(el) === v) return;
+      last.set(el, v);
+      el.textContent = v;
+    };
     hud.current = (f: HudFrame) => {
-      const e = { op: get("op"), phase: get("phase"), rpm: get("rpm"), x: get("x"), z: get("z"), bar: get("bar"), led: get("led") };
-      if (e.op) e.op.textContent = f.op;
-      if (e.phase) e.phase.textContent = f.phase;
-      if (e.rpm) e.rpm.textContent = String(f.rpm).padStart(4, "0");
-      if (e.x) e.x.textContent = f.x.toFixed(2);
-      if (e.z) e.z.textContent = f.z.toFixed(2);
-      if (e.bar) e.bar.style.transform = `scaleX(${f.progress})`;
-      if (e.led) e.led.dataset.state = f.done ? "done" : "run";
-      const labels = hudRoot.current?.querySelectorAll<HTMLElement>("[data-callout]");
-      labels?.forEach((el, i) => {
+      text("op", f.op);
+      text("phase", f.phase);
+      text("rpm", String(f.rpm).padStart(4, "0"));
+      text("x", f.x.toFixed(2));
+      text("z", f.z.toFixed(2));
+      const bar = get("bar");
+      if (bar) bar.style.transform = `scaleX(${f.progress.toFixed(3)})`;
+      const led = get("led");
+      if (led) led.dataset.state = f.done ? "done" : "run";
+      if (!labels.length || !labels[0].isConnected) labels = Array.from(hudRoot.current?.querySelectorAll<HTMLElement>("[data-callout]") ?? []);
+      const { w, h } = size.current;
+      labels.forEach((el, i) => {
         const cs = f.callouts[i];
         if (!cs) return;
-        el.style.transform = `translate(${cs.x * el.parentElement!.clientWidth}px, ${cs.y * el.parentElement!.clientHeight}px)`;
-        el.dataset.on = cs.on ? "1" : "0";
+        el.style.transform = `translate(${(cs.x * w).toFixed(1)}px, ${(cs.y * h).toFixed(1)}px)`;
+        const on = cs.on ? "1" : "0";
+        if (el.dataset.on !== on) el.dataset.on = on;
       });
       if (f.done !== doneRef.current) {
         doneRef.current = f.done;
@@ -93,8 +118,28 @@ export function HeroVisual() {
     return () => window.clearTimeout(t);
   }, [mode]);
 
+  // Once the cycle has finished and the spindle has wound down, stop rendering: the finished part
+  // only reacts to the pointer, so frames are drawn while the visual is hovered or focused.
+  const [settledRun, setSettledRun] = useState(-1);
+  const [engaged, setEngaged] = useState(false);
+  const [lite, setLite] = useState(false);
+  const goLite = useCallback(() => setLite(true), []);
+  useEffect(() => {
+    if (!done) return;
+    const t = window.setTimeout(() => setSettledRun(runId), 1800);
+    return () => window.clearTimeout(t);
+  }, [done, runId]);
+  const settled = done && settledRun === runId;
+
   return (
-    <div ref={ref} className="relative aspect-[4/3] w-full md:aspect-square">
+    <div
+      ref={ref}
+      className="relative aspect-[4/3] w-full md:aspect-square"
+      onPointerEnter={(e) => e.pointerType === "mouse" && setEngaged(true)}
+      onPointerLeave={() => setEngaged(false)}
+      onFocus={() => setEngaged(true)}
+      onBlur={(e) => !e.currentTarget.contains(e.relatedTarget as Node | null) && setEngaged(false)}
+    >
       <div ref={hudRoot} className="contents">
       {/* Drawing frame */}
       <div aria-hidden className="absolute inset-0 rounded-sm border border-border">
@@ -117,7 +162,15 @@ export function HeroVisual() {
 
       {mode === "3d" ? (
         <div className={cn("absolute inset-0 hidden transition-opacity duration-1000 md:block", ready ? "opacity-100" : "opacity-0")}>
-          <TurningScene active={inView} reduceMotion={reduce} drawing={drawing} runId={runId} hud={hud} />
+          <TurningScene
+            active={inView && (!settled || engaged)}
+            reduceMotion={reduce}
+            drawing={drawing}
+            runId={runId}
+            hud={hud}
+            lite={lite}
+            onSlow={goLite}
+          />
           {/* feature callouts, positioned each frame from projected 3D anchors */}
           <div aria-hidden className="pointer-events-none absolute inset-0">
             {CALLOUT_LABELS.map((label) => (
@@ -130,7 +183,7 @@ export function HeroVisual() {
                 <div className="flex -translate-y-1/2 items-center gap-2 whitespace-nowrap">
                   <span className="size-1.5 rotate-45 border border-brass bg-background" />
                   <span className="h-px w-10 bg-brass" />
-                  <span className="rounded-sm border border-border bg-background/85 px-2 py-1 font-mono text-[11px] tracking-wide text-foreground backdrop-blur-sm">
+                  <span className="rounded-sm border border-border bg-background/90 px-2 py-1 font-mono text-[11px] tracking-wide text-foreground">
                     {label}
                   </span>
                 </div>
@@ -151,7 +204,7 @@ export function HeroVisual() {
 
           {/* Controls */}
           <div className="absolute top-4 right-4 hidden items-center gap-2 md:flex">
-            <div role="group" aria-label="View mode" className="flex rounded-sm border border-border bg-background/80 p-0.5 backdrop-blur-sm">
+            <div role="group" aria-label="View mode" className="flex rounded-sm border border-border bg-background/90 p-0.5">
               {[
                 { v: false, l: "Part" },
                 { v: true, l: "Drawing" },
@@ -177,7 +230,7 @@ export function HeroVisual() {
                 setRunId((r) => r + 1);
               }}
               disabled={!done}
-              className="flex items-center gap-1.5 rounded-sm border border-border bg-background/80 px-2.5 py-1.5 font-mono text-[11px] tracking-wide text-foreground backdrop-blur-sm transition-colors hover:border-brass disabled:opacity-40"
+              className="flex items-center gap-1.5 rounded-sm border border-border bg-background/90 px-2.5 py-1.5 font-mono text-[11px] tracking-wide text-foreground transition-colors hover:border-brass disabled:opacity-40"
             >
               <RotateCcw strokeWidth={1.5} className="size-3.5" /> Run cycle
             </button>
@@ -186,7 +239,7 @@ export function HeroVisual() {
           {/* CNC readout */}
           <div
             aria-live="off"
-            className="absolute right-4 bottom-4 left-4 hidden overflow-hidden rounded-sm border border-border bg-background/85 font-mono text-[11px] backdrop-blur-md md:block"
+            className="absolute right-4 bottom-4 left-4 hidden overflow-hidden rounded-sm border border-border bg-background/90 font-mono text-[11px] md:block"
           >
             <div className="flex items-center justify-between border-b border-border px-3 py-1.5">
               <span className="flex items-center gap-2">

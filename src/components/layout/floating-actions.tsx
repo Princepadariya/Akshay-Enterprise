@@ -29,7 +29,7 @@ export function FloatingActions() {
         </a>
       ) : null}
       {!onQuote ? (
-        <div className="fixed inset-x-0 bottom-0 z-[45] border-t border-border bg-background/90 p-3 backdrop-blur-xl md:hidden">
+        <div className="fixed inset-x-0 bottom-0 z-[45] border-t border-border bg-background/95 p-3 md:hidden">
           <Button asChild className="w-full">
             <Link href="/request-quote">Request a Quote</Link>
           </Button>

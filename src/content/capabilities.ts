@@ -87,14 +87,14 @@ export const capabilityTable = [
 ];
 
 export const processSteps = [
-  { title: "Drawing / sample", body: "Receive drawing, 3D model or physical sample with quantity and target price.", spec: "PDF  DWG  STEP" },
-  { title: "Engineering review", body: "Check tolerances, threads and material; flag cost drivers; propose process.", spec: "DFM notes" },
-  { title: "Raw material", body: "Bar stock procured to grade with mill certificate, checked on receipt.", spec: "CW614N  SS303" },
-  { title: "Machining", body: "Turning, milling and secondary operations on the process chosen for volume.", spec: "CNC  cam auto" },
-  { title: "In-process inspection", body: "First-off approval, then patrol checks at a fixed frequency on every machine.", spec: "FPA  patrol" },
-  { title: "Finishing", body: "Deburring, cleaning and plating as specified, with thickness checked on return.", spec: "Ni  Sn  Cr" },
-  { title: "Final inspection", body: "Sampling plan against drawing, thread gauging and visual checks before release.", spec: "AQL sampling" },
-  { title: "Packing & dispatch", body: "Counted, labelled and packed for the route, with export documents prepared.", spec: "FOB  CIF" },
+  { title: "Drawing / sample", image: "partsOnDrawing" as PhotoKey, body: "Receive drawing, 3D model or physical sample with quantity and target price.", spec: "PDF  DWG  STEP" },
+  { title: "Engineering review", image: "rulerParts" as PhotoKey, body: "Check tolerances, threads and material; flag cost drivers; propose process.", spec: "DFM notes" },
+  { title: "Raw material", image: "barStock" as PhotoKey, body: "Bar stock procured to grade with mill certificate, checked on receipt.", spec: "CW614N  SS303" },
+  { title: "Machining", image: "cncCutting" as PhotoKey, body: "Turning, milling and secondary operations on the process chosen for volume.", spec: "CNC  cam auto" },
+  { title: "In-process inspection", image: "caliperPart" as PhotoKey, body: "First-off approval, then patrol checks at a fixed frequency on every machine.", spec: "FPA  patrol" },
+  { title: "Finishing", image: "brassParts" as PhotoKey, body: "Deburring, cleaning and plating as specified, with thickness checked on return.", spec: "Ni  Sn  Cr" },
+  { title: "Final inspection", image: "micrometerFlange" as PhotoKey, body: "Sampling plan against drawing, thread gauging and visual checks before release.", spec: "AQL sampling" },
+  { title: "Packing & dispatch", image: "warehouse" as PhotoKey, body: "Counted, labelled and packed for the route, with export documents prepared.", spec: "FOB  CIF" },
 ];
 
 export const developmentWorkflow = [

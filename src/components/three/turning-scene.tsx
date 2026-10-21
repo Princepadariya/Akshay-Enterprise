@@ -6,6 +6,7 @@ import { Environment, Lightformer } from "@react-three/drei";
 import { useEffect, useMemo, useRef } from "react";
 import * as THREE from "three";
 import { CALLOUT_Y } from "./callouts";
+import { createFrameWatchdog } from "@/lib/device";
 
 /**
  * Live turning simulation (illustrative, not a real machining program).
@@ -119,11 +120,13 @@ function Machine({
   reduceMotion,
   drawing,
   hud,
+  onSlow,
 }: {
   runId: number;
   reduceMotion: boolean;
   drawing: boolean;
   hud: React.RefObject<HudSink | null>;
+  onSlow?: () => void;
 }) {
   const tilt = useRef<THREE.Group>(null);
   const spin = useRef<THREE.Group>(null);
@@ -136,6 +139,7 @@ function Machine({
   const calloutState = useRef(CALLOUT_Y.map(() => ({ x: 0, y: 0, on: false })));
   const clock = useRef({ t: 0, spinSpeed: 0 });
   const chipCursor = useRef(0);
+  const watchdog = useMemo(() => createFrameWatchdog({ onSlow: () => onSlow?.() }), [onSlow]);
 
   // Restart the cycle whenever runId changes.
   useEffect(() => {
@@ -213,6 +217,7 @@ function Machine({
   }, []);
 
   useFrame((state, dRaw) => {
+    watchdog(dRaw * 1000);
     const d = Math.min(dRaw, 1 / 30);
     const c = clock.current;
     c.t += d;
@@ -423,16 +428,22 @@ export default function TurningScene({
   drawing = false,
   runId = 0,
   hud,
+  lite = false,
+  onSlow,
 }: {
   active?: boolean;
   reduceMotion?: boolean;
   drawing?: boolean;
   runId?: number;
   hud: React.RefObject<HudSink | null>;
+  /** render at 1x resolution (set after a failed frame-rate check) */
+  lite?: boolean;
+  /** called once if the device cannot keep a smooth frame rate */
+  onSlow?: () => void;
 }) {
   return (
     <Canvas
-      dpr={[1, 1.75]}
+      dpr={lite ? 1 : [1, 1.5]}
       frameloop={active ? "always" : "never"}
       // Camera sits slightly below centre and further back so the whole part clears the readout panel.
       camera={{ position: [0, -0.5, 9.8], fov: 30 }}
@@ -444,7 +455,7 @@ export default function TurningScene({
     >
       <ambientLight intensity={0.25} />
       <directionalLight position={[3, 4, 5]} intensity={1.4} />
-      <Machine runId={runId} reduceMotion={reduceMotion} drawing={drawing} hud={hud} />
+      <Machine runId={runId} reduceMotion={reduceMotion} drawing={drawing} hud={hud} onSlow={onSlow} />
       <Environment resolution={256} frames={1}>
         <group rotation={[-Math.PI / 3, 0, 1]}>
           <Lightformer form="rect" intensity={3} position={[0, 5, -9]} scale={[10, 10, 1]} />
