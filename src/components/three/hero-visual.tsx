@@ -2,7 +2,7 @@
 
 import dynamic from "next/dynamic";
 import { useInView, useReducedMotion } from "motion/react";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { Fragment, useCallback, useEffect, useRef, useState } from "react";
 import { RotateCcw } from "lucide-react";
 import { Photo } from "@/components/photo";
 import { cn } from "@/lib/utils";
@@ -12,22 +12,50 @@ import { CALLOUT_LABELS } from "./callouts";
 
 const TurningScene = dynamic(() => import("./turning-scene"), { ssr: false });
 
-function canRender3D() {
-  if (typeof window === "undefined") return false;
+type Check = { ok: boolean; reason: string; facts: [string, string][] };
+
+/** Whether this device gets the live 3D scene, with the reason (shown by `?hero-debug`). */
+function check3D(): Check {
   const nav = navigator as Navigator & { connection?: { saveData?: boolean }; deviceMemory?: number };
+  const width = window.innerWidth;
   const wide = window.matchMedia("(min-width: 768px)").matches;
   const cores = nav.hardwareConcurrency ?? 4;
   const memory = nav.deviceMemory ?? 8;
   const saveData = nav.connection?.saveData ?? false;
   let webgl = false;
+  let renderer = "unknown";
   try {
     const c = document.createElement("canvas");
-    webgl = !!(c.getContext("webgl2") || c.getContext("webgl"));
+    const gl = (c.getContext("webgl2") || c.getContext("webgl")) as WebGLRenderingContext | null;
+    webgl = !!gl;
+    const ext = gl?.getExtension("WEBGL_debug_renderer_info");
+    if (gl && ext) renderer = String(gl.getParameter(ext.UNMASKED_RENDERER_WEBGL));
+    gl?.getExtension("WEBGL_lose_context")?.loseContext();
   } catch {
     webgl = false;
   }
+  const software = /swiftshader|llvmpipe|basic render|software/i.test(renderer);
+  const facts: [string, string][] = [
+    ["Window width", `${width}px (needs 768+)`],
+    ["CPU cores", `${cores} (needs 4+)`],
+    ["Memory", `${nav.deviceMemory ? `${memory} GB` : "not reported"} (needs 4+)`],
+    ["Data saver", saveData ? "on" : "off"],
+    ["WebGL", webgl ? "yes" : "no"],
+    ["Graphics", software ? `${renderer} (hardware acceleration is OFF)` : renderer],
+  ];
   // same rule as before the performance pass: any tablet / laptop / desktop with 4+ cores and 4+ GB
-  return wide && cores >= 4 && memory >= 4 && !saveData && webgl;
+  const reason = !wide
+    ? "window narrower than 768px"
+    : cores < 4
+      ? "fewer than 4 CPU cores"
+      : memory < 4
+        ? "browser reports under 4 GB memory"
+        : saveData
+          ? "data saver is on"
+          : !webgl
+            ? "WebGL unavailable (hardware acceleration may be off)"
+            : "all checks passed";
+  return { ok: wide && cores >= 4 && memory >= 4 && !saveData && webgl, reason, facts };
 }
 
 /**
@@ -44,6 +72,10 @@ export function HeroVisual() {
   const reduce = useReducedMotion() ?? false;
   const [mode, setMode] = useState<"pending" | "3d" | "image">("pending");
   const [ready, setReady] = useState(false);
+  const [check, setCheck] = useState<Check | null>(null);
+  // `?hero-debug` in the address shows why this device gets the 3D model or the photo
+  const debug = check !== null && new URLSearchParams(window.location.search).has("hero-debug");
+  const [slowFps, setSlowFps] = useState<number | null>(null);
   const [drawing, setDrawing] = useState(false);
   const [runId, setRunId] = useState(0);
   const [done, setDone] = useState(false);
@@ -86,7 +118,11 @@ export function HeroVisual() {
   useEffect(() => {
     const w = window as Window & { requestIdleCallback?: (cb: () => void, o?: { timeout: number }) => number; cancelIdleCallback?: (id: number) => void };
     let idle = 0;
-    const decide = () => setMode(canRender3D() ? "3d" : "image");
+    const decide = () => {
+      const c = check3D();
+      setCheck(c);
+      setMode(c.ok ? "3d" : "image");
+    };
     const schedule = () => {
       idle = w.requestIdleCallback ? w.requestIdleCallback(decide, { timeout: 2500 }) : window.setTimeout(decide, 600);
     };
@@ -100,7 +136,8 @@ export function HeroVisual() {
   }, []);
 
   const onReady = useCallback(() => setReady(true), []);
-  const onSlow = useCallback(() => {
+  const onSlow = useCallback((ms: number) => {
+    setSlowFps(Math.round(1000 / ms));
     markLite();
     setReady(false);
     setMode("image");
@@ -250,6 +287,22 @@ export function HeroVisual() {
         </>
       ) : null}
       </div>
+      {check && debug ? (
+        <div className="absolute top-2 left-2 z-20 max-w-[min(26rem,90%)] rounded-sm border border-brass bg-background/95 p-3 font-mono text-[11px] leading-relaxed text-foreground shadow-lg">
+          <p className="font-semibold text-brass-ink">
+            Hero: {mode === "3d" ? "3D model" : "photo"}
+            {slowFps !== null ? ` (switched to photo: only ${slowFps} fps)` : mode === "image" ? ` (${check.reason})` : ""}
+          </p>
+          <dl className="mt-1 grid grid-cols-[auto_1fr] gap-x-3">
+            {check.facts.map(([k, v]) => (
+              <Fragment key={k}>
+                <dt className="text-muted-foreground">{k}</dt>
+                <dd className="break-words">{v}</dd>
+              </Fragment>
+            ))}
+          </dl>
+        </div>
+      ) : null}
     </div>
   );
 }

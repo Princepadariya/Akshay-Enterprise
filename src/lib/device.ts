@@ -31,7 +31,7 @@ export function markLite() {
  * slower than `maxMs` (default ~24 fps), `onSlow` is called once so the effect can go still.
  * The first frames (shader compilation, image decode) and long gaps (tab switches) are ignored.
  */
-export function createFrameWatchdog({ onSlow, samples = 45, warmup = 10, maxMs = 42 }: { onSlow: () => void; samples?: number; warmup?: number; maxMs?: number }) {
+export function createFrameWatchdog({ onSlow, samples = 45, warmup = 10, maxMs = 42 }: { onSlow: (avgMs: number) => void; samples?: number; warmup?: number; maxMs?: number }) {
   let seen = 0;
   let total = 0;
   let counted = 0;
@@ -44,7 +44,7 @@ export function createFrameWatchdog({ onSlow, samples = 45, warmup = 10, maxMs =
     counted++;
     if (counted >= samples) {
       done = true;
-      if (total / counted > maxMs) onSlow();
+      if (total / counted > maxMs) onSlow(total / counted);
     }
   };
 }

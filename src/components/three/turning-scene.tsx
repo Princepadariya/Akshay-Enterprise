@@ -128,13 +128,14 @@ function Machine({
   drawing: boolean;
   hud: React.RefObject<HudSink | null>;
   onReady?: () => void;
-  onSlow?: () => void;
+  onSlow?: (avgFrameMs: number) => void;
 }) {
   // first real frame -> parent may swap the placeholder photo for the scene;
   // live frame-rate check -> parent falls back to the photo on devices that cannot keep up
   const drawn = useRef(false);
-  // lenient: only falls back to the photo when the animation is clearly unusable (under ~16 fps)
-  const watchdog = useMemo(() => createFrameWatchdog({ onSlow: () => onSlow?.(), maxMs: 62 }), [onSlow]);
+  // lenient: judged only after ~3 s of running (page load, shader compile and font swaps are over),
+  // over ~2 s of frames, and only falls back when the animation is clearly unusable (under ~16 fps)
+  const watchdog = useMemo(() => createFrameWatchdog({ onSlow: (ms) => onSlow?.(ms), warmup: 180, samples: 120, maxMs: 62 }), [onSlow]);
   const tilt = useRef<THREE.Group>(null);
   const spin = useRef<THREE.Group>(null);
   const chuck = useRef<THREE.Group>(null);
@@ -448,8 +449,8 @@ export default function TurningScene({
   hud: React.RefObject<HudSink | null>;
   /** called once the first frame has been drawn */
   onReady?: () => void;
-  /** called once if the device cannot keep a smooth frame rate */
-  onSlow?: () => void;
+  /** called once if the device cannot keep a smooth frame rate (with the measured average frame time) */
+  onSlow?: (avgFrameMs: number) => void;
 }) {
   return (
     <Canvas
