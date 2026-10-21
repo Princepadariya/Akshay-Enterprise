@@ -6,7 +6,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { RotateCcw } from "lucide-react";
 import { Photo } from "@/components/photo";
 import { cn } from "@/lib/utils";
-import { markLite, prefersLightEffects } from "@/lib/device";
+import { markLite } from "@/lib/device";
 import type { HudFrame, HudSink } from "./turning-scene";
 import { CALLOUT_LABELS } from "./callouts";
 
@@ -26,7 +26,8 @@ function canRender3D() {
   } catch {
     webgl = false;
   }
-  return wide && cores >= 4 && memory >= 4 && !saveData && !prefersLightEffects() && webgl;
+  // same rule as before the performance pass: any tablet / laptop / desktop with 4+ cores and 4+ GB
+  return wide && cores >= 4 && memory >= 4 && !saveData && webgl;
 }
 
 /**

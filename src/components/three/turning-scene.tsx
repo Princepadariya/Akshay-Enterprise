@@ -133,7 +133,8 @@ function Machine({
   // first real frame -> parent may swap the placeholder photo for the scene;
   // live frame-rate check -> parent falls back to the photo on devices that cannot keep up
   const drawn = useRef(false);
-  const watchdog = useMemo(() => createFrameWatchdog({ onSlow: () => onSlow?.() }), [onSlow]);
+  // lenient: only falls back to the photo when the animation is clearly unusable (under ~16 fps)
+  const watchdog = useMemo(() => createFrameWatchdog({ onSlow: () => onSlow?.(), maxMs: 62 }), [onSlow]);
   const tilt = useRef<THREE.Group>(null);
   const spin = useRef<THREE.Group>(null);
   const chuck = useRef<THREE.Group>(null);
