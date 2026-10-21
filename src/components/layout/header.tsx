@@ -56,7 +56,7 @@ export function Header() {
         Skip to content
       </a>
       <div className="container-x flex h-16 items-center justify-between gap-6 lg:h-[72px]">
-        <Logo />
+        <Logo priority />
 
         <NavigationMenu className="hidden lg:flex">
           <NavigationMenuList className="gap-0.5">

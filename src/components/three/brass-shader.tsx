@@ -209,7 +209,7 @@ export function BrassShader({ className }: { className?: string }) {
 
   if (still) {
     // eslint-disable-next-line @next/next/no-img-element -- decorative background, already a small WebP
-    return <img src={STILL_SRC} alt="" aria-hidden decoding="async" className={cn("block size-full object-cover", className)} />;
+    return <img src={STILL_SRC} alt="" aria-hidden loading="lazy" decoding="async" className={cn("block size-full object-cover", className)} />;
   }
   return <canvas ref={ref} aria-hidden className={cn("block size-full", className)} />;
 }

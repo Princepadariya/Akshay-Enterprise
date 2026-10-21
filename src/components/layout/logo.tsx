@@ -3,14 +3,15 @@ import Link from "next/link";
 import { cn } from "@/lib/utils";
 
 /** Brand badge: the abc + brass logo (public/logo.webp; logo.png kept for structured data). */
-export function LogoMark({ className }: { className?: string }) {
-  return <Image src="/logo.webp" alt="" width={40} height={40} priority className={cn("size-10 shrink-0", className)} />;
+export function LogoMark({ className, priority = false }: { className?: string; priority?: boolean }) {
+  return <Image src="/logo.webp" alt="" width={40} height={40} priority={priority} className={cn("size-10 shrink-0", className)} />;
 }
 
-export function Logo({ className }: { className?: string }) {
+/** `priority` for the header copy (above the fold); the footer copy lazy-loads. */
+export function Logo({ className, priority = false }: { className?: string; priority?: boolean }) {
   return (
     <Link href="/" className={cn("group inline-flex items-center gap-2.5", className)}>
-      <LogoMark className="transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-105" />
+      <LogoMark priority={priority} className="transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-105" />
       <span className="flex flex-col leading-none">
         <span className="font-display-wide text-[15px] font-semibold tracking-[-0.01em]">AKSHAY</span>
         <span className="sr-only"> </span>

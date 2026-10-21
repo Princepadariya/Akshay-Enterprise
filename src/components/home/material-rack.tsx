@@ -160,6 +160,7 @@ export function MaterialRack() {
                       src={`/materials/bar-${m.key}.webp`}
                       alt=""
                       aria-hidden
+                      loading="lazy"
                       decoding="async"
                       className="w-full max-w-[640px] -translate-y-[8%] animate-in fade-in slide-in-from-left-8 duration-700 ease-out"
                     />
