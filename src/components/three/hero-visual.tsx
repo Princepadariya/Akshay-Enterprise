@@ -3,7 +3,6 @@
 import dynamic from "next/dynamic";
 import { useInView, useReducedMotion } from "motion/react";
 import { useCallback, useEffect, useRef, useState } from "react";
-import Image from "next/image";
 import { RotateCcw } from "lucide-react";
 import { Photo } from "@/components/photo";
 import { cn } from "@/lib/utils";
@@ -162,24 +161,6 @@ export function HeroVisual() {
         sizes="(min-width: 768px) 45vw, 100vw"
         className={cn("absolute inset-4 overflow-hidden rounded-sm md:inset-6", mode !== "image" && "md:hidden")}
       />
-
-      {/* Poster: the scene's exact first frame (same camera, transparent background), shown from the
-          first paint on desktop so the part is there at once. The live scene fades in on top of it once
-          its first frame is drawn, then the poster steps aside (the canvas itself is transparent). */}
-      {mode !== "image" ? (
-        <Image
-          src="/textures/hero-poster.webp"
-          alt=""
-          aria-hidden
-          fill
-          priority
-          unoptimized
-          className={cn(
-            "pointer-events-none hidden object-fill transition-opacity duration-300 md:block",
-            ready ? "opacity-0 delay-500" : "opacity-100",
-          )}
-        />
-      ) : null}
 
       {mode === "3d" ? (
         <div className={cn("absolute inset-0 hidden transition-opacity duration-500 md:block", ready ? "opacity-100" : "opacity-0")}>
