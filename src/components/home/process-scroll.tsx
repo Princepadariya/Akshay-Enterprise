@@ -61,7 +61,7 @@ export function ProcessScroll() {
       <div className="relative flex min-h-[100svh] flex-col justify-center motion-reduce:py-20">
         <div
           ref={track}
-          className="flex w-max gap-4 px-4 md:px-8 lg:gap-6 lg:px-12 motion-reduce:w-auto motion-reduce:snap-x motion-reduce:snap-mandatory motion-reduce:overflow-x-auto motion-reduce:pb-4 motion-reduce:[scrollbar-width:none]"
+          className="flex w-max gap-4 px-4 will-change-transform motion-reduce:will-change-auto md:px-8 lg:gap-6 lg:px-12 motion-reduce:w-auto motion-reduce:snap-x motion-reduce:snap-mandatory motion-reduce:overflow-x-auto motion-reduce:pb-4 motion-reduce:[scrollbar-width:none]"
         >
           <div className="flex w-[85vw] shrink-0 snap-start flex-col justify-center gap-6 pr-6 sm:w-[60vw] lg:w-[34vw] lg:pr-12">
             <h2 id="process-title" className="max-w-[16ch] font-display text-4xl leading-[1.02] font-semibold tracking-[-0.035em] md:text-6xl">

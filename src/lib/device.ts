@@ -13,7 +13,33 @@ export function prefersLightEffects(): boolean {
   if (nav.connection?.saveData) return true; // visitor asked to save data
   if ((nav.deviceMemory ?? 8) <= 2) return true; // 2 GB RAM or less (Chromium only)
   if ((nav.hardwareConcurrency ?? 8) <= 2) return true; // dual-core or less
+  if (isSoftwareRenderer()) return true; // no GPU acceleration: WebGL runs on the CPU
   return false;
+}
+
+let softwareRenderer: boolean | undefined;
+
+/**
+ * True when WebGL is drawn on the CPU (no GPU, a blocklisted driver, remote desktops and VMs:
+ * SwiftShader, llvmpipe, Microsoft Basic Render Driver). Continuous 3D there stalls scrolling for
+ * hundreds of milliseconds at a time. Checked once per page load.
+ */
+export function isSoftwareRenderer(): boolean {
+  if (typeof window === "undefined") return false;
+  if (softwareRenderer !== undefined) return softwareRenderer;
+  softwareRenderer = false;
+  try {
+    const gl = document.createElement("canvas").getContext("webgl");
+    if (gl) {
+      const info = gl.getExtension("WEBGL_debug_renderer_info");
+      const name = String(gl.getParameter(info ? info.UNMASKED_RENDERER_WEBGL : gl.RENDERER));
+      softwareRenderer = /swiftshader|llvmpipe|softpipe|basic render driver|software/i.test(name);
+      gl.getExtension("WEBGL_lose_context")?.loseContext();
+    }
+  } catch {
+    softwareRenderer = false;
+  }
+  return softwareRenderer;
 }
 
 /**

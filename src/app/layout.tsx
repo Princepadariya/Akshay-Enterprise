@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
-import { Archivo, Geist, Poppins } from "next/font/google";
+import { Geist, Poppins } from "next/font/google";
+import localFont from "next/font/local";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import { FloatingActions } from "@/components/layout/floating-actions";
@@ -11,11 +12,15 @@ import { site } from "@/content/site";
 import { organizationSchema } from "@/lib/schema";
 import "./globals.css";
 
-const archivo = Archivo({
-  subsets: ["latin"],
+// Archivo (Google Fonts, latin), self-hosted as a trimmed variable font: weights 500-700 and widths
+// 100-125% only, the range the headings use (font-stretch 112%, wide numerals 125%). Google's own file
+// always ships weights 100-900 once the width axis is requested, which is ~40% larger.
+const archivo = localFont({
+  src: "./fonts/archivo-500-700-wdth100-125.woff2",
   variable: "--font-archivo",
-  axes: ["wdth"],
+  weight: "500 700",
   display: "swap",
+  declarations: [{ prop: "font-stretch", value: "100% 125%" }],
 });
 
 const body = Geist({
@@ -28,7 +33,7 @@ const body = Geist({
 // font, so only the weights used by those labels are loaded.
 const mono = Poppins({
   subsets: ["latin"],
-  weight: ["400", "500", "600"],
+  weight: ["400", "500"],
   variable: "--font-label",
   display: "swap",
 });

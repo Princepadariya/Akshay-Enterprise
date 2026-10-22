@@ -6,6 +6,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { RotateCcw } from "lucide-react";
 import { Photo } from "@/components/photo";
 import { cn } from "@/lib/utils";
+import { isSoftwareRenderer } from "@/lib/device";
 import type { HudFrame, HudSink } from "./turning-scene";
 import { CALLOUT_LABELS } from "./callouts";
 
@@ -25,7 +26,7 @@ function canRender3D() {
   } catch {
     webgl = false;
   }
-  return wide && cores >= 4 && memory >= 4 && !saveData && webgl;
+  return wide && cores >= 4 && memory >= 4 && !saveData && webgl && !isSoftwareRenderer();
 }
 
 /**
