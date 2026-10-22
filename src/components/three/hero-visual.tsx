@@ -3,6 +3,7 @@
 import dynamic from "next/dynamic";
 import { useInView, useReducedMotion } from "motion/react";
 import { useCallback, useEffect, useRef, useState } from "react";
+import Image from "next/image";
 import { RotateCcw } from "lucide-react";
 import { Photo } from "@/components/photo";
 import { cn } from "@/lib/utils";
@@ -10,7 +11,12 @@ import { isSoftwareRenderer } from "@/lib/device";
 import type { HudFrame, HudSink } from "./turning-scene";
 import { CALLOUT_LABELS } from "./callouts";
 
-const TurningScene = dynamic(() => import("./turning-scene"), { ssr: false });
+const loadScene = () => import("./turning-scene");
+const TurningScene = dynamic(loadScene, { ssr: false });
+
+// Start fetching the three.js scene as soon as this module runs on a desktop-width screen, in
+// parallel with hydration, instead of waiting for the component to decide on 3D first.
+if (typeof window !== "undefined" && window.matchMedia("(min-width: 768px)").matches) void loadScene();
 
 function canRender3D() {
   if (typeof window === "undefined") return false;
@@ -26,12 +32,13 @@ function canRender3D() {
   } catch {
     webgl = false;
   }
-  return wide && cores >= 4 && memory >= 4 && !saveData && webgl && !isSoftwareRenderer();
+  return wide && cores >= 4 && memory >= 4 && !saveData && webgl;
 }
 
 /**
  * Hero visual: a live turning cycle (bar -> finished part) inside an engineering-drawing frame,
  * with a CNC-style readout. Phones and low-power devices get a static photograph instead.
+ * Without GPU acceleration the scene still runs, at 1x resolution; it only animates for one cycle.
  */
 export function HeroVisual() {
   const ref = useRef<HTMLDivElement>(null);
@@ -42,6 +49,11 @@ export function HeroVisual() {
   const [drawing, setDrawing] = useState(false);
   const [runId, setRunId] = useState(0);
   const [done, setDone] = useState(false);
+  // 1x resolution without GPU acceleration, or after the scene reports it is too slow
+  const [lite, setLite] = useState(false);
+  const goLite = useCallback(() => setLite(true), []);
+  // fade the scene in once its first frame is on the canvas
+  const onReady = useCallback(() => setReady(true), []);
 
   // HUD elements (found by data-hud attribute) are written directly each frame, never via React state.
   const hudRoot = useRef<HTMLDivElement>(null);
@@ -102,29 +114,19 @@ export function HeroVisual() {
     };
   }, []);
 
+  // Decide right after hydration (not on idle, which can be seconds away while the page sets up).
   useEffect(() => {
-    const decide = () => setMode(canRender3D() ? "3d" : "image");
-    const w = window as Window & { requestIdleCallback?: (cb: () => void) => number; cancelIdleCallback?: (id: number) => void };
-    if (w.requestIdleCallback) {
-      const id = w.requestIdleCallback(decide);
-      return () => w.cancelIdleCallback?.(id);
-    }
-    const t = window.setTimeout(decide, 200);
+    const t = window.setTimeout(() => {
+      setLite(isSoftwareRenderer());
+      setMode(canRender3D() ? "3d" : "image");
+    }, 0);
     return () => window.clearTimeout(t);
   }, []);
-
-  useEffect(() => {
-    if (mode !== "3d") return;
-    const t = window.setTimeout(() => setReady(true), 300);
-    return () => window.clearTimeout(t);
-  }, [mode]);
 
   // Once the cycle has finished and the spindle has wound down, stop rendering: the finished part
   // only reacts to the pointer, so frames are drawn while the visual is hovered or focused.
   const [settledRun, setSettledRun] = useState(-1);
   const [engaged, setEngaged] = useState(false);
-  const [lite, setLite] = useState(false);
-  const goLite = useCallback(() => setLite(true), []);
   useEffect(() => {
     if (!done) return;
     const t = window.setTimeout(() => setSettledRun(runId), 1800);
@@ -161,8 +163,26 @@ export function HeroVisual() {
         className={cn("absolute inset-4 overflow-hidden rounded-sm md:inset-6", mode !== "image" && "md:hidden")}
       />
 
+      {/* Poster: the scene's exact first frame (same camera, transparent background), shown from the
+          first paint on desktop so the part is there at once. The live scene fades in on top of it once
+          its first frame is drawn, then the poster steps aside (the canvas itself is transparent). */}
+      {mode !== "image" ? (
+        <Image
+          src="/textures/hero-poster.webp"
+          alt=""
+          aria-hidden
+          fill
+          priority
+          unoptimized
+          className={cn(
+            "pointer-events-none hidden object-fill transition-opacity duration-300 md:block",
+            ready ? "opacity-0 delay-500" : "opacity-100",
+          )}
+        />
+      ) : null}
+
       {mode === "3d" ? (
-        <div className={cn("absolute inset-0 hidden transition-opacity duration-1000 md:block", ready ? "opacity-100" : "opacity-0")}>
+        <div className={cn("absolute inset-0 hidden transition-opacity duration-500 md:block", ready ? "opacity-100" : "opacity-0")}>
           <TurningScene
             active={inView && (!settled || engaged)}
             reduceMotion={reduce}
@@ -171,6 +191,7 @@ export function HeroVisual() {
             hud={hud}
             lite={lite}
             onSlow={goLite}
+            onReady={onReady}
           />
           {/* feature callouts, positioned each frame from projected 3D anchors */}
           <div aria-hidden className="pointer-events-none absolute inset-0">

@@ -121,12 +121,14 @@ function Machine({
   drawing,
   hud,
   onSlow,
+  onReady,
 }: {
   runId: number;
   reduceMotion: boolean;
   drawing: boolean;
   hud: React.RefObject<HudSink | null>;
   onSlow?: () => void;
+  onReady?: () => void;
 }) {
   const tilt = useRef<THREE.Group>(null);
   const spin = useRef<THREE.Group>(null);
@@ -140,6 +142,7 @@ function Machine({
   const clock = useRef({ t: 0, spinSpeed: 0 });
   const chipCursor = useRef(0);
   const watchdog = useMemo(() => createFrameWatchdog({ onSlow: () => onSlow?.() }), [onSlow]);
+  const drawn = useRef(false);
 
   // Restart the cycle whenever runId changes.
   useEffect(() => {
@@ -217,6 +220,10 @@ function Machine({
   }, []);
 
   useFrame((state, dRaw) => {
+    if (!drawn.current) {
+      drawn.current = true;
+      requestAnimationFrame(() => onReady?.()); // after this frame has been drawn
+    }
     watchdog(dRaw * 1000);
     const d = Math.min(dRaw, 1 / 30);
     const c = clock.current;
@@ -430,6 +437,7 @@ export default function TurningScene({
   hud,
   lite = false,
   onSlow,
+  onReady,
 }: {
   active?: boolean;
   reduceMotion?: boolean;
@@ -440,6 +448,8 @@ export default function TurningScene({
   lite?: boolean;
   /** called once if the device cannot keep a smooth frame rate */
   onSlow?: () => void;
+  /** called once the first frame has been drawn, so the parent can fade the scene in */
+  onReady?: () => void;
 }) {
   return (
     <Canvas
@@ -455,7 +465,7 @@ export default function TurningScene({
     >
       <ambientLight intensity={0.25} />
       <directionalLight position={[3, 4, 5]} intensity={1.4} />
-      <Machine runId={runId} reduceMotion={reduceMotion} drawing={drawing} hud={hud} onSlow={onSlow} />
+      <Machine runId={runId} reduceMotion={reduceMotion} drawing={drawing} hud={hud} onSlow={onSlow} onReady={onReady} />
       <Environment resolution={256} frames={1}>
         <group rotation={[-Math.PI / 3, 0, 1]}>
           <Lightformer form="rect" intensity={3} position={[0, 5, -9]} scale={[10, 10, 1]} />
